@@ -1,0 +1,83 @@
+.loginMain {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 85vw;
+}
+.inputsCard {
+    width: 700px;
+    height: 400px;
+    background-color: #FAFAFA;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    flex-direction: column;
+}
+.inputs {
+    height: 100%;
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1em;
+}
+.username {
+    width: 400px;
+    height: 50px;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+}
+.username:focus {
+    outline: 2px solid #00A2FF;
+}
+.password {
+    width: 400px;
+    height: 50px;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+}
+.password:focus {
+    outline: 2px solid #00A2FF;
+}
+.inputs button {
+    height: 40px;
+    width: 100px;
+    outline: none;
+    border: none;
+    background-color: #00A2FF;
+    color: white;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+.inputs button:hover {
+    background-color: #038ad8;
+}
+.inputsCard p {
+    color: gray
+}
+.signUpLink {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}
+.signUpLink:hover {
+    color: #038ad8;
+}
+.feedbackDiv {
+    height: 35px;
+}
+.feedback {
+    color: red;
+    font-size: 1em;
+    position: relative;
+    z-index: 9999;
+}

@@ -1,0 +1,44 @@
+.mainAcc {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+.loginLink {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.loginLink:hover {
+    color: #00A2FF;
+}
+.userMenuVisible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .userMenuHidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.userMenuIndicator {
+    border: 2px solid #E8EBEC;
+    font-size: 0.9em;
+    display: flex;
+    height: 35px;
+    padding: 15px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px;
+    cursor: pointer;
+}
+.userMenuIndicator:hover {
+    border: 2px solid #C1C7C6;
+}
+
+.userMenuIndicator p {
+    margin-top: 12px;
+}

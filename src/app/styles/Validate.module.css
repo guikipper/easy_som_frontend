@@ -1,0 +1,62 @@
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.918); /* Opacidade branca, ajuste conforme necessário */
+    z-index: 999;
+    border-radius: 8px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+  }
+  .mainContent {
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #fafafa9a;
+      height: 400px;
+      width: 600px;
+  }
+
+  .loginButton {
+    border: none;
+    border-radius: 8px;
+    width: 90px;
+    background-color: #00A2FF;
+    margin-top: 8px;
+    color: white;
+  }
+  .loginButton:hover {
+    background-color: #0f89cf;
+  }
+  .loginButton p {
+    margin-top: 12px;
+    color: white;
+  }
+  .validationSuccess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   }
+    
+   .successMessage {
+        color: green;
+        font-weight: 500;
+        font-size: 1.3em;
+    }
+    .waitingMessage {
+        font-weight: 500;
+        font-size: 1.3em;
+        text-decoration: none;
+    }
+    .loginLink {
+        text-decoration: none;
+        font-weight: bold;
+      }

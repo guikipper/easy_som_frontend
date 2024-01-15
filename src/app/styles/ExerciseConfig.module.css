@@ -1,0 +1,130 @@
+.config {
+    height: 650px;
+    width: 70%;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    border-radius: 16px;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FAFAFA;
+}
+
+.dropOp {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.dropOp p {
+    font-weight: bold;
+}
+
+.direction {
+    display: flex;
+    align-items: center;
+    margin-top: 36px;
+    margin-bottom: 36px;
+    flex-direction: column;
+}
+
+.direction input {
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.direction label {
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+.intervalOptions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 36px;
+}
+.intervalOptions p {
+    font-weight: bold;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+.checkbox input {
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+.direction p {
+    font-weight: bold;
+}
+
+.tryAgain {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.tryAgain input {
+    font-size: 1.5em;
+    
+}
+.tryAgain label {
+    font-weight: bold;
+    margin-top: 5px;
+}
+.roundQtd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+.roundQtdBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+    height: auto;
+}
+.roundQtd p {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.confirmBtn {
+    padding-bottom: 30px;
+}
+.auxiliarDropdown li {
+    cursor: pointer;
+}
+
+.roundMessage {
+    position: fixed;
+    margin-top: 10px;
+    margin-left: 430px;
+    color: red;
+}
+.intervalOptionsMessage {
+    position: fixed;
+    margin-top: 45px;
+    margin-left: 630px;
+    color: red;
+}

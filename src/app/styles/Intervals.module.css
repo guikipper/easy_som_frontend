@@ -1,0 +1,39 @@
+.intervals {
+    width: 80vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.intervalsOptions {
+    height: 500px;
+    width: 60%;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    gap: 2.5em;
+}
+
+.intervalsOptions h1 {
+    font-size: 2em;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 2.5em;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.buttons a {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+}

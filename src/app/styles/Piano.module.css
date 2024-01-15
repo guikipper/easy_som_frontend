@@ -1,0 +1,91 @@
+.piano {
+    width: 750px;
+    height: 250px;
+    background-color: #001019;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 25px;
+    position: relative;
+}
+.octaves {
+    display: flex;
+    height: 200px;
+    justify-content: center;
+}
+.octave {
+    display: flex;
+}
+
+.white {
+    position: relative;
+    height: 200px;
+    width: 50px;
+    border: 1px solid rgb(95, 95, 95);
+    background-color: white;
+    z-index: 1;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.black {
+    position: absolute;
+    height: 120px;
+    width: 20px;
+    background-color: black;
+    z-index: 2;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: #fdfcfc;
+}
+.Db4 {
+    margin-left: 40px;
+}
+.Eb4 {
+    margin-left: 90px
+}
+.Gb4 {
+    margin-left: 190px;
+}
+.Ab4 {
+    margin-left: 240px;
+}
+.Bb4 {
+    margin-left: 290px;
+}
+
+.Db5 {
+    margin-left: 40px;
+}
+.Eb5 {
+    margin-left: 90px
+}
+.Gb5 {
+    margin-left: 190px;
+}
+.Ab5 {
+    margin-left: 240px;
+}
+.Bb5 {
+    margin-left: 290px;
+}
+ .white:active {
+    background-image: linear-gradient(#fdfcfc, rgb(190, 186, 186));
+    height: 210px;
+}
+
+.black:active {
+    background-image: linear-gradient(#4b4a4a, black);
+    height: 130px;
+}

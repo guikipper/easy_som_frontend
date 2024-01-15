@@ -1,0 +1,40 @@
+.main {
+    position: fixed;
+    right: 60px;
+    top: 125px;
+    width: 350px;
+    height: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: #FAFAFA;
+    border-radius: 16px;
+}
+
+.left {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+.left ul {
+    margin-top: 10px;
+}
+.left li {
+    list-style-type: none;
+}
+.right ul {
+    margin-top: 10px;
+}
+.right li {
+    list-style-type: none;
+}
+.right {
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
