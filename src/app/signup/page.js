@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import styles from '../styles/Signup.module.css'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import { useRouter } from 'next/navigation'
+import { signUp } from '../api/services/apiFunctions'
 import Redirecting from '../components/Redirecting';
 export default function SignUp() {
 
@@ -22,37 +23,22 @@ export default function SignUp() {
 
   const router = useRouter()
 
-  const handleSignUp = () => {
-    sendPost()
-  }
-
-  async function sendPost() {
+  const handleSignUp = async () => {
     const userData = {
       name: nameAndLastName.toLowerCase(),
       email: email.toLowerCase(),
       password: password,
     };
-    try {
-      const response = await fetch('http://localhost:3500/createUser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      const data = await response.json();
-      if (data.error == "E-mail já cadastrado") {
-        alert("Email já cadastrado.")
-      }
-      if (data.statusCode == 201) {
-        setRedirect(true)
-        setInterval(() => {
-          //router.push('/login')
-        }, 2000)
-      } 
-    } catch (error) {
-      console.error('Erro:', error);
+    const response = await signUp(userData)
+    if (response.error == "E-mail já cadastrado") {
+      alert("Email já cadastrado.")
     }
+    if (response.statusCode == 201) {
+      setRedirect(true)
+      setInterval(() => {
+        //router.push('/login')
+      }, 2000)
+    } 
   }
 
   useEffect(() => {
