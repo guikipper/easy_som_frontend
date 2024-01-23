@@ -81,3 +81,16 @@
     position: relative;
     z-index: 9999;
 }
+.loadingWrapper {
+    position: relative;
+    height: 10px; 
+    width: 130px;
+    bottom: 50px;
+}
+
+.loadingImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

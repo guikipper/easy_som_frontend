@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState, useEffect } from 'react'
 import { login } from '../api/services/apiFunctions'
 import { useRouter } from 'next/navigation'
+import Loading from '../components/Loading';
 
 export default function Login() {
 
@@ -14,6 +15,7 @@ export default function Login() {
     const [feedback, setFeedback] = useState('')
     const [disableButton, setDisableButton] = useState(true)
     const [showPassword, setShowPassword] = useState(false);
+    const [showLoading, setShowLoading] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
@@ -27,7 +29,11 @@ export default function Login() {
       }, []);
 
     const handleLoginButton = async () => {
+        setShowLoading(true)
             const response = await login(email, password)
+            if (response) {
+                setShowLoading(false)
+            }
             if (response.statusCode == 201) {
                 localStorage.setItem('userId', response.userId);
                 localStorage.setItem('name', response.username);
@@ -114,12 +120,24 @@ export default function Login() {
                             <h2 className={styles.feedback}>{feedback}</h2>
                         )}
                 </div>
+
+                
+                <div className={styles.loadingWrapper}>
+                    {showLoading && (
+                        <div className={styles.loadingImage}>
+                            <Loading/>
+                        </div>
+                    )}
+                </div> 
+                   
+               
                 
                 <p>Não tem uma conta? 
                     <Link href="./signup" className={styles.signUpLink}>
                         <span className={styles.signUpLink}> Cadastrar agora.</span>
                     </Link> 
                 </p>
+           
             </div>
         </div>
         

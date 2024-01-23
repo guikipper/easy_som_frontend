@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Loading from './components/Loading';
 
 export default function Home() {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ export default function Home() {
 
   return (
     <main>
-
+      
     </main>
   );
 }
