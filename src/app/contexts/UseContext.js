@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from 'react';
 const MyContext = createContext();
 
 const MyContextProvider = ({ children }) => {
+  
   const [formData, setFormData] = useState({});
 
   const updateFormData = (newData) => {

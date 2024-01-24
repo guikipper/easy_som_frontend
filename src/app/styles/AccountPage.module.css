@@ -1,0 +1,49 @@
+.accountMain {
+    height: 100%;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dataContainer {
+    height: 700px;
+    width: 900px;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    background-color: #212529;   
+}
+.inputs {
+    margin-top: 30px;
+}
+.nameInput {
+    display: flex;
+    flex-direction: row;
+}
+.inputData {
+    width: 70%;
+    padding-bottom: 20px;
+}
+
+.toggleChangePassword {
+    margin-bottom: 16px;
+}
+
+.changePasswordContainer {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #3e4042;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+}
+.icon {
+    font-size: 1.3em;
+    height: 37px;
+    width: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

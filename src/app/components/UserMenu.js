@@ -14,8 +14,17 @@ export default function UserMenu({name, email}) {
                 <p className={styles.email}>{email}</p>
             </div>
             <div className={styles.userMenuBody}>
+
+                <div className={styles.userAccount}>
+                    <Link href="/account" legacyBehavior>
+                        <a>
+                            <p>Prefrências de conta</p>
+                        </a>
+                    </Link>
+                </div>
+
                 <div className={styles.logout}>
-                    <Link href="./login" legacyBehavior>
+                    <Link href="/login" legacyBehavior>
                         <a>
                             <p onClick={handleLogout}>Logout</p>
                         </a>

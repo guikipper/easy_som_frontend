@@ -25,7 +25,7 @@ export default function Navbar() {
 
       <ul className={styles.linksList}>
         <li>
-          <Link href="./" legacyBehavior>
+          <Link href="/" legacyBehavior>
             <a>
               <p onClick={handleShowLoading}>Home</p>
             </a>
@@ -33,7 +33,7 @@ export default function Navbar() {
         </li>
 
         <li>
-          <Link href="/intervals" legacyBehavior>
+          <Link href="/intervals/exercise-config" legacyBehavior>
               <a>
                 <p onClick={handleShowLoading}>Intervals</p>
               </a>

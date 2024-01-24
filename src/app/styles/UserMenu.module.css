@@ -35,6 +35,22 @@
     left: 0;
     bottom: 15px;
 }
+.userMenuBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.userMenuBody a {
+    margin-top: 15px;
+    text-decoration: none; 
+    color: white;
+}
+.userMenuBody p {
+    margin-top: 15px;
+}
+.userMenuBody p:hover {
+    color: #00A2FF;
+}
 .logout a {
     text-decoration: none; 
     color: white;
