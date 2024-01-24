@@ -56,7 +56,7 @@ export const validateEmail = async(token) => {
 
 export const signUp = async(userData) => {
   try {
-    const response = await fetch('https://friendly-yodel-vgpvrrggpq639xw-3500.app.github.dev/createUser', {
+    const response = await fetch(`${BASE_URL}/createUser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

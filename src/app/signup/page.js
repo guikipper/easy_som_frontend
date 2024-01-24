@@ -127,6 +127,7 @@ export default function SignUp() {
         <div className="form-floating mb-3">
           <input
             type="text"
+            defaultValue=""
             className={`form-control ${styles.inputs} ${nameAndLastName ? styles.validInput : ''}`}
             id="floatingInputName"
             placeholder="Nome e sobrenome"
@@ -140,6 +141,7 @@ export default function SignUp() {
         <div className="form-floating mb-3">
           <input
             type="email"
+            defaultValue=""
             className={`form-control ${styles.inputs} ${validEmail && email ? styles.validInput : validEmail === false && email ? styles.invalidInput : ''}`}
             id="floatingInputEmail"
             placeholder="name@example.com"
@@ -153,6 +155,7 @@ export default function SignUp() {
 
         <div className="form-floating">
           <input
+            defaultValue=""
             type={showPassword ? 'text' : 'password'}
             className={`form-control ${styles.inputs} ${validPassword && password ? styles.validInput : !validPassword && password ? styles.invalidInput : ''}`}
             id="floatingPassword"
@@ -179,6 +182,7 @@ export default function SignUp() {
 
         <div className={`form-floating ${styles.confirmPassword}`}>
           <input
+            defaultValue=""
             type={showConfirmPassword ? 'text' : 'password'}
             className={`form-control ${styles.inputs} ${styles.confirmPasswordCss} ${validPassword && confirmPassword && matchPasswords ? styles.validInput : confirmPassword && !matchPasswords ? styles.invalidInput : ''}`}
             id="floatingConfirmPassword"

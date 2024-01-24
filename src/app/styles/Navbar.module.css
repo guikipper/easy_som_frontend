@@ -40,3 +40,7 @@
 .linksList:last-child {
     bottom: 10px;
 }
+.loading {
+    position: absolute;
+    left: 500px;
+}

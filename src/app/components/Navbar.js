@@ -1,12 +1,22 @@
 "use client";
 
 import styles from "../styles/Navbar.module.css";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Loading from "./Loading";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const [showLoading, setShowLoading] = useState(false)
 
-  const handleLogout = ()=> {
-    localStorage.clear();
+  const router = useRouter()
+
+  useEffect(() => {
+    console.log("Mudou a url", router.pathname)
+  }, [router])
+
+  const handleShowLoading = () => {
+    //setShowLoading(true)
   }
 
   return (
@@ -17,7 +27,7 @@ export default function Navbar() {
         <li>
           <Link href="./" legacyBehavior>
             <a>
-              <p>Home</p>
+              <p onClick={handleShowLoading}>Home</p>
             </a>
           </Link>  
         </li>
@@ -25,12 +35,12 @@ export default function Navbar() {
         <li>
           <Link href="/intervals" legacyBehavior>
               <a>
-                <p>Intervals</p>
+                <p onClick={handleShowLoading}>Intervals</p>
               </a>
           </Link>  
         </li>
 
-        <li>
+        {/* <li>
           <Link href="./intervals" legacyBehavior>
               <a>
                 <p>Acordes</p>
@@ -44,15 +54,13 @@ export default function Navbar() {
                 <p>Escalas</p>
               </a>
           </Link> 
-        </li>
+        </li> */}
 
-        <li>
-          <Link href="./login" legacyBehavior>
-              <a>
-                <p onClick={handleLogout}>Logout</p>
-              </a>
-          </Link> 
-        </li>
+        {showLoading && (
+          <div className={styles.loading}>
+           <Loading/>
+          </div>
+        )}
 
       </ul>
     </div>
