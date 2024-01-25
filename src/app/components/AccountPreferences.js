@@ -30,7 +30,6 @@ export default function AccountPreferences() {
 
   useEffect(() => {
     const savedData = localStorage.getItem("name");
-
     if (savedData !== username) {
       setUsername(savedData);
     }

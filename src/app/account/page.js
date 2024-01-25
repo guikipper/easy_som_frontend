@@ -3,24 +3,29 @@ import styles from '../styles/AccountPage.module.css'
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { changeName } from '../api/services/apiFunctions';
 
 export default function Account() {
 
-    const [userData, setUserData] = useState({})
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [userId, setUserId] = useState("")
     const [editMode, setEditMode] = useState(false)
-    const [newName, setNewName] = useState()
+    const [newName, setNewName] = useState("")
     const [changePassword, setChangePassword] = useState(false)
     const inputRef = useRef(null)
 
     useEffect(() => {
         const name = localStorage.getItem("name");
+        const userId = localStorage.getItem("userId")
         const email = localStorage.getItem("email")
-        setUserData({name: name, email: email})
+        setName(name)
+        setEmail(email)
+        setUserId(userId)
       }, [])
 
     const handleEditMode = () => {
         setEditMode(!editMode)
-        console.log("O valor do editMode: ", editMode)
     }
 
     useEffect(() => {
@@ -31,6 +36,26 @@ export default function Account() {
 
       const handleChangePassword = () => {
         setChangePassword(!changePassword)
+      }
+      
+      const confirmChangePassword = async () => {
+        if (newName) {
+
+            const userData = {
+                name: name,
+                email: email,
+                userId: userId,
+                newName: newName
+            }
+            const response = await changeName(userData)
+            if (response.statusCode == 201) {              
+                const newName = response.newName
+                localStorage.setItem("name", newName);
+                setName(newName)
+            }
+            return 
+        }
+     
       }
 
       const handleNewName = (newName) => {
@@ -65,7 +90,7 @@ export default function Account() {
                                 <input 
                                 type="text" 
                                 className="form-control" 
-                                value={userData.name} 
+                                value={name} 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default" 
                                 readOnly/>
@@ -82,9 +107,9 @@ export default function Account() {
                                 <FontAwesomeIcon icon={faPen} color="white" cursor="pointer" onClick={handleEditMode}/> 
                             </div>
                         )}
-                        {newName && (
+                        {newName && editMode && (
                             <div>
-                                <button type="button" class="btn btn-success">Confimar</button>
+                                <button type="button" class="btn btn-success" onClick={confirmChangePassword}>Confimar</button>
                             </div>
                         )}
                         
@@ -95,7 +120,7 @@ export default function Account() {
 
                     <div className={`input-group mb-3 ${styles.inputData}`}>
                         <span className="input-group-text" id="inputGroup-sizing-default">Email</span>
-                        <input type="text" className="form-control" value={userData.email} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readOnly/>
+                        <input type="text" className="form-control" value={email} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readOnly/>
                     </div>
 
 

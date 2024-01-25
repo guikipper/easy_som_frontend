@@ -66,6 +66,23 @@ export const signUp = async(userData) => {
     const data = await response.json();
     return data
   } catch (error) {
-    console.error('Erro:', error);
+    console.error("Error:", error);
+  }
+}
+
+export const changeName = async(userData) => {
+  console.log("Dentro da função no cliente: ", userData)
+  try {
+    const response = await fetch(`${BASE_URL}/changeName`, {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData)
+    })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log("Error: ", error);
   }
 }
