@@ -5,7 +5,6 @@ export default function IntervalsTable() {
         <div className={styles.main}>
             <div className={styles.left}>
                 <ul>
-
                     <li>1ª Justa</li>
                     <li>2ª Menor</li>
                     <li>2ª Maior</li>

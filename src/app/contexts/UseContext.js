@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
-
-const MyContext = createContext();
+//createContext serve para criar o contexto
+//useContext serve para acessar o conteúdo em componentes filhos
+const MyContext = createContext(); //criado um contexto chamado MyContext
 
 const MyContextProvider = ({ children }) => {
   
@@ -13,9 +14,9 @@ const MyContextProvider = ({ children }) => {
   //até aqui é config de useState
 
   const contextValue = {
-    formData,
+    formData, //REVISAR
     setFormData, // Certifique-se de incluir setFormData no contexto
-    updateFormData,
+    updateFormData, //REVISAR
   };
 
   //o valor q é passado

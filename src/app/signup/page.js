@@ -153,6 +153,7 @@ export default function SignUp() {
           <label htmlFor="floatingInput">Email</label>
         </div>
 
+        {/* Password */}
         <div className="form-floating">
           <input
             defaultValue=""
@@ -180,6 +181,7 @@ export default function SignUp() {
           
         </div>
 
+        {/* ConfirmPassword */}
         <div className={`form-floating ${styles.confirmPassword}`}>
           <input
             defaultValue=""

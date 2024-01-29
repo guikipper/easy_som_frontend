@@ -1,4 +1,4 @@
-const BASE_URL = "https://friendly-yodel-vgpvrrggpq639xw-3500.app.github.dev"
+const BASE_URL = "https://supreme-potato-x9rwpp995jr36qjq-3500.app.github.dev"
 
 export const login = async (username, password) => {
     //try catch
@@ -71,17 +71,34 @@ export const signUp = async(userData) => {
 }
 
 export const changeName = async(userData) => {
-  console.log("Dentro da função no cliente: ", userData)
   try {
     const response = await fetch(`${BASE_URL}/changeName`, {
       method: 'Post',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData)
     })
     const data = await response.json()
+    console.log("Nome alterado com sucesso! ", data)
     return data
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+}
+
+export const changePassword = async(userData) => {
+  console.log("Envio do POST")
+  try {
+    const response = await fetch(`${BASE_URL}/changePassword`, {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+    const data = await response.json()
+    console.log("Senha alterada sucesso! ", data)
   } catch (error) {
     console.log("Error: ", error);
   }
