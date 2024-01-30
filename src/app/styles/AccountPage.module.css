@@ -73,3 +73,28 @@
     margin-top: 12px;
     margin-right: 10px;
 }
+.feedback {
+    background-color: #00A2FF;
+    padding: 0;
+    position: relative;
+}
+.feedbackMessage {
+    position: absolute;
+    padding-top: 110px;
+    color: rgb(255, 48, 48);
+    font-weight: 500;
+}
+.positiveFeedbackMessage {
+    position: absolute;
+    color: rgb(33, 194, 33);
+    padding-top: 110px;
+    font-weight: 500;
+}
+.footer {
+    height: 100px;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

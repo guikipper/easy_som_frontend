@@ -29,26 +29,16 @@ export default function Validate() {
                     setValidationResult(response);
                 } catch (error) {
                     console.error(`Error during email validation: ${error.message}`);
-                    // Pode tratar o erro de forma apropriada aqui, se necessário
                 }
             }
         };
 
         validateEmailAndSetResult();
     }, [token]);
-
-
-
-        if (validationResult && validationResult.status) {
-            console.log('Aqui está o status: ', validationResult.status.toString());
-        }
-
-    
     
     return (
         <>
         <div className={styles.main}>
-            
 
             <div className={styles.mainContent}>
             {validationResult && validationResult.status != 200 && (
@@ -57,13 +47,13 @@ export default function Validate() {
             {validationResult && validationResult.status == 200 && (
                 <div className={styles.validationSuccess}>
                     <p className={styles.successMessage}>Seu email foi validado com sucesso!</p>
-                    <button className={styles.loginButton}>
-                        <Link href="./login" legacyBehavior>
-                            <a className={styles.loginLink}>
-                                <p>Login</p>
-                            </a>
+                   
+                        <Link href="./login">
+                        <button className={styles.loginButton}>
+                            <p>Login</p>
+                        </button>
                         </Link>
-                    </button>
+                    
                 </div>   
                 
             )}

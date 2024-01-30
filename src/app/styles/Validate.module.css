@@ -10,7 +10,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  
   }
   .mainContent {
       border-radius: 8px;
@@ -31,12 +30,14 @@
     background-color: #00A2FF;
     margin-top: 8px;
     color: white;
+    height: 50px;
   }
   .loginButton:hover {
     background-color: #0f89cf;
   }
   .loginButton p {
     margin-top: 12px;
+    font-weight: bold;
     color: white;
   }
   .validationSuccess {

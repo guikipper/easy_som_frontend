@@ -12,13 +12,13 @@ export default function Intervals() {
           <h1>Escolha uma opção:</h1>
           <div className={styles.buttons}>
             <Link href="./intervals/theory" legacyBehavior>
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 <a>Teoria</a>
               </button>
             </Link>
 
             <Link href="./intervals/exercise-config">
-              <button type="button" class="btn btn-primary" legacyBehavior>
+              <button type="button" className="btn btn-primary" legacyBehavior>
                 <a>Exercícios</a>
               </button>
             </Link>

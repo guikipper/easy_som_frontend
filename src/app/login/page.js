@@ -10,9 +10,9 @@ import Loading from '../components/Loading';
 
 export default function Login() {
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [feedback, setFeedback] = useState('')
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [feedback, setFeedback] = useState("")
     const [disableButton, setDisableButton] = useState(true)
     const [showPassword, setShowPassword] = useState(false);
     const [showLoading, setShowLoading] = useState(false)

@@ -5,7 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { changeName, changePassword } from '../api/services/apiFunctions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
-import { useGlobalNameContext } from "../contexts/globalName";;
+import DeleteAccount from '../components/DeleteAccount';
+import Alert from '../components/Alert';
+import { useRouter } from 'next/navigation'
+
 
 export default function Account() {
 
@@ -25,7 +28,22 @@ export default function Account() {
     const [showPassword, setShowPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
+    const router = useRouter()
 
+    useEffect(() => {
+        console.log("Entrando no use effect")
+        const handleStorageChange = () => {
+          const savedData = localStorage.getItem("name");
+          if (savedData == '' && savedData == null) {
+            router.push('/')
+          }
+        };
+       handleStorageChange();
+      }, []);
+      
     useEffect(() => {
         const name = localStorage.getItem("name");
         const userId = localStorage.getItem("userId")
@@ -38,7 +56,12 @@ export default function Account() {
     const handleEditMode = () => {
         setEditMode(!editMode)
     }
-
+    
+    const clearInputs = () => {
+        setActualPassword("")
+        setNewPassword("")
+        setConfirmNewPassword("")
+    }
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -49,7 +72,7 @@ export default function Account() {
         setShowConfirmNewPassword(!showConfirmNewPassword);
     };
 
-    useEffect(() => {
+    useEffect(() => { //para foco do input ao clicar no ícone de edição (para editar o nome)
         if (editMode) {
           inputRef.current.focus();
         }
@@ -90,7 +113,6 @@ export default function Account() {
           }
       }
 
-
       const validateInputs = () => {
         if (actualPassword && newPassword && confirmNewPassword) {
           setDisableButton(false)
@@ -104,7 +126,6 @@ export default function Account() {
       }, [validNewPassword, matchPasswords]);
       
       const confirmChangeName = async () => {
-
         if (newName) {
             const userData = {
                 name: name,
@@ -112,11 +133,9 @@ export default function Account() {
                 userId: userId,
                 newName: newName
             }
-
             const response = await changeName(userData)
 
-            if (response.statusCode == 201) {
-                              
+            if (response.statusCode == 201) {            
                 const newName = response.newName
                 localStorage.setItem("name", newName);
                 setName(newName)
@@ -138,7 +157,6 @@ export default function Account() {
       }
 
     const confirmChangePassword = async () => {
-        console.log("Chamada do POST")
         if (actualPassword && validNewPassword && confirmNewPassword) {
             const userId = localStorage.getItem("userId")
             const userData = {
@@ -146,13 +164,38 @@ export default function Account() {
                 password: actualPassword,
                 newPassword: newPassword
             }
+            
             const result = await changePassword(userData)
-            console.log(result)
+
+            console.log("O result", result)
+
+            if (result.statusCode == 201) {
+                setShowAlert(true)
+                setAlertMessage("Senha alterada com sucesso!")
+                setAlertType("success")
+                clearInputs()
+                setTimeout(() => {
+                    setShowAlert(false) 
+                    setAlertMessage("")
+                    setAlertType("")
+                }, 2000)
+            } else if (result.statusCode == 202) {
+                setShowAlert(true)
+                setAlertMessage("Senha atual inválida!")
+                setAlertType("danger")
+                clearInputs()
+                setTimeout(() => {
+                    setShowAlert(false) 
+                    setAlertMessage("")
+                    setAlertType("")
+                }, 2000)
+            }
         }
     }
 
     return (
         <div className={styles.accountMain}>
+            
             <div className={styles.dataContainer}>
                 <div className={styles.inputs}>
                     <div className={styles.nameInput}>
@@ -196,25 +239,22 @@ export default function Account() {
                         )}
                         {newName && editMode && (
                             <div>
-                                <button type="button" class="btn btn-success" onClick={confirmChangeName}>Confimar</button>
+                                <button type="button" className="btn btn-success" onClick={confirmChangeName}>Confimar</button>
                             </div>
-                        )}
+                        )}      
                         
-                        
-                    </div>
-                    
-                
+                    </div>                 
 
                     <div className={`input-group mb-3 ${styles.inputData}`}>
                         <span className="input-group-text" id="inputGroup-sizing-default">Email</span>
                         <input type="text" className="form-control" value={email} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readOnly/>
                     </div>
 
-
                     <button type="button" className={`btn btn-light ${styles.toggleChangePassword}`} onClick={handleChangePassword}> 
                         Alterar senha
                     </button>
 
+                </div>
 
                     <div className={styles.changePassword}>
                         {toggleChangePassword && (
@@ -293,9 +333,16 @@ export default function Account() {
                                     <p>A nova senha deve possuir, no mínimo, 9 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula e um número.</p>
                                 </div>
 
-                                <button 
+                                { (!matchPasswords && newPassword && confirmNewPassword !== undefined && confirmNewPassword !== null && confirmNewPassword !== "") && (
+                                    <p className={styles.feedbackMessage}>As senhas não coincidem.</p>)}
+          
+                                { (matchPasswords && newPassword && confirmNewPassword !== undefined && confirmNewPassword !== null && confirmNewPassword !== "") && (
+                                    <p className={styles.positiveFeedbackMessage}>As senhas  coincidem.</p>)}
+
+                                <button
+                                disabled={disableButton} 
                                 type="button" 
-                                class="btn btn-success"
+                                className="btn btn-success"
                                 onClick={confirmChangePassword}
                                 >
                                     Confimar
@@ -305,10 +352,15 @@ export default function Account() {
                         )}
                         
                     </div>
+    
+            <DeleteAccount/> 
                     
-                    
-                </div>
-                
+            <div className={styles.footer}>
+                {showAlert && alertType && alertMessage && (
+                        <Alert type={alertType} message={alertMessage}/>
+                    )}
+            </div>
+            
             </div>
 
         </div>
