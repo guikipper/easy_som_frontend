@@ -61,7 +61,7 @@ export default function DeleteAccount() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <label for="inputPassword5" className="form-label">Informe a senha abaixo para confirmar a deleção da conta.</label>
+                            <label htmlFor="inputPassword5" className="form-label">Informe a senha abaixo para confirmar a deleção da conta.</label>
                             <input 
                             type="password" 
                             id="inputPassword5" 

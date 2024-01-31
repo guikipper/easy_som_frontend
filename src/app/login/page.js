@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState, useEffect } from 'react'
 import { login } from '../api/services/apiFunctions'
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie';
 import Loading from '../components/Loading';
 
 export default function Login() {
@@ -29,21 +30,29 @@ export default function Login() {
       }, []);
 
     const handleLoginButton = async () => {
-        setShowLoading(true)
+        try {
+            setShowLoading(true)
             const response = await login(email, password)
+            console.log('A resposta do servidor: ', response)
             if (response) {
                 setShowLoading(false)
             }
             if (response.statusCode == 201) {
-                localStorage.setItem('userId', response.userId);
-                localStorage.setItem('name', response.username);
-                localStorage.setItem('email', response.email);
+                console.log('A resposta do servidor', response.token)
+                Cookies.set('token', response.token);
+                //localStorage.setItem('userId', response.userId);
+                //localStorage.setItem('name', response.username);
+                //localStorage.setItem('email', response.email);
                 router.push('/');
             }
             if (response.statusCode != 201) {
                 setFeedback('')
                 setFeedback(response.message)                
             }
+        } catch (error) {
+            console.log("Deu erro em handleLoginButton: ", error)
+        }
+       
     }
 
     const togglePasswordVisibility = () => {
@@ -51,6 +60,8 @@ export default function Login() {
     }
 
     const validateInputs = () => {
+        console.log("Verificando o email: ", email)
+        console.log("Verificando a senha: ", password)
             if (email && password) {
               setDisableButton(false)
             } else {

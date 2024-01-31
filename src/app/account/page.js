@@ -8,13 +8,13 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import DeleteAccount from '../components/DeleteAccount';
 import Alert from '../components/Alert';
 import { useRouter } from 'next/navigation'
-
+import Cookies from 'js-cookie'
+import { authenticateWithToken } from '../api/services/apiFunctions';
 
 export default function Account() {
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
-    const [userId, setUserId] = useState("")
     const [editMode, setEditMode] = useState(false)
     const [newName, setNewName] = useState("")
     const [toggleChangePassword, setToggleChangePassword] = useState(false)
@@ -32,26 +32,19 @@ export default function Account() {
     const [alertType, setAlertType] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
     const router = useRouter()
-
-    useEffect(() => {
-        console.log("Entrando no use effect")
-        const handleStorageChange = () => {
-          const savedData = localStorage.getItem("name");
-          if (savedData == '' && savedData == null) {
-            router.push('/')
-          }
-        };
-       handleStorageChange();
-      }, []);
       
     useEffect(() => {
-        const name = localStorage.getItem("name");
-        const userId = localStorage.getItem("userId")
-        const email = localStorage.getItem("email")
-        setName(name)
-        setEmail(email)
-        setUserId(userId)
+        getData()
       }, [])
+
+    const getData = async () => {
+        console.log("Entrou em getData")
+        const token = Cookies.get('token')
+        const userData = await authenticateWithToken(token)
+        setName(userData.userData.name)
+        setEmail(userData.userData.email)
+        console.log("Na page, o userData: ", userData)
+    }
 
     const handleEditMode = () => {
         setEditMode(!editMode)
@@ -126,18 +119,18 @@ export default function Account() {
       }, [validNewPassword, matchPasswords]);
       
       const confirmChangeName = async () => {
+        const token = Cookies.get('token')
         if (newName) {
             const userData = {
-                name: name,
-                email: email,
-                userId: userId,
-                newName: newName
+                token: token,
+                newName: newName,
+                oldName: name
             }
             const response = await changeName(userData)
-
+            console.log(response)
             if (response.statusCode == 201) {            
                 const newName = response.newName
-                localStorage.setItem("name", newName);
+                //Cookies.set('nomeDoCookie', 'novoValor');
                 setName(newName)
                 window.location.reload();
             }

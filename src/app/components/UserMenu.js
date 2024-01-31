@@ -1,9 +1,18 @@
 import styles from '../styles/UserMenu.module.css'
 import Link from "next/link";
+import Cookies from 'js-cookie';
 
 export default function UserMenu({name, email}) {
 
+    const clearCookies = () => {
+        const allCookies = Cookies.get();
+        for (let cookie in allCookies) {
+            Cookies.remove(cookie);
+        }
+    };
+
     const handleLogout = ()=> {
+        clearCookies()
         localStorage.clear();
       }
 
