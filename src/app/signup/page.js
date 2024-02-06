@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation'
 import { signUp } from '../api/services/apiFunctions'
 import Redirecting from '../components/Redirecting';
+import Alert  from '../components/Alert';
 export default function SignUp() {
 
   const [nameAndLastName, setNameAndLastName] = useState()
@@ -20,10 +21,13 @@ export default function SignUp() {
   const [disableButton, setDisableButton] = useState(true)
   const [validEmail, setValidEmail] = useState(false)
   const [redirect, setRedirect] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState("")
 
   const router = useRouter()
 
   const handleSignUp = async () => {
+    cleanAlert()
     const userData = {
       name: nameAndLastName.toLowerCase(),
       email: email.toLowerCase(),
@@ -31,14 +35,21 @@ export default function SignUp() {
     };
     const response = await signUp(userData)
     if (response.error == "E-mail já cadastrado") {
-      alert("Email já cadastrado.")
+      console.log("A response vindo: ", response)
+        setShowAlert(true)
+        setAlertMessage("Email já cadastrado!")
     }
     if (response.statusCode == 201) {
       setRedirect(true)
       setInterval(() => {
-        //router.push('/login')
+        router.push('/login')
       }, 2000)
     } 
+  }
+
+  const cleanAlert = () => {
+    setShowAlert(false)
+    setAlertMessage("")
   }
 
   useEffect(() => {
@@ -120,6 +131,10 @@ export default function SignUp() {
     {redirect && (
       <Redirecting email={email}/>
     )}
+    {showAlert && (
+      <Alert type="danger" message={alertMessage}/>
+    )}
+    
       <div className={styles.signupCard}>
         <div className={styles.signUpTitle}>
           <p>Preencha os Detalhes Abaixo para Criar sua Conta</p>
@@ -204,6 +219,7 @@ export default function SignUp() {
           onClick={toggleConfirmPasswordVisibility}>
             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
+          
           { (!matchPasswords && password && confirmPassword !== undefined && confirmPassword !== null && confirmPassword !== "") && (
           <p className={styles.feedbackMessage}>As senhas não coincidem.</p>)}
           

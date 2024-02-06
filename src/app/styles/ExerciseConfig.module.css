@@ -41,6 +41,7 @@
 .direction input {
     margin-right: 2px;
     margin-left: 2px;
+    cursor: pointer;
 }
 
 .direction label {
@@ -67,6 +68,7 @@
 .checkbox input {
     margin-right: 4px;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 .direction p {
@@ -82,7 +84,7 @@
 }
 .tryAgain input {
     font-size: 1.5em;
-    
+    cursor: pointer;
 }
 .tryAgain label {
     font-weight: bold;

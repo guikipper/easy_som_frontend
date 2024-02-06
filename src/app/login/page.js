@@ -8,6 +8,7 @@ import { login } from '../api/services/apiFunctions'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie';
 import Loading from '../components/Loading';
+import RecoverPassword from '../components/ForgetPassword';
 
 export default function Login() {
 
@@ -19,30 +20,15 @@ export default function Login() {
     const [showLoading, setShowLoading] = useState(false)
     const router = useRouter()
 
-    useEffect(() => {
-        const handleStorageChange = () => {
-          const savedData = localStorage.getItem("name");
-          if (savedData != '' && savedData != null) {
-            router.push('/')
-          }
-        };
-       handleStorageChange();
-      }, []);
-
     const handleLoginButton = async () => {
         try {
             setShowLoading(true)
             const response = await login(email, password)
-            console.log('A resposta do servidor: ', response)
             if (response) {
                 setShowLoading(false)
             }
             if (response.statusCode == 201) {
-                console.log('A resposta do servidor', response.token)
                 Cookies.set('token', response.token);
-                //localStorage.setItem('userId', response.userId);
-                //localStorage.setItem('name', response.username);
-                //localStorage.setItem('email', response.email);
                 router.push('/');
             }
             if (response.statusCode != 201) {
@@ -50,7 +36,7 @@ export default function Login() {
                 setFeedback(response.message)                
             }
         } catch (error) {
-            console.log("Deu erro em handleLoginButton: ", error)
+            console.log("Ocorreu um erro em handleLoginButton: ", error)
         }
        
     }
@@ -60,8 +46,6 @@ export default function Login() {
     }
 
     const validateInputs = () => {
-        console.log("Verificando o email: ", email)
-        console.log("Verificando a senha: ", password)
             if (email && password) {
               setDisableButton(false)
             } else {
@@ -140,8 +124,10 @@ export default function Login() {
                         </div>
                     )}
                 </div> 
-                   
-               
+
+                <div className={styles.forgetPassword}>
+                    <RecoverPassword/>
+                </div>  
                 
                 <p>Não tem uma conta? 
                     <Link href="./signup" className={styles.signUpLink}>

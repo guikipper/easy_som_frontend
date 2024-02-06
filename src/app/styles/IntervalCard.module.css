@@ -74,15 +74,26 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    flex-direction: row;
+    flex-direction: column;
 }
-.referenceNotes button:hover {
-    background-color: #00A2FF;
+.referenceNotes p {
+    font-weight: bold;
+    color: #4d4d4d;
+}
+.playIconDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4d4d4d;
+    height: 50px;
+    width: 70px;
+    border-radius: 8px;
     color: #FAFAFA;
-    box-shadow: 0 0 5px rgb(44, 44, 44);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 300ms;
 }
-
-.colorBtn {
+.playIconDiv:hover {
     background-color: #00A2FF;
     color: #FAFAFA;
 }
@@ -117,7 +128,8 @@
 .feedbackText {
     font-size: 1.5em;
     font-weight: bold;
-    position: fixed;
+    position: absolute;
+    margin-top: 3em;
 }
 
 .message {

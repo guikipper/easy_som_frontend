@@ -3,9 +3,10 @@ import styles from "../styles/AccountPreferences.module.css";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
 import Cookies from 'js-cookie'
+import { useRouter } from "next/navigation";
 import { authenticateWithToken } from "../api/services/apiFunctions";
-
 import { usePathname } from "next/navigation";
+import Loading from "./Loading";
 
 export default function AccountPreferences() {
   const [username, setUsername] = useState("");
@@ -13,23 +14,29 @@ export default function AccountPreferences() {
   const [path, setPath] = useState();
   const [showUserMenu, setShowUserMenu] = useState(false)
 
+  const AUTH_STATUS = {
+    CHECKING: 'checking', // Antes de verificar o token
+    AUTHENTICATED: 'authenticated', // Token válido e usuário autenticado
+    UNAUTHENTICATED: 'unauthenticated', // Sem token ou token inválido
+  };
+  const [authStatus, setAuthStatus] = useState(AUTH_STATUS.CHECKING);
   const pathname = usePathname();
 
-  //useEffect(()=>{
-  //  setPath(pathname)
-  //},[pathname])
+  useEffect(()=>{
+    setPath(pathname)
+  },[pathname])
 
   useEffect(() => {
     const token = Cookies.get('token')
-    console.log("O token do fulano é: ", token)
     if (token && token != undefined && token != 'undefined') {
-      console.log("Tem token, entrou na chamada da função para autenticar: ", token)
+      setAuthStatus(AUTH_STATUS.AUTHENTICATED)
       authenticate(token)
+    } else if (!token) {
+      setAuthStatus(AUTH_STATUS.UNAUTHENTICATED)
     }
   }, [path]);
 
   const handleUserValues = (email, name) => {
-    console.log("Entrou na função aqui parsa")
     setEmail(email)
     setUsername(name)
   }
@@ -37,22 +44,11 @@ export default function AccountPreferences() {
   const authenticate = async (token) => {
     try {
       const userData = await authenticateWithToken(token)
-      console.log(userData)
       handleUserValues(userData.userData.email, userData.userData.name)
     } catch (error) {
-      console.log("Deu erro na tentativa de autenticação: ", error)
+      console.log("Ocorreu um erro na tentativa de autenticação: ", error)
     }
   }
-
-  console.log(username, email)
-
-  //useEffect(() => {
-  //  const savedData = localStorage.getItem("name");
-  //  if (savedData !== username) {
-  //    setUsername(savedData);
-  //  }
-  //  setPath(pathname);
-  //}, [pathname, username]);
 
   const handleUserMenuClick = () => {
     setShowUserMenu(!showUserMenu)
@@ -60,7 +56,7 @@ export default function AccountPreferences() {
 
   return (
     <>
-      {username !== "" && username !== null ? (
+      {authStatus === AUTH_STATUS.AUTHENTICATED ? (
         <div className={styles.mainAcc}>
         <div 
         className={styles.userMenuIndicator}
@@ -68,16 +64,17 @@ export default function AccountPreferences() {
           <p>{username}</p>
         </div>
         <div className={`${styles.userMenu} ${showUserMenu ? styles.userMenuVisible : styles.userMenuHidden}`}>
-            <UserMenu name={username} email={email}/>
+            <UserMenu name={username} email={email} setShowUserMenu={setShowUserMenu}/>
         </div>
         
       </div>
       ) : (
         path != "/login" && path != "/signup" ? (
           <div className={styles.mainAcc}>
-          <Link href="./login" legacyBehavior>
+          <Link href="/login" legacyBehavior>
             <a className={styles.loginLink}>
-              <p>Entrar</p>
+            {authStatus === AUTH_STATUS.CHECKING && <></>}
+            {authStatus === AUTH_STATUS.UNAUTHENTICATED && <p>Entrar</p>}
             </a>
           </Link>
         </div>

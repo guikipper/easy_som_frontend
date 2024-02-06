@@ -1,12 +1,13 @@
 'use client'
 import styles from '../styles/AccountPage.module.css'
+
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { changeName, changePassword } from '../api/services/apiFunctions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
-import DeleteAccount from '../components/DeleteAccount';
 import Alert from '../components/Alert';
+import DeleteAccount from '../components/DeleteAccount';
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import { authenticateWithToken } from '../api/services/apiFunctions';
@@ -38,12 +39,10 @@ export default function Account() {
       }, [])
 
     const getData = async () => {
-        console.log("Entrou em getData")
         const token = Cookies.get('token')
         const userData = await authenticateWithToken(token)
         setName(userData.userData.name)
         setEmail(userData.userData.email)
-        console.log("Na page, o userData: ", userData)
     }
 
     const handleEditMode = () => {
@@ -83,7 +82,6 @@ export default function Account() {
           setValidNewPassword(true)
         }
         else {
-          //handleDivergentPassword(password)
           setValidNewPassword(false)
         }
       }
@@ -127,10 +125,8 @@ export default function Account() {
                 oldName: name
             }
             const response = await changeName(userData)
-            console.log(response)
             if (response.statusCode == 201) {            
                 const newName = response.newName
-                //Cookies.set('nomeDoCookie', 'novoValor');
                 setName(newName)
                 window.location.reload();
             }
@@ -152,15 +148,14 @@ export default function Account() {
     const confirmChangePassword = async () => {
         if (actualPassword && validNewPassword && confirmNewPassword) {
             const userId = localStorage.getItem("userId")
+            const token = Cookies.get("token")
             const userData = {
-                userId: userId,
+                token: token,
                 password: actualPassword,
                 newPassword: newPassword
             }
             
             const result = await changePassword(userData)
-
-            console.log("O result", result)
 
             if (result.statusCode == 201) {
                 setShowAlert(true)
@@ -260,7 +255,7 @@ export default function Account() {
                                     type={showPassword ? 'text' : 'password'} 
                                     className="form-control" 
                                     value={actualPassword}
-                                    autocomplete="off" 
+                                    autoComplete="off" 
                                     aria-label="Sizing example input" 
                                     aria-describedby="inputGroup-sizing-default"
                                     onPaste={handleConfirmPasswordPaste}
@@ -283,7 +278,7 @@ export default function Account() {
                                     type={showNewPassword ? 'text' : 'password'}  
                                     className={`form-control ${validNewPassword && newPassword ? styles.validInput : !validNewPassword && newPassword ? styles.invalidInput : ''}`} 
                                     value={newPassword}
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     aria-label="Sizing example input" 
                                     aria-describedby="inputGroup-sizing-default"
                                     onPaste={handleConfirmPasswordPaste}
@@ -306,7 +301,7 @@ export default function Account() {
                                     type={showConfirmNewPassword ? 'text' : 'password'} 
                                     className={`form-control ${validNewPassword && confirmNewPassword && matchPasswords ? styles.validInput : confirmNewPassword && !matchPasswords ? styles.invalidInput : ''}`}  
                                     value={confirmNewPassword}
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     aria-label="Sizing example input" 
                                     aria-describedby="inputGroup-sizing-default"
                                     onPaste={handleConfirmPasswordPaste}

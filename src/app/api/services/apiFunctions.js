@@ -86,9 +86,8 @@ export const signUp = async (userData) => {
 
 export const changeName = async (userData) => {
 
-  const { token, newName, oldName } = userData
-
     try {
+        const { token, newName, oldName } = userData
         const response = await fetch(`${BASE_URL}/changeName`, {
             method: 'POST',
             headers: {
@@ -110,12 +109,18 @@ export const changeName = async (userData) => {
 
 export const changePassword = async (userData) => {
   try {
+    const { token, password, newPassword } = userData
+    const passwordData = {
+      password, newPassword
+    }
+
     const response = await fetch(`${BASE_URL}/changePassword`, {
-      method: "Post",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(passwordData),
     });
     const data = await response.json();
     return data
@@ -127,15 +132,17 @@ export const changePassword = async (userData) => {
 export const deleteAccount = async (userData) => {
 
   try {
+    const { token, password } = userData
+
     const response = await fetch(`${BASE_URL}/deleteAccount`, {
-      method: "Post",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify({ password: password }),
     });
     if (response.ok) {
-      console.log('API Functions - Response of delete account: ', response);
       return response
     } else {
       console.error("Falha ao deletar a conta: ", response.status);
@@ -144,3 +151,37 @@ export const deleteAccount = async (userData) => {
     console.error("Erro: ", error);
   }
 };
+
+export const sendPasswordRecoveryEmail = async (email) => {
+  try {
+    const response = await fetch(`${BASE_URL}/sendPasswordRecovery`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    return response
+
+  } catch (error) {
+    console.error("Erro: ", error);
+  }
+}
+
+export const recoverPasswordRoute = async (newPassword, token) => {
+  console.log("A a senha chegando: ", newPassword)
+  try {
+    const response = await fetch(`${BASE_URL}/recoverPassword`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({newPassword})
+    })
+  
+    return response
+  } catch (error) {
+    console.error("Erro: ", error);
+  }
+}

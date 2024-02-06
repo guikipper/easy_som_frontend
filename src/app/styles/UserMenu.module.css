@@ -57,6 +57,8 @@
 }
 .logout p {
     font-weight: bold;
+    color: white;
+    cursor: pointer;
 }
 .logout p:hover {
     color: #00A2FF;

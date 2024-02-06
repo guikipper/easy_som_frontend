@@ -12,7 +12,6 @@ export default function Navbar() {
   const router = useRouter()
 
   useEffect(() => {
-    //console.log("Mudou a url", router.pathname)
   }, [router])
 
   const handleShowLoading = () => {
@@ -21,7 +20,7 @@ export default function Navbar() {
 
   return (
     <div className={styles.navbar}>
-      <h1>Learn Music</h1>
+      <h1>Harmonic Wave</h1>
 
       <ul className={styles.linksList}>
         <li>
@@ -35,7 +34,7 @@ export default function Navbar() {
         <li>
           <Link href="/intervals/exercise-config" legacyBehavior>
               <a>
-                <p onClick={handleShowLoading}>Intervals</p>
+                <p onClick={handleShowLoading}>Intervalos</p>
               </a>
           </Link>  
         </li>

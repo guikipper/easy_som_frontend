@@ -7,7 +7,8 @@ import Piano from "./Piano";
 import RoundsResults from "./RoundsResults"
 import { useRouter } from 'next/navigation';
 import IntervalsTable from "./IntervalsTable";
-//import HelpIcon from '@material-ui/icons/Help';<HelpIcon/>
+import { FaPlay } from 'react-icons/fa';
+//<FontAwesomeIcon icon="fa-solid fa-play" />
 
 export default function IntervalCard() {
   const [actualNote, setActualNote] = useState();
@@ -19,11 +20,11 @@ export default function IntervalCard() {
   const [messageStyle, setMessageStyle] = useState({});
   const [octave, setOctave] = useState([]);
   const [buttonsToShow, setButtonsToShow] = useState([])
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioInstance, setAudioInstance] = useState(null);
   const [results, setResults] = useState([])
   const [visibleHelp, setVisibleHelp] = useState(false)
   const router = useRouter()
+
+  const audioContext = new AudioContext()
 
   const firstOctave = [
     "C4",
@@ -81,7 +82,7 @@ export default function IntervalCard() {
     "8J",
   ];
 
-  const { formData } = useMyContext()
+  const { formData } = useMyContext() //recebo o formData
 
   const isObjectEmpty = (obj) => {
     for (let key in obj) {
@@ -92,15 +93,14 @@ export default function IntervalCard() {
     return true;
   };
   
-  if (isObjectEmpty(formData)) {
+  if (isObjectEmpty(formData)) { //se o objeto estiver vazio ocorre um redirecionamento
     router.push('../intervals/exercise-config');
   }
 
-  useEffect(() => {
+  useEffect(() => { 
     if (formData.referenceNote || formData.referenceNote === 0) {
       if (formData.referenceNote === 'random') {
         const randomIndex = Math.floor(Math.random() * firstOctave.length);
-        //const randomNote = firstOctave[randomIndex];
         generateOctave(randomIndex);
         setTotalRounds(formData.rounds);
         handleReferenceNote(randomIndex);
@@ -199,109 +199,99 @@ export default function IntervalCard() {
   const getInterval = (noteIndex) => {
     switch (noteIndex) {
       case 0:
-        console.log("Primeira Justa");
+        //console.log("Primeira Justa");
         setActualInterval("1J");
         break;
       case 1:
-        console.log("Segunda menor");
+        //console.log("Segunda menor");
         setActualInterval("2m");
         break;
       case 2:
-        console.log("Segunda maior");
+        //console.log("Segunda maior");
         setActualInterval("2M");
         break;
       case 3:
-        console.log("Terça menor");
+        //console.log("Terça menor");
         setActualInterval("3m");
         break;
       case 4:
-        console.log("Terça maior");
+        //console.log("Terça maior");
         setActualInterval("3M");
         break;
       case 5:
-        console.log("Quarta Justa");
+        //console.log("Quarta Justa");
         setActualInterval("4J");
         break;
       case 6:
-        console.log("Quarta aumentada");
+        //console.log("Quarta aumentada");
         setActualInterval("4A");
         break;
       case 7:
-        console.log("Quinta Justa");
+        //console.log("Quinta Justa");
         setActualInterval("5J");
         break;
       case 8:
-        console.log("Sexta menor");
+        //console.log("Sexta menor");
         setActualInterval("6m");
         break;
       case 9:
-        console.log("Sexta maior");
+        //console.log("Sexta maior");
         setActualInterval("6M");
         break;
       case 10:
-        console.log("Sétima menor");
+        //console.log("Sétima menor");
         setActualInterval("7m");
         break;
       case 11:
-        console.log("Sétima maior");
+        //console.log("Sétima maior");
         setActualInterval("7M");
         break;
       case 12:
-        console.log("Oitava Justa");
+        //console.log("Oitava Justa");
         setActualInterval("8J");
         break;
     }
   };
 
-const reproduceReferenceNote = () => {
-    stopAudio()
-    const audioFile = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
-    playAudio(audioFile)    
-};
-
-const reproduceActualNote = () => {
-  stopAudio()
-  const audioFile = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
-  playAudio(audioFile)  
-};
+const play = async(audio) => {
+  
+  try {
+    if (audioContext.state === 'suspended') {
+      await audioContext.resume();
+    }
+    const response = await fetch(audio)
+    const arrayBuffer = await response.arrayBuffer()
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
+    const source = audioContext.createBufferSource()
+    source.buffer = audioBuffer
+    source.connect(audioContext.destination)
+    source.onended = () => {
+      source.disconnect(); // Desconectar o source após o término da reprodução
+    };
+    source.start()
+    
+  } catch (error) {
+    console.error("Error with playing audio", error);
+  }
+}
 
 const reproduceActualInterval = () => {
   if (formData.direction == 'ascendente') {
-    stopAudio()
     const audioFile = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
-    playAudio(audioFile)
+    play(audioFile)
     const audioFile2 = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
     setTimeout(()=> {
-      playAudio(audioFile2)  
-    }, 1500)
+      play(audioFile2) 
+    }, 800)
   } else {
-    stopAudio()
     const audioFile = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
-    playAudio(audioFile)
+    play(audioFile)
     const audioFile2 = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
     setTimeout(()=> {
-      playAudio(audioFile2)  
-    }, 1500)
+      play(audioFile2)  
+    }, 800)
   }
   
-};
-
-const playAudio = (audioFile) => {
-  const audio = new Audio(audioFile);
-  audio.addEventListener('ended', () => {
-    setIsPlaying(false);
-  });
-  audio.play();
-  setIsPlaying(true);
-  setAudioInstance(audio);
-};
-
-const stopAudio = () => {
-  if (isPlaying && audioInstance) {
-    audioInstance.pause();
-    audioInstance.currentTime = 0;
-    setIsPlaying(false);
-  }
 };
  
   const checkResult = (selectedOption) => {
@@ -368,30 +358,12 @@ const stopAudio = () => {
         
         
         <div className={styles.referenceNotes}>
+          <p>Reproduzir Intervalo Atual</p>
+          <div className={styles.playIconDiv} onClick={reproduceActualInterval} >
+            <FaPlay/>
+          </div>
+           
 
-         {/*  <button
-            type="button"
-            className={`btn ${styles.colorBtn}`}
-            onClick={reproduceReferenceNote}
-          >
-            Referência
-          </button> */}
-
-          <button
-            type="button"
-            className={`btn ${styles.colorBtn}`}
-            onClick={reproduceActualInterval}
-          >
-            Intervalo
-          </button>
-
-         {/*  <button
-            type="button"
-            className={`btn ${styles.colorBtn}`}
-            onClick={reproduceActualNote}
-          >
-            Notal atual
-          </button> */}
         </div>
         
         <div className={styles.responseButtonsDiv}>
@@ -418,7 +390,7 @@ const stopAudio = () => {
           <IntervalsTable/>
       )}
       
-      <Piano setAudioInstance={setAudioInstance} setIsPlaying={setIsPlaying} isPlaying={isPlaying} audioInstance={audioInstance}/>
+      <Piano/>
     </div>
   ) : (
     <RoundsResults results={results}/>

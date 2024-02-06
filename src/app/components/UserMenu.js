@@ -1,9 +1,10 @@
 import styles from '../styles/UserMenu.module.css'
 import Link from "next/link";
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
-export default function UserMenu({name, email}) {
-
+export default function UserMenu({name, email, setShowUserMenu}) {
+    const router = useRouter()
     const clearCookies = () => {
         const allCookies = Cookies.get();
         for (let cookie in allCookies) {
@@ -13,7 +14,7 @@ export default function UserMenu({name, email}) {
 
     const handleLogout = ()=> {
         clearCookies()
-        localStorage.clear();
+        router.push('/login')
       }
 
     return (
@@ -26,18 +27,14 @@ export default function UserMenu({name, email}) {
 
                 <div className={styles.userAccount}>
                     <Link href="/account" legacyBehavior>
-                        <a>
+                        <a onClick={() => {setShowUserMenu(false)}}>
                             <p>Prefrências de conta</p>
                         </a>
                     </Link>
                 </div>
 
                 <div className={styles.logout}>
-                    <Link href="/login" legacyBehavior>
-                        <a>
-                            <p onClick={handleLogout}>Logout</p>
-                        </a>
-                    </Link>
+                    <p onClick={handleLogout}>Sair</p>
                 </div>
             </div>
         </div>
