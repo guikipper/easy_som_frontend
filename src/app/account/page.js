@@ -128,7 +128,7 @@ export default function Account() {
             if (response.statusCode == 201) {            
                 const newName = response.newName
                 setName(newName)
-                window.location.reload();
+                //window.location.reload();
             }
             return 
         }
