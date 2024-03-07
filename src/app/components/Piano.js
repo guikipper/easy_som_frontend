@@ -1,25 +1,23 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Piano.module.css';
 
-// Cria uma instância única de AudioContext para ser compartilhada por todo o componente
-const audioContext = new AudioContext()
 
-
-// Variável para armazenar a referência ao AudioBufferSourceNode atualmente ativo
-let lastNotePlayed = null;
-// Armazena a referência para a instância de AudioBufferSourceNode da última nota tocada
-let lastAudioSource = null;
 
 export default function Piano() {
-  // Não é mais necessário armazenar um estado para cada instância de áudio
 
+  const audioContext = new AudioContext()
+  let lastNotePlayed = null;
+
+  let lastAudioSource = null;
   const playAudio = async (note) => {
     console.log(note)
     const audioFile = `/audio/electric_piano_1-mp3/${note}.mp3`;
     if (audioContext.state === 'suspended') {
       await audioContext.resume();
     }
-    // Só interrompe se a mesma nota for tocada novamente
+
     if (note === lastNotePlayed && lastAudioSource) {
       lastAudioSource.stop();
     }
@@ -34,13 +32,10 @@ export default function Piano() {
       source.connect(audioContext.destination);
       source.start();
 
-
-      // Atualiza a última nota tocada e a referência para o novo source
       lastNotePlayed = note;
       lastAudioSource = source;
 
       source.onended = () => {
-        // Limpa a última nota tocada e a referência se a nota que terminou é a última tocada
         if (note === lastNotePlayed) {
           lastNotePlayed = null;
           lastAudioSource = null;

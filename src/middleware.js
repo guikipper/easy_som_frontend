@@ -15,7 +15,6 @@ export async function middleware(req) {
         if (authenticatedUser.statusCode == 402) {
             return NextResponse.redirect(new URL('/', req.url))
         }
-        
     }
-    
+
 }

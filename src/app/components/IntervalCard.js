@@ -83,7 +83,7 @@ export default function IntervalCard() {
   ];
 
   const { formData } = useMyContext() //recebo o formData
-
+  
   const isObjectEmpty = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -92,10 +92,10 @@ export default function IntervalCard() {
     }
     return true;
   };
-  
   if (isObjectEmpty(formData)) { //se o objeto estiver vazio ocorre um redirecionamento
     router.push('../intervals/exercise-config');
   }
+  
 
   useEffect(() => { 
     if (formData.referenceNote || formData.referenceNote === 0) {
