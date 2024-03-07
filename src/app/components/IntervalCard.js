@@ -27,7 +27,6 @@ export default function IntervalCard() {
   const [audioContext, setAudioContext] = useState(null);
 
   useEffect(() => {
-    // Isso assegura que AudioContext só é criado no lado do cliente.
     if (typeof window !== 'undefined') {
       setAudioContext(new AudioContext());
     }
@@ -99,7 +98,7 @@ export default function IntervalCard() {
     }
     return true;
   };
-  if (isObjectEmpty(formData)) { //se o objeto estiver vazio ocorre um redirecionamento
+  if (isObjectEmpty(formData)) { 
     router.push('../intervals/exercise-config');
   }
   
