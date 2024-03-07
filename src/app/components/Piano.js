@@ -7,7 +7,14 @@ import styles from '../styles/Piano.module.css';
 
 export default function Piano() {
 
-  const audioContext = new AudioContext()
+  const [audioContext, setAudioContext] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setAudioContext(new AudioContext());
+    }
+  }, []);
+
   let lastNotePlayed = null;
 
   let lastAudioSource = null;

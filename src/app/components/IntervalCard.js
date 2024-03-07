@@ -24,7 +24,14 @@ export default function IntervalCard() {
   const [visibleHelp, setVisibleHelp] = useState(false)
   const router = useRouter()
 
-  const audioContext = new AudioContext()
+  const [audioContext, setAudioContext] = useState(null);
+
+  useEffect(() => {
+    // Isso assegura que AudioContext só é criado no lado do cliente.
+    if (typeof window !== 'undefined') {
+      setAudioContext(new AudioContext());
+    }
+  }, []);
 
   const firstOctave = [
     "C4",
