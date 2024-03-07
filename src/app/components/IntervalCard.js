@@ -99,7 +99,7 @@ export default function IntervalCard() {
     return true;
   };
   if (isObjectEmpty(formData)) { 
-    router.push('../intervals/exercise-config');
+    //router.push('../intervals/exercise-config');
   }
   
 
