@@ -1,13 +1,14 @@
-'use client'
+"use client";
 
 import styles from "../styles/IntervalCard.module.css";
 import { useState, useEffect } from "react";
-import { useMyContext } from '../contexts/UseContext'
+import { useMyContext } from "../contexts/UseContext";
 import Piano from "./Piano";
-import RoundsResults from "./RoundsResults"
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import IntervalsTable from "./IntervalsTable";
-import { FaPlay } from 'react-icons/fa';
+import { FaPlay } from "react-icons/fa";
+import { FaUndoAlt } from "react-icons/fa";
+import GameInteractionButton from "./Buttons/GameInteractionButton";
 //<FontAwesomeIcon icon="fa-solid fa-play" />
 
 export default function IntervalCard() {
@@ -19,15 +20,43 @@ export default function IntervalCard() {
   const [message, setMessage] = useState("");
   const [messageStyle, setMessageStyle] = useState({});
   const [octave, setOctave] = useState([]);
-  const [buttonsToShow, setButtonsToShow] = useState([])
-  const [results, setResults] = useState([])
-  const [visibleHelp, setVisibleHelp] = useState(false)
-  const router = useRouter()
+  const [buttonsToShow, setButtonsToShow] = useState([]);
+  const [results, setResults] = useState([]);
+  const [visibleHelp, setVisibleHelp] = useState(false);
+
+  const [showRetryButton, setShowRetryButton] = useState(false);
+  const [showContinueButton, setShowContinueButton] = useState(false);
+  const [blockedButton, setBlockedButton] = useState(true);
+
+  const [roundStartTime, setRoundStartTime] = useState(null);
+  const [roundTimes, setRoundTimes] = useState([]);
+
+  const [secondChance, setSecondChance] = useState(false);
+
+  const router = useRouter();
 
   const [audioContext, setAudioContext] = useState(null);
 
+
+  //Tempo
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    setSecondChance(false)
+    setShowContinueButton(false);
+    if (round === 1) {
+      setRoundStartTime(Date.now());
+    } else {
+      const endRoundTime = Date.now();
+      const roundDuration = endRoundTime - roundStartTime;
+      const duration = {
+        round: round - 1,
+        roundDuration: roundDuration,
+      };
+      setRoundTimes((prevArray) => [...prevArray, duration]);
+    }
+  }, [round]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       setAudioContext(new AudioContext());
     }
   }, []);
@@ -44,7 +73,7 @@ export default function IntervalCard() {
     "Ab4",
     "A4",
     "Bb4",
-    "B4"
+    "B4",
   ];
   const notes = [
     "C4",
@@ -88,8 +117,8 @@ export default function IntervalCard() {
     "8J",
   ];
 
-  const { formData } = useMyContext() //recebo o formData
-  
+  const { formData } = useMyContext();
+
   const isObjectEmpty = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -98,14 +127,13 @@ export default function IntervalCard() {
     }
     return true;
   };
-  if (isObjectEmpty(formData)) { 
+  if (isObjectEmpty(formData)) {
     //router.push('../intervals/exercise-config');
   }
-  
 
-  useEffect(() => { 
+  useEffect(() => {
     if (formData.referenceNote || formData.referenceNote === 0) {
-      if (formData.referenceNote === 'random') {
+      if (formData.referenceNote === "random") {
         const randomIndex = Math.floor(Math.random() * firstOctave.length);
         generateOctave(randomIndex);
         setTotalRounds(formData.rounds);
@@ -113,73 +141,73 @@ export default function IntervalCard() {
       } else {
         generateOctave(formData.referenceNote);
         setTotalRounds(formData.rounds);
-        handleReferenceNote(formData.referenceNote);  
-        }
+        handleReferenceNote(formData.referenceNote);
       }
+    }
   }, [formData]);
 
   const handleIntervalOptions = () => {
-    const options = []
+    const options = [];
     if (formData.intervalOptions.menor == true) {
-      options.push(1, 3, 8, 10)
+      options.push(1, 3, 8, 10);
     }
     if (formData.intervalOptions.maior == true) {
-      options.push(2, 4, 9, 11)
+      options.push(2, 4, 9, 11);
     }
     if (formData.intervalOptions.justo == true) {
-      options.push(0, 5, 7)
+      options.push(0, 5, 7);
     }
-    if (formData.intervalOptions.aumentado == true ) {
-      options.push(6)
+    if (formData.intervalOptions.aumentado == true) {
+      options.push(6);
     }
-    return options
-  }
+    return options;
+  };
 
   const generateOctave = (referenceNoteIndex) => {
     const octave = notes.slice(referenceNoteIndex, referenceNoteIndex + 13);
-    setOctave(octave)
+    setOctave(octave);
   };
 
   const handleReferenceNote = (item) => {
-    switch(item) {
+    switch (item) {
       case 0:
-        setReferenceNote('C4')
+        setReferenceNote("C4");
         break;
       case 1:
-        setReferenceNote('Db4')
+        setReferenceNote("Db4");
         break;
       case 2:
-        setReferenceNote('D4')
+        setReferenceNote("D4");
         break;
       case 3:
-        setReferenceNote('Eb4')
+        setReferenceNote("Eb4");
         break;
       case 4:
-        setReferenceNote('E4')
+        setReferenceNote("E4");
         break;
       case 5:
-        setReferenceNote('F4')
+        setReferenceNote("F4");
         break;
       case 6:
-        setReferenceNote('Gb4')
+        setReferenceNote("Gb4");
         break;
       case 7:
-        setReferenceNote('G4')
+        setReferenceNote("G4");
         break;
       case 8:
-        setReferenceNote('Ab4')
+        setReferenceNote("Ab4");
         break;
       case 9:
-        setReferenceNote('A4')
+        setReferenceNote("A4");
         break;
       case 10:
-        setReferenceNote('Bb4')
+        setReferenceNote("Bb4");
         break;
       case 11:
-        setReferenceNote('B4')
+        setReferenceNote("B4");
         break;
     }
-  }
+  };
 
   useEffect(() => {
     if (octave && round > 0 && referenceNote) {
@@ -188,18 +216,18 @@ export default function IntervalCard() {
   }, [round, octave]);
 
   const getRandomNote = () => {
-      const intervalsToPlay = handleIntervalOptions()
-      setButtonsToShow(intervalsToPlay)
-      let randomIndex;
+    const intervalsToPlay = handleIntervalOptions();
+    setButtonsToShow(intervalsToPlay);
+    let randomIndex;
 
-      do {
-        randomIndex = Math.floor(Math.random() * octave.length);
-      } while (!intervalsToPlay.includes(randomIndex));
+    do {
+      randomIndex = Math.floor(Math.random() * octave.length);
+    } while (!intervalsToPlay.includes(randomIndex));
 
-      const randomNote = octave[randomIndex];
-      getInterval(randomIndex);
-      setActualNote(randomNote);
-      return randomNote; 
+    const randomNote = octave[randomIndex];
+    getInterval(randomIndex);
+    setActualNote(randomNote);
+    return randomNote;
   };
 
   const getInterval = (noteIndex) => {
@@ -259,150 +287,228 @@ export default function IntervalCard() {
     }
   };
 
-const play = async(audio) => {
-  
-  try {
-    if (audioContext.state === 'suspended') {
-      await audioContext.resume();
-    }
-    const response = await fetch(audio)
-    const arrayBuffer = await response.arrayBuffer()
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
-    const source = audioContext.createBufferSource()
-    source.buffer = audioBuffer
-    source.connect(audioContext.destination)
-    source.onended = () => {
-      source.disconnect(); // Desconectar o source após o término da reprodução
-    };
-    source.start()
-    
-  } catch (error) {
-    console.error("Error with playing audio", error);
-  }
-}
-
-const reproduceActualInterval = () => {
-  if (formData.direction == 'ascendente') {
-    const audioFile = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
-    play(audioFile)
-    const audioFile2 = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
-    setTimeout(()=> {
-      play(audioFile2) 
-    }, 800)
-  } else {
-    const audioFile = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
-    play(audioFile)
-    const audioFile2 = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
-    setTimeout(()=> {
-      play(audioFile2)  
-    }, 800)
-  }
-  
-};
- 
-  const checkResult = (selectedOption) => {
-    if (selectedOption == "4A/5D") {
-      selectedOption = "4A"
-    }
-    if (selectedOption == "6m/5A") {
-      selectedOption = "6m"
-    }
-    if (selectedOption == actualInterval) {
-      setMessageStyle({
-        color: "rgb(23, 145, 23)",
-      });
-      setMessage("Certa resposta!");
-      const result = { round: round, rightAnswer: true }; 
-      setResults(prevArray => [...prevArray, result]);
-      attRound();
-      setTimeout(() => {
-        setMessage("");
-      }, 2000);
-    } else {
-      setMessageStyle({
-        color: "red",
-      });
-      setMessage("Resposta errada!");
-      if (formData.switchValue == false) {
-        const result = { round: round, rightAnswer: false }; 
-        setResults(prevArray => [...prevArray, result]);
-        attRound();
+  const play = async (audio) => {
+    try {
+      if (audioContext.state === "suspended") {
+        await audioContext.resume();
       }
-      setTimeout(() => {
-        setMessage("");
-      }, 2000);
+      const response = await fetch(audio);
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+      const source = audioContext.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioContext.destination);
+      source.onended = () => {
+        source.disconnect(); // Desconectar o source após o término da reprodução
+      };
+      source.start();
+    } catch (error) {
+      console.error("Error with playing audio", error);
     }
   };
 
-  const attRound = () => {
-    setRound((prevRound) => prevRound + 1);
+  const reproduceActualInterval = () => {
+    if (formData.direction == "ascendente") {
+      const audioFile = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
+      play(audioFile);
+      const audioFile2 = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
+      setTimeout(() => {
+        play(audioFile2);
+        setTimeout(() => {
+          if (!showContinueButton) {
+            setBlockedButton(false);
+          }
+        }, 500)
+        
+      }, 1800);
+    } else {
+      const audioFile = `/audio/electric_piano_1-mp3/${actualNote}.mp3`;
+      play(audioFile);
+      const audioFile2 = `/audio/electric_piano_1-mp3/${referenceNote}.mp3`;
+      setTimeout(() => {
+        play(audioFile2);
+        setTimeout(() => {
+          if (!showContinueButton) {
+            setBlockedButton(false);
+          }
+        }, 500)
+      }, 1800);
+    }
+  };
+
+  const checkResult = (selectedOption) => {
+    
+    setBlockedButton(true);
+
+    if (selectedOption == "4A/5D") {
+      selectedOption = "4A";
+    }
+    if (selectedOption == "6m/5A") {
+      selectedOption = "6m";
+    }
+
+    if (selectedOption == actualInterval) {
+      optionFeedback("green", "Certa resposta!");
+      saveRoundsDate(round, true, actualInterval, selectedOption);
+      setShowContinueButton(true);
+
+    } else {
+      optionFeedback("red", "Resposta errada!");
+      setShowContinueButton(true);
+      setShowRetryButton(true);
+      saveRoundsDate(round, false, actualInterval, selectedOption);
+
+    }
+  };
+
+  const optionFeedback = (messageColor, messageText) => {
+    setMessageStyle({
+      color: messageColor,
+    });
+    setMessage(messageText);
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
+  };
+
+  const saveRoundsDate = (
+    round,
+    rightAnswer,
+    actualInterval,
+    selectedOption
+  ) => {
+    console.log("Entrou em saveRoundsDate")
+    const result = {
+      round: round,
+      rightAnswer: rightAnswer,
+      actualInterval: actualInterval,
+      selectedOption: selectedOption,
+    };
+    setResults((prevArray) => [...prevArray, result]);
+    
+    //attRound();
   };
 
   const handleHelp = () => {
-    setVisibleHelp(!visibleHelp)
+    setVisibleHelp(!visibleHelp);
+  };
+
+  const attRound = () => {
+    if (formData.round != round) {
+      setRound((prevRound) => prevRound + 1);
+    }
+  };
+
+  const retryRound = () => {
+    if (!secondChance) {
+      setSecondChance(true)
+      setShowContinueButton(false)
+      setBlockedButton(true)
+    }
   }
 
+  const continueToNextRound = () => {
+    console.log('O resultado: ', results)
+    attRound();
+    setShowRetryButton(false)
+  };
+
   return (
-  <>
-  {formData.rounds + 1 != round ? (
-    <div className={styles.main}>
-      <div className={styles.card}>
+    <>
+      <div className={styles.main}>
+        <div className={styles.card}>
+          {formData.rounds + 1 === round ? (
+            <>
+              <p>Você chegou ao fim dos exerícios.</p>
+            </>
+          ) : (
+            <>
+              <div className={styles.help} onClick={handleHelp}>
+                <p>?</p>
+              </div>
 
-        <div className={styles.help} onClick={handleHelp}>
-          <p>?</p>
+              <div className={styles.roundCount}>
+                {round} / {totalRounds}
+              </div>
+              <div className={styles.superiorCard}>
+                <div className={styles.title}>
+                  <h1>Ouça as duas notas e informe o intervalo.</h1>
+                </div>
+              </div>
+
+              {/* Menu */}
+
+              <div className={styles.referenceNotes}>
+                <div className={`${styles.item} ${secondChance ? styles.activeSecondChange : ""}`}
+                  onClick={() => {
+                    retryRound()
+                  }}
+                >
+                  {showRetryButton && formData.switchValue && 
+                  <GameInteractionButton
+                  className={`${secondChance ? styles.activeSecondChange : ""}`}
+                  >
+                    <FaUndoAlt></FaUndoAlt>
+                  </GameInteractionButton>}
+                </div>
+
+                <div className={`{styles.item} ${styles.main_item}`}>
+                  <p>Reproduzir Intervalo Atual</p>
+                  <div
+                    className={styles.playIconDiv}
+                    onClick={reproduceActualInterval}
+                  >
+                    <FaPlay />
+                  </div>
+                </div>
+
+                <div className={styles.item}
+                onClick={() => {
+                  continueToNextRound();
+                }}>
+                  {showContinueButton && (
+                    <GameInteractionButton>
+                      Próximo
+                    </GameInteractionButton>
+                  )}
+                </div>
+              </div>
+
+              {/* Menu */}
+
+              <div className={styles.responseButtonsDiv}>
+                {intervals.map(
+                  (item, index) =>
+                    buttonsToShow.includes(index) && (
+                      <button
+                        className={`${
+                          !blockedButton
+                            ? styles.responseButtons
+                            : styles.responseButtonsBlocked
+                        }`}
+                        key={index}
+                        disabled={blockedButton}
+                        onClick={() => {
+                          checkResult(item);
+                        }}
+                      >
+                        {item}
+                      </button>
+                    )
+                )}
+              </div>
+
+              <p className={styles.feedbackText} style={messageStyle}>
+                {message}
+              </p>
+            </>
+          )}
         </div>
 
-        <div className={styles.roundCount}>
-            {round} / {totalRounds}
-        </div>
-        <div className={styles.superiorCard}>
+        {visibleHelp && <IntervalsTable />}
 
-        <div className={styles.title}>
-            <h1>Ouça as duas notas e informe o intervalo.</h1>
-          </div>
-        </div>
-        
-        
-        <div className={styles.referenceNotes}>
-          <p>Reproduzir Intervalo Atual</p>
-          <div className={styles.playIconDiv} onClick={reproduceActualInterval} >
-            <FaPlay/>
-          </div>
-           
-
-        </div>
-        
-        <div className={styles.responseButtonsDiv}>
-          {intervals.map((item, index) => (
-            buttonsToShow.includes(index) && (
-              <button
-              className={styles.responseButtons}
-              key={index}
-              onClick={() => {
-                checkResult(item);
-              }}
-            >
-              {item}
-            </button>
-            )))}
-        </div>
-
-        <p className={styles.feedbackText} style={messageStyle}>
-          {message}
-        </p>
-
+        <Piano />
       </div>
-      {visibleHelp && (
-          <IntervalsTable/>
-      )}
-      
-      <Piano/>
-    </div>
-  ) : (
-    <RoundsResults results={results}/>
-  )}
-    
-  </>
-    
+    </>
   );
 }

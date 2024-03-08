@@ -1,0 +1,14 @@
+.gameInteractionButton {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #FF8911;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+.gameInteractionButton:hover {
+    background-color: #cc6d0f;
+}
+.gameInteractionButton p {
+    color: white;
+}
