@@ -28,7 +28,15 @@ export default function UserMenu({name, email, setShowUserMenu}) {
                 <div className={styles.userAccount}>
                     <Link href="/account" legacyBehavior>
                         <a onClick={() => {setShowUserMenu(false)}}>
-                            <p>Prefrências de conta</p>
+                            <p>Dados da conta</p>
+                        </a>
+                    </Link>
+                </div>
+
+                <div className={styles.userAccount}>
+                    <Link href="/progress" legacyBehavior>
+                        <a onClick={() => {setShowUserMenu(false)}}>
+                            <p>Painel de Progresso</p>
                         </a>
                     </Link>
                 </div>

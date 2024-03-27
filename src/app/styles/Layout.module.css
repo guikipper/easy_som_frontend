@@ -4,3 +4,14 @@
     background-color: #FFFFFF;
     width: 100vw;
 }
+@media (max-width: 768px) {
+    .mainContainer {
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}

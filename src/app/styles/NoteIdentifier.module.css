@@ -1,0 +1,52 @@
+.container {
+    background-color: #FAFAFA;
+    border: 1px solid lightgray;
+    width: 50%;
+    border-radius: 10px;
+}
+.title {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+.optionNoteButton {
+    width: 70px;
+}
+.line {
+    border: 1px solid lightgray;
+}
+.item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+}
+.item p {
+    margin-top: 15px;
+}
+.li {
+    cursor: pointer;
+}
+.result {
+    background-color: lightgray;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.result p span {
+    font-weight: bold;
+}
+.dropDrownNotes {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        border-radius: 10px;
+    }
+    .title {
+        text-align: center;
+    }
+}

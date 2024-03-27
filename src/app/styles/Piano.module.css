@@ -1,6 +1,6 @@
 .piano {
-    width: 750px;
-    height: 250px;
+    width: 1100px;
+    height: 230px;
     background-color: #001019;
     display: flex;
     justify-content: center;
@@ -33,6 +33,10 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    cursor: pointer;
+}
+.white:hover {
+    background-color: rgb(226, 226, 226);
 }
 .black {
     position: absolute;
@@ -48,7 +52,27 @@
     align-items: flex-end;
     justify-content: center;
     color: #fdfcfc;
+    cursor: pointer;
 }
+.black:hover {
+    background-color: rgb(29, 28, 28);
+}
+.Db3 {
+    margin-left: 40px;
+}
+.Eb3 {
+    margin-left: 90px
+}
+.Gb3 {
+    margin-left: 190px;
+}
+.Ab3 {
+    margin-left: 240px;
+}
+.Bb3 {
+    margin-left: 290px;
+}
+
 .Db4 {
     margin-left: 40px;
 }
@@ -88,4 +112,20 @@
 .black:active {
     background-image: linear-gradient(#4b4a4a, black);
     height: 130px;
+}
+.feeedbackNote {
+    background-color: green;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 15px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+.feeedbackNote p {
+    margin-top: 15px;
 }

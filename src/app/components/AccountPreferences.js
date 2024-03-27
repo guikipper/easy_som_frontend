@@ -74,7 +74,7 @@ export default function AccountPreferences() {
           <Link href="/login" legacyBehavior>
             <a className={styles.loginLink}>
             {authStatus === AUTH_STATUS.CHECKING && <></>}
-            {authStatus === AUTH_STATUS.UNAUTHENTICATED && <p>Entrar</p>}
+            {authStatus === AUTH_STATUS.UNAUTHENTICATED && <div className={styles.loginDivText}><p>Entrar</p></div>}
             </a>
           </Link>
         </div>

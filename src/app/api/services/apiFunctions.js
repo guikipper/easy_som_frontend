@@ -1,10 +1,9 @@
-const BASE_URL = "https://supreme-potato-x9rwpp995jr36qjq-3500.app.github.dev";
+//const BASE_URL = "https://supreme-potato-x9rwpp995jr36qjq-3500.app.github.dev";
 
-//const BASE_URL = "http://52.67.45.194:3500"
+const BASE_URL = "http://localhost:3500"
 
 export const login = async (username, password) => {
 
-  console.log(`${BASE_URL}/login`);
   try {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
@@ -69,6 +68,39 @@ export const validateEmail = async (token) => {
   }
 };
 
+export const saveTrainingData = async (data, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/trainingData`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(data)
+    })
+    return response
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+export const getTrainingSummary = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/getTrainingSummary`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 export const signUp = async (userData) => {
   try {
     const response = await fetch(`${BASE_URL}/createUser`, {
@@ -100,7 +132,6 @@ export const changeName = async (userData) => {
         });
 
         const data = await response.json();
-        console.log("Nome alterado com sucesso! ", data);
         return data;
         
     } catch (error) {

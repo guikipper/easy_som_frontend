@@ -1,0 +1,21 @@
+/* SessionSummary.css */
+.sessionSummary {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .sessionSummary p {
+    margin: 10px 0;
+  }
+  
+  .feedback {
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  .message {
+    font-weight: bold;
+  }

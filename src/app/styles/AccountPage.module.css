@@ -98,3 +98,19 @@
     justify-content: center;
 }
 
+@media (max-width: 768px) {
+    .accountMain {
+        margin-top: 10px;
+        width: 95vw;
+    }
+    .dataContainer {
+        width: 95vw;
+    }
+    .inputData {
+        width: 100%;
+    }
+    .passwordRules {
+        width: 85vw;
+        flex-wrap: wrap;
+    }    
+}

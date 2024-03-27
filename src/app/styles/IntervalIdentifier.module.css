@@ -1,0 +1,79 @@
+.container {
+    background-color: #FAFAFA;
+    border: 1px solid lightgray;
+    width: 50%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.title {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+.dropdownButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+}
+.item {
+    height: 50px;
+    margin-top: 10px;
+}
+.item p {
+    margin-top: 15px;
+}
+.li {
+    cursor: pointer;
+}
+.optionNoteButton {
+    width: 70px;
+}
+.noteTypeButton {
+    width: 100px;
+}
+.intervalButton {
+    width: 200px;
+}
+.result {
+    height: 55px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: lightgray;
+}
+.result p {
+    margin-top: 15px;
+}
+.result p span {
+    font-weight: bold;
+}
+.li {
+    cursor: pointer;
+}
+.dropDrownIntervals {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    .title {
+        text-align: center;
+    }
+    .dropdownButtons {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        height: 170px;
+    }
+}

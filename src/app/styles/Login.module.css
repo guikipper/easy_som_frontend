@@ -98,3 +98,47 @@
 .forgetPassword {
     margin-top: 4px;
 }
+@media (max-width: 768px) {
+    .loginMain {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        width: 85vw;
+    }
+    .inputsCard {
+        width: 85vw;
+        height: 400px;
+        background-color: #fafafa;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        flex-direction: column;
+    }
+    .inputs {
+        height: 100%;
+        width: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1em;
+    }
+    .username {
+        width: 80vw;
+        height: 50px;
+        border: none;
+        padding: 8px;
+        border-radius: 8px;
+    }
+    .password {
+        width: 80vw;
+        height: 50px;
+        border: none;
+        padding: 8px;
+        border-radius: 8px;
+    }
+}

@@ -84,7 +84,7 @@ export default function Login() {
                         className="password-toggle-btn position-absolute end-0 top-50 translate-middle-y"
                         style={{ marginRight: '10px' }}
                         onClick={togglePasswordVisibility}>
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            {showPassword ? <FaEyeSlash style={{cursor: 'pointer'}}/> : <FaEye style={{cursor: 'pointer'}}/>}
                         </span>
 
                         

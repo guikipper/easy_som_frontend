@@ -3,7 +3,8 @@
 import styles from "../styles/ExerciseConfig.module.css";
 import { useMyContext } from "../contexts/UseContext";
 import { useRouter } from 'next/navigation';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { notes } from "../utils/notes";
 
 export default function ExerciseConfig() {
 
@@ -12,69 +13,31 @@ export default function ExerciseConfig() {
   const [referenceNote, setReferenceNote] = useState('random');
   const [rounds, setRounds] = useState(0)
   const [dropdownItem, setDropdownItem] = useState("Aleatório")
-  const [switchValue, setSwitchValue] = useState(false) 
+  const [tryAgain, setTryAgain] = useState(false) 
   const [roundsMessage, setRoundsMessage] = useState(false)
   const [intervalOptions, setIntervalOptions] = useState({
     maior: false,
     menor: false,
     justo: false,
-    aumentado: false,
+    tritono: false,
   });
   const [intervalOptionsMessage, setIntervalOptionsMessage] = useState(false)
   
   const { setFormData } = useMyContext()
 
-  const handleSwitchChange = () => {
-    setSwitchValue(!switchValue)
+  const handleToogleTryAgain = () => {
+    setTryAgain(!tryAgain)
   }
 
-  const handleDropdownItemSelected = (item) => {
-    if (item == 'random') {
-      setDropdownItem('Aleatório')
-      setReferenceNote(item)
-    } else {
-      switch(item) {
-        case 0:
-          setDropdownItem('C')
-          break;
-        case 1:
-          setDropdownItem('Db')
-          break;
-        case 2:
-          setDropdownItem('D')
-          break;
-        case 3:
-          setDropdownItem('Eb')
-          break;
-        case 4:
-          setDropdownItem('E')
-          break;
-        case 5:
-          setDropdownItem('F')
-          break;
-        case 6:
-          setDropdownItem('Gb')
-          break;
-        case 7:
-          setDropdownItem('G')
-          break;
-        case 8:
-          setDropdownItem('Ab')
-          break;
-        case 9:
-          setDropdownItem('A')
-          break;
-        case 10:
-          setDropdownItem('Bb')
-          break;
-        case 11:
-          setDropdownItem('B')
-          break;
-      }
-      
-      setReferenceNote(item)
-    }
+  const handleDropdownItemSelected = (note) => {
 
+    if (note == 'random') {
+      setDropdownItem('Aleatório')
+      setReferenceNote(note)
+    } else {
+      setDropdownItem(note)
+      setReferenceNote(note)
+      }
   }
 
   const handleOptionChange = (event) => {
@@ -92,8 +55,8 @@ export default function ExerciseConfig() {
   }
 
   const hasSelectedInterval = () => {
-    const { maior, menor, justo, aumentado } = intervalOptions
-    return maior || menor || justo || aumentado
+    const { maior, menor, justo, tritono } = intervalOptions
+    return maior || menor || justo || tritono
   }
   
 
@@ -116,7 +79,7 @@ export default function ExerciseConfig() {
         referenceNote: referenceNote,
         direction: direction,
         intervalOptions,
-        switchValue,
+        tryAgain,
         rounds: rounds,
       });
       router.push('/intervals/exercise');
@@ -127,7 +90,7 @@ export default function ExerciseConfig() {
     <div className={styles.config}>
       <div className={styles.column}>
         <div className={styles.dropOp}>
-          <p>Selecione a nota de referência:</p>
+          <p className={styles.text}>Selecione a nota de referência:</p>
 
           <div className="dropdown">
             <button
@@ -138,116 +101,25 @@ export default function ExerciseConfig() {
             >
               {dropdownItem}
             </button>
+            
             <ul className={`dropdown-menu ${styles.auxiliarDropdown}`}>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  handleDropdownItemSelected('random')
+              {notes.map((note, index) => {
+                return (
+                <li key={index}>
+                  <a className="dropdown-item" onClick={() => {
+                    handleDropdownItemSelected(note)
                   }}>
-                  Aleatório
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('C')
-                  handleDropdownItemSelected(0)
-                  }}>
-                  C
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('Db')
-                  handleDropdownItemSelected(1)
-                  }}>
-                  Db
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('D')
-                  handleDropdownItemSelected(2)
-                  }}>
-                  D
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('Eb')
-                  handleDropdownItemSelected(3)
-                  }}>
-                  Eb
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('E')
-                  handleDropdownItemSelected(4)
-                  }}>
-                  E
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('F')
-                  handleDropdownItemSelected(5)
-                  }}>
-                  F
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('Gb')
-                  handleDropdownItemSelected(6)
-                  }}>
-                  Gb
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('G')
-                  handleDropdownItemSelected(7)
-                  }}>
-                  G
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('Ab')
-                  handleDropdownItemSelected(8)
-                  }}>
-                  Ab
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('A')
-                  handleDropdownItemSelected(9)
-                  }}>
-                  A
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('Bb')
-                  handleDropdownItemSelected(10)
-                  }}>
-                  Bb
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={ () => {
-                  //handleDropdownItemSelected('B')
-                  handleDropdownItemSelected(11)
-                  }}>
-                  B
-                </a>
-              </li>
+                    {note}
+                  </a>
+                </li>)
+              })} 
             </ul>
+
           </div>
         </div>
 
         <div className={styles.direction}>
-          <p>Escolha a direção dos intervalos:</p>
+          <p className={styles.text}>Escolha a direção dos intervalos:</p>
           <form>
             <label>
               <input
@@ -274,7 +146,7 @@ export default function ExerciseConfig() {
         </div>
 
         <div className={styles.intervalOptions}>
-          <p>Selecione os invervalos que você deseja treinar:</p>
+          <p className={styles.text}>Selecione os invervalos que você deseja treinar:</p>
           <div className={styles.checkbox}>
             <label>
               <input
@@ -295,8 +167,8 @@ export default function ExerciseConfig() {
             <label>
               <input
                 type="checkbox"
-                name="maior"
-                value="maior"
+                name="menor"
+                value="menor"
                 checked={intervalOptions.menor}
                 onChange={() =>
                   setIntervalOptions({
@@ -313,7 +185,7 @@ export default function ExerciseConfig() {
                 type="checkbox"
                 name="justo"
                 value="justo"
-                checked={intervalOptions.aumentada}
+                checked={intervalOptions.justo}
                 onChange={() =>
                   setIntervalOptions({
                     ...intervalOptions,
@@ -327,17 +199,17 @@ export default function ExerciseConfig() {
             <label>
               <input
                 type="checkbox"
-                name="aumentado"
-                value="aumentado"
-                checked={intervalOptions.aumentado}
+                name="tritono"
+                value="tritono"
+                checked={intervalOptions.tritono}
                 onChange={() =>
                   setIntervalOptions({
                     ...intervalOptions,
-                    aumentado: !intervalOptions.aumentado,
+                    tritono: !intervalOptions.tritono,
                   })
                 }
               />
-              Aumentado
+              Trítono
             </label>
           </div>
           {intervalOptionsMessage && (
@@ -346,15 +218,15 @@ export default function ExerciseConfig() {
           
         </div>
 
-        <div className={styles.tryAgain}>
+        {/* <div className={styles.tryAgain}>
           <div className="form-check form-switch">
             <input
               className="form-check-input"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault"
-              checked={switchValue}
-              onChange={handleSwitchChange}
+              checked={tryAgain}
+              onChange={handleToogleTryAgain}
             />
 
             <label
@@ -364,10 +236,10 @@ export default function ExerciseConfig() {
               Tentar de novo ao errar
             </label>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.roundQtd}>
-          <p>Informe quantas rodadas você gostaria de praticar:</p>
+          <p className={styles.text}>Informe quantas rodadas você gostaria de praticar:</p>
           <p>Rodadas: {rounds}</p>
           <div className={styles.roundQtdBtn}>
             
@@ -385,11 +257,16 @@ export default function ExerciseConfig() {
               }}>
               -5
             </button>
-            <button type="button" className="btn btn-success" 
+            <button 
+            disabled={rounds >= 30}
+            type="button" 
+            className="btn btn-success" 
             onClick={() => {incrementCont(1)}}>
               +1
             </button>
-            <button type="button" className="btn btn-success"
+            <button 
+            disabled={rounds >= 26}
+            type="button" className="btn btn-success"
             onClick={() => {incrementCont(5)}}>
               +5
             </button>

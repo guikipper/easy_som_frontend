@@ -7,7 +7,7 @@ const MyContextProvider = ({ children }) => {
   
   const [formData, setFormData] = useState({});
 
-  console.log("O formData: ", formData)
+  //console.log("O formData: ", formData)
 
   const updateFormData = (newData) => {
     setFormData(newData);

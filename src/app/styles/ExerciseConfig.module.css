@@ -1,13 +1,13 @@
 .config {
     height: 650px;
     width: 70%;
-    background-color: #FAFAFA;
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: row;
     border-radius: 16px;
     flex-wrap: wrap;
+    background-color: #FAFAFA;
 }
 
 .column {
@@ -16,7 +16,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #FAFAFA;
 }
 
 .dropOp {
@@ -55,6 +54,9 @@
     justify-content: center;
     flex-direction: column;
     margin-bottom: 36px;
+}
+.intervalOptions label {
+    cursor: pointer;
 }
 .intervalOptions p {
     font-weight: bold;
@@ -129,4 +131,38 @@
     margin-top: 45px;
     margin-left: 630px;
     color: red;
+}
+
+@media (max-width: 768px) {
+    .config {
+        width: 90vw;
+        background-color: #FAFAFA;
+    }
+    .column {
+        display: flex;
+        height: 100%;
+        width: 100vw;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .text {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .auxiliarDropdown {
+        height: 250px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .intervalOptionsMessage {
+        margin-top: -250px;
+        margin-right: 200px;
+        width: 100vh;
+    }
+    .roundMessage {
+        margin-left: 20px;
+        margin-top: -290px;
+    }
+
 }

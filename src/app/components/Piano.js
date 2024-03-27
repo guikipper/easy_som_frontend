@@ -2,13 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Piano.module.css';
+import { converterNota } from '../utils/noteConversor';
 
 
-
-export default function Piano() {
+export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWithOctave, adjustedTargetNoteWithOctave, showNotesOnPiano}) {
 
   const [audioContext, setAudioContext] = useState(null);
 
+  //console.log("Onde vai ser tocado referencia: ", adjustedReferenceNoteWithOctave)
+  //console.log("Onde vai ser tocado alvo: ", adjustedTargetNoteWithOctave)
+  //console.log("A nota de referencia a ser exibida: ", notaReferencia)
+  //console.log("A nota alvo a ser exibida: ", notaAlvo)
+//
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setAudioContext(new AudioContext());
@@ -16,8 +21,8 @@ export default function Piano() {
   }, []);
 
   let lastNotePlayed = null;
-
   let lastAudioSource = null;
+
   const playAudio = async (note) => {
     console.log(note)
     const audioFile = `/audio/electric_piano_1-mp3/${note}.mp3`;
@@ -33,15 +38,12 @@ export default function Piano() {
       const response = await fetch(audioFile);
       const arrayBuffer = await response.arrayBuffer();
       const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
       const source = audioContext.createBufferSource();
       source.buffer = audioBuffer;
       source.connect(audioContext.destination);
       source.start();
-
       lastNotePlayed = note;
       lastAudioSource = source;
-
       source.onended = () => {
         if (note === lastNotePlayed) {
           lastNotePlayed = null;
@@ -58,39 +60,92 @@ export default function Piano() {
     playAudio(note);
   };
 
-  // Renderização do componente Piano segue aqui...
+  const notesOctaveThree = [
+    'C3', 'Db3', 'D3', 'Eb3', 'E3', 'F3', 'Gb3', 'G3', 'Ab3', 'A3', 'Bb3', 'B3'
+  ]
+  const notesOctaveFour = [
+    'C4', 'Db4', 'D4', 'Eb4', 'E4', 'F4', 'Gb4', 'G4', 'Ab4', 'A4', 'Bb4', 'B4'
+  ]
+  const notesOctaveFive = [
+    'C5', 'Db5', 'D5', 'Eb5', 'E5', 'F5', 'Gb5', 'G5', 'Ab5', 'A5', 'Bb5', 'B5'
+  ]
+  const notesOctaveSix = [
+    'C6', 'Db6', 'D6', 'Eb6', 'E6', 'F6', 'Gb6', 'G6', 'Ab6', 'A6', 'Bb6', 'B6'
+  ]
+
   return (
     <div className={styles.piano}>
         <div className={styles.octaves}>
+        
+            <div className={`${styles.octave3} ${styles.octave}`}>
+              {notesOctaveThree.map((note) => (
+                <div
+                  key={note}
+                  id={note}
+                  className={`${note.includes('b') ? styles.black : styles.white} ${styles.key} ${styles[note]}`}
+                  onClick={handleButtonClick} >
+                  { note === adjustedReferenceNoteWithOctave && showNotesOnPiano && (
+                    <div className={styles.feeedbackNote}>
+                      <p>{notaReferencia}</p>
+                    </div>
+                  )}
+
+                  { note === adjustedTargetNoteWithOctave && showNotesOnPiano && (
+                    <div className={styles.feeedbackNote}>
+                      <p>{notaAlvo}</p>
+                  </div>
+                  )}
+                  
+                </div>
+                ))}
+            </div>
+
             <div className={`${styles.octave4} ${styles.octave}`}>
-                <div className={`${styles.white} ${styles.key} ${styles.C4}`} id="C4" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Db4}`} id="Db4" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.D4}`} id="D4" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Eb4}`} id="Eb4" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.E4}`} id="E4" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.F4}`} id="F4" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Gb4}`} id="Gb4" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.G4}`} id="G4" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Ab4}`} id="Ab4" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.A4}`} id="A4" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Bb4}`} id="Bb4" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.B4}`} id="B4" onClick={handleButtonClick}></div>
+              {notesOctaveFour.map((note) => (
+                <div
+                  key={note}
+                  id={note}
+                  className={`${note.includes('b') ? styles.black : styles.white} ${styles.key} ${styles[note]}`}
+                  onClick={handleButtonClick} >
+                  { note === adjustedReferenceNoteWithOctave && showNotesOnPiano && (
+                    <div className={styles.feeedbackNote}>
+                      <p>{notaReferencia}</p>
+                    </div>
+                  )}
+
+                  { note === adjustedTargetNoteWithOctave && showNotesOnPiano && (
+                    <div className={styles.feeedbackNote}>
+                      <p>{notaAlvo}</p>
+                  </div>
+                  )}
+                  
+                </div>
+                ))}
             </div>
 
             <div className={`${styles.octave5} ${styles.octave}`}>
-                <div className={`${styles.white} ${styles.key} ${styles.C5}`} id="C5" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Db5}`} id="Db5" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.D5}`} id="D5" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Eb5}`} id="Eb5" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.E5}`} id="E5" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.F5}`} id="F5" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Gb5}`} id="Gb5" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.G5}`} id="G5" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Ab5}`} id="Ab5" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.A5}`} id="A5" onClick={handleButtonClick}></div>
-                <div className={`${styles.black} ${styles.key} ${styles.Bb5}`} id="Bb5" onClick={handleButtonClick}></div>
-                <div className={`${styles.white} ${styles.key} ${styles.B5}`} id="B5" onClick={handleButtonClick}></div>
+              {notesOctaveFive.map((note) => (
+                  <div
+                    key={note}
+                    id={note}
+                    className={`${note.includes('b') ? styles.black : styles.white} ${styles.key} ${styles[note]}`}
+                    onClick={handleButtonClick} >
+                    { note === adjustedReferenceNoteWithOctave && showNotesOnPiano && (
+                      <div className={styles.feeedbackNote}>
+                        <p>{notaReferencia}</p>
+                      </div>
+                  )}
+
+                  { note === adjustedTargetNoteWithOctave && showNotesOnPiano && (
+                      <div className={styles.feeedbackNote}>
+                        <p>{notaAlvo}</p>
+                      </div>
+                  )}
+    
+                  </div>
+                  ))}
             </div>
+
         </div>
     </div>
 );

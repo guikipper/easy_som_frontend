@@ -17,4 +17,19 @@ export async function middleware(req) {
         }
     }
 
+    if (req.nextUrl.pathname == "/progress") {
+
+        const token = req.cookies.get("token")
+        if (!token) {
+            return NextResponse.redirect(new URL('/', req.url))
+        }
+
+        const jwtToken = token.value
+        const authenticatedUser = await authenticateWithToken(jwtToken)
+
+        if (authenticatedUser.statusCode == 402) {
+            return NextResponse.redirect(new URL('/', req.url))
+        }
+    }
+
 }

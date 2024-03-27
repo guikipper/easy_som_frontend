@@ -105,7 +105,7 @@ export default function Account() {
       }
 
       const validateInputs = () => {
-        if (actualPassword && newPassword && confirmNewPassword) {
+        if (actualPassword && newPassword && confirmNewPassword && matchPasswords) {
           setDisableButton(false)
         } else {
           setDisableButton(true)
@@ -265,7 +265,7 @@ export default function Account() {
                                     <span
                                         className={`${styles.eyeIcon} password-toggle-btn position-absolute end-0 top-50 translate-middle-y`}
                                         onClick={togglePasswordVisibility}>
-                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                            {showPassword ? <FaEyeSlash cursor="pointer"/> : <FaEye cursor="pointer"/>}
                                     </span>
                                     
                                 </div>
@@ -289,7 +289,7 @@ export default function Account() {
                                     <span
                                         className={`${styles.eyeIcon} password-toggle-btn position-absolute end-0 top-50 translate-middle-y`}
                                         onClick={toggleNewPasswordVisibility}>
-                                            {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                                            {showNewPassword ? <FaEyeSlash cursor="pointer"/> : <FaEye cursor="pointer"/>}
                                     </span>
                                 </div>
 
@@ -312,7 +312,7 @@ export default function Account() {
                                     <span
                                         className={`${styles.eyeIcon} password-toggle-btn position-absolute end-0 top-50 translate-middle-y`}
                                         onClick={toggleConfirmNewPasswordVisibility}>
-                                            {showConfirmNewPassword ? <FaEyeSlash /> : <FaEye />}
+                                            {showConfirmNewPassword ? <FaEyeSlash cursor="pointer"/> : <FaEye cursor="pointer"/>}
                                     </span>
                                 </div>
 

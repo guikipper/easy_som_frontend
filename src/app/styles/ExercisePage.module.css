@@ -1,7 +1,13 @@
-.main {
-    width: 80vw;
+.exercisePage {
+    width: 85vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+@media (max-width: 768px) {
+    .exercisePage {
+        width: 100vw;
+        overflow-x: hidden;
+    }
 }

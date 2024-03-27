@@ -1,0 +1,39 @@
+.feedbackDiv {
+    width: 500px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.incorrectDiv {
+    background-color: #F2DEDE;
+    width: 70%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.incorrectText {
+    color: #A94442;
+}
+.correctDiv {
+    background-color: #DFF0D8;
+    width: 70%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.correctText {
+    color: #3C763D;
+}
+
+@media (max-width: 768px) {
+    .feedbackDiv {
+        width: 100%;
+    }
+}

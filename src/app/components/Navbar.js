@@ -7,7 +7,6 @@ import Loading from "./Loading";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
-  const [showLoading, setShowLoading] = useState(false)
 
   const router = useRouter()
 
@@ -39,27 +38,14 @@ export default function Navbar() {
           </Link>  
         </li>
 
-        {/* <li>
-          <Link href="./intervals" legacyBehavior>
+        <li>
+          <Link href="/intervals/theory" legacyBehavior>
               <a>
-                <p>Acordes</p>
+                <p onClick={handleShowLoading}>Dicionário</p>
               </a>
-          </Link> 
+          </Link>  
         </li>
 
-        <li>
-          <Link href="./intervals" legacyBehavior>
-              <a>
-                <p>Escalas</p>
-              </a>
-          </Link> 
-        </li> */}
-
-        {showLoading && (
-          <div className={styles.loading}>
-           <Loading/>
-          </div>
-        )}
 
       </ul>
     </div>

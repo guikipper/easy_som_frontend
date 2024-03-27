@@ -9,7 +9,7 @@ import Redirecting from '../components/Redirecting';
 import Alert  from '../components/Alert';
 export default function SignUp() {
 
-  const [nameAndLastName, setNameAndLastName] = useState()
+  const [nameAndLastName, setNameAndLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState()
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -124,6 +124,33 @@ export default function SignUp() {
     }
   }, [password])
 
+  const handleNameInput = (e) => {
+    if (e.target.value.length <= 60) {
+      setNameAndLastName(e.target.value)
+    }
+  }
+  
+  const handleEmailInput = (e) => {
+    if (e.target.value.length <= 60) {
+      setEmail(e.target.value),
+      validateEmail(e.target.value);
+    }
+  }
+
+  const handlePasswordInput = (e) => {
+    if (e.target.value.length <= 60) {
+      setPassword(e.target.value),
+      validatePassword(e.target.value)
+    }
+  }
+
+  const handleConfirmPasswordInput = (e) => {
+    if (e.target.value.length <= 60) {
+      setConfirmPassword(e.target.value),
+      validateConfirmPassword(e.target.value)
+    }
+  }
+
   return(
     <>
    
@@ -142,13 +169,11 @@ export default function SignUp() {
         <div className="form-floating mb-3">
           <input
             type="text"
-            defaultValue=""
+            value={nameAndLastName}
             className={`form-control ${styles.inputs} ${nameAndLastName ? styles.validInput : ''}`}
             id="floatingInputName"
             placeholder="Nome e sobrenome"
-            onChange={(e) => {
-              setNameAndLastName(e.target.value)
-            }}
+            onChange={handleNameInput}
           />
           <label htmlFor="floatingInput">Nome e sobrenome</label>
         </div>
@@ -156,14 +181,11 @@ export default function SignUp() {
         <div className="form-floating mb-3">
           <input
             type="email"
-            defaultValue=""
+            value={email}
             className={`form-control ${styles.inputs} ${validEmail && email ? styles.validInput : validEmail === false && email ? styles.invalidInput : ''}`}
             id="floatingInputEmail"
             placeholder="name@example.com"
-            onChange={(e) => {
-              setEmail(e.target.value),
-              validateEmail(e.target.value);
-            }}
+            onChange={handleEmailInput}
           />
           <label htmlFor="floatingInput">Email</label>
         </div>
@@ -171,23 +193,19 @@ export default function SignUp() {
         {/* Password */}
         <div className="form-floating">
           <input
-            defaultValue=""
+            value={password}
             type={showPassword ? 'text' : 'password'}
             className={`form-control ${styles.inputs} ${validPassword && password ? styles.validInput : !validPassword && password ? styles.invalidInput : ''}`}
             id="floatingPassword"
             placeholder="Password"
-            onChange={(e) => {
-              setPassword(e.target.value),
-              validatePassword(e.target.value)
-            }}
-
+            onChange={handlePasswordInput}
           />
           <label htmlFor="floatingPassword">Senha</label>
           <span
           className="password-toggle-btn position-absolute end-0 top-50 translate-middle-y"
           style={{ marginRight: '10px' }}
           onClick={togglePasswordVisibility}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
+            {showPassword ? <FaEyeSlash style={{cursor: 'pointer'}}/> : <FaEye style={{cursor: 'pointer'}}/>}
           </span>
           <div className={styles.passwordRules}>
             <p>A senha deve possuir, no mínimo, 9 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula e um número.</p>
@@ -199,7 +217,6 @@ export default function SignUp() {
         {/* ConfirmPassword */}
         <div className={`form-floating ${styles.confirmPassword}`}>
           <input
-            defaultValue=""
             type={showConfirmPassword ? 'text' : 'password'}
             className={`form-control ${styles.inputs} ${styles.confirmPasswordCss} ${validPassword && confirmPassword && matchPasswords ? styles.validInput : confirmPassword && !matchPasswords ? styles.invalidInput : ''}`}
             id="floatingConfirmPassword"
@@ -207,17 +224,14 @@ export default function SignUp() {
             value={confirmPassword}
             disabled={!validPassword}
             onPaste={handleConfirmPasswordPaste}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value),
-              validateConfirmPassword(e.target.value)
-            }}
+            onChange={handleConfirmPasswordInput}
           />
           <label htmlFor="floatingPassword">Confirmar senha</label>
           <span
           className="password-toggle-btn position-absolute end-0 top-50 translate-middle-y"
           style={{ marginRight: '10px' }}
           onClick={toggleConfirmPasswordVisibility}>
-            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            {showConfirmPassword ? <FaEyeSlash style={{cursor: 'pointer'}}/> : <FaEye style={{cursor: 'pointer'}}/>}
           </span>
           
           { (!matchPasswords && password && confirmPassword !== undefined && confirmPassword !== null && confirmPassword !== "") && (
