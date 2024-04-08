@@ -17,7 +17,6 @@ export const login = async (username, password) => {
     if (!response.ok) {
       return { ...data, failed: true };
     }
-
     return data;
 
   } catch (error) {
@@ -30,9 +29,9 @@ export const authenticateWithToken = async (token) => {
     const response = await fetch(`${BASE_URL}/authenticate`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
-      body: JSON.stringify({token})
     })
 
     const data = await response.json();
@@ -40,7 +39,6 @@ export const authenticateWithToken = async (token) => {
     if (!response.ok) {
       return { ...data, failed: true };
     }
-
     return data;
 
   } catch (error) {
@@ -50,10 +48,11 @@ export const authenticateWithToken = async (token) => {
 
 export const validateEmail = async (token) => {
   try {
-    const response = await fetch(`${BASE_URL}/validate/${token}`, {
+    const response = await fetch(`${BASE_URL}/validate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Beares ${token}`
       },
       body: JSON.stringify({ message: "Validando Email com Token" }),
     });
@@ -70,7 +69,7 @@ export const validateEmail = async (token) => {
 
 export const saveTrainingData = async (data, token) => {
   try {
-    const response = await fetch(`${BASE_URL}/trainingData`, {
+    const response = await fetch(`${BASE_URL}/saveTrainingData`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +118,6 @@ export const signUp = async (userData) => {
 
 
 export const changeName = async (userData) => {
-
     try {
         const { token, newName, oldName } = userData
         const response = await fetch(`${BASE_URL}/changeName`, {
@@ -202,7 +200,6 @@ export const sendPasswordRecoveryEmail = async (email) => {
 }
 
 export const recoverPasswordRoute = async (newPassword, token) => {
-  console.log("A a senha chegando: ", newPassword)
   try {
     const response = await fetch(`${BASE_URL}/recoverPassword`, {
       method: 'POST',
@@ -212,8 +209,8 @@ export const recoverPasswordRoute = async (newPassword, token) => {
       },
       body: JSON.stringify({newPassword})
     })
-  
-    return response
+    const data = await response.json()
+    return data
   } catch (error) {
     console.error("Erro: ", error);
   }

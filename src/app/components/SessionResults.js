@@ -32,7 +32,6 @@ const SessionResults = ({ results }) => {
   }
 
   const calculateTime = (timeInMiliseconds) => {
-    console.log('o tempo que ta vindo: ', timeInMiliseconds)
     const parts = []
     let totalSeconds = Math.floor(timeInMiliseconds / 1000);
     let hours = Math.floor(totalSeconds / 3600);
@@ -49,7 +48,6 @@ const SessionResults = ({ results }) => {
         parts.push(seconds+"s")
     }
     let formatedParts = parts.join(" ")
-    console.log("As partes formatadas: ", formatedParts)
     setTime(formatedParts)
 }
 
@@ -60,7 +58,6 @@ const SessionResults = ({ results }) => {
     if (token) {
       checkUserAuthentication(token)
     } else {
-      console.log("Token não encontrado.")
       setMessage("Para salvar seu progresso, é necessário ter uma conta e estar conectado.")
     }
   } else {
@@ -70,10 +67,10 @@ const SessionResults = ({ results }) => {
 
   const checkUserAuthentication = async (token) => {
     const authenticated = await authenticateWithToken(token)
-    if (authenticated.statusCode === 201) {
+    if (authenticated.success) {
       handleSaveData()
     } else {
-      console.log("Token encontrado, porém inválido.")
+      console.log(authenticated.error.message)
     }
   }
 
@@ -81,7 +78,6 @@ const SessionResults = ({ results }) => {
     const token = Cookies.get('token');
     if (token) {
       const saveData = await saveTrainingData(results, token)
-      console.log(saveData)
       if (saveData.ok) {
         setMessage("Dados salvos com sucesso!")
       }

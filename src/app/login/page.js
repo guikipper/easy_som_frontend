@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie';
 import Loading from '../components/Loading';
 import RecoverPassword from '../components/ForgetPassword';
+import ErrorFeedback from '../components/ErrorFeedback';
 
 export default function Login() {
 
@@ -27,18 +28,22 @@ export default function Login() {
             if (response) {
                 setShowLoading(false)
             }
-            if (response.statusCode == 201) {
-                Cookies.set('token', response.token);
+            if (response.error) {
+                handleErrorFeedback(response.error.message)
+            }
+            if (response.success) {
+                Cookies.set('token', response.success.data.token);
                 router.push('/');
             }
-            if (response.statusCode != 201) {
-                setFeedback('')
-                setFeedback(response.message)                
-            }
         } catch (error) {
-            console.log("Ocorreu um erro em handleLoginButton: ", error)
+            console.log("Ocorreu um erro: ", error)
         }
        
+    }
+
+    const handleErrorFeedback = (error) => {
+        setFeedback('')
+        setFeedback(error)
     }
 
     const togglePasswordVisibility = () => {
@@ -68,6 +73,11 @@ export default function Login() {
                         placeholder="E-mail" 
                         aria-label="Email"
                         onChange={(e) => { setEmail(e.target.value) }}
+                        onKeyDown={(e) => {
+                            if(e.key === 'Enter' && !disableButton) {
+                                handleLoginButton();
+                            }
+                        }}
                         />
                     </div>
 
@@ -78,6 +88,11 @@ export default function Login() {
                             placeholder="Password"
                             onChange={(e) => {
                             setPassword(e.target.value)
+                            }}
+                            onKeyDown={(e) => {
+                                if(e.key === 'Enter' && !disableButton) {
+                                    handleLoginButton();
+                                }
                             }}
                         />
                         <span
@@ -110,11 +125,13 @@ export default function Login() {
                     
                 </div>
 
-                <div className={styles.feedbackDiv}>
+
+                <div className={styles.errorFeedbackDiv}>
                     {feedback != '' && (
-                            <h2 className={styles.feedback}>{feedback}</h2>
-                        )}
-                </div>
+                        <ErrorFeedback feedback={feedback}/>
+                    )}
+                </div> 
+                
 
                 
                 <div className={styles.loadingWrapper}>
@@ -137,6 +154,5 @@ export default function Login() {
            
             </div>
         </div>
-        
     )
 }

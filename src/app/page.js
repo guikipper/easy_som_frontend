@@ -15,11 +15,13 @@ export default function Home() {
           <h2>
             Melhore sua percepção auditiva com o estudo de intervalos.
           </h2>
-          <button className={styles.getStarted}>
+          
             <Link href="/intervals/exercise-config" legacyBehavior>
-              <a className={styles.linkStyle}>Comece Agora</a>
+              <button className={styles.getStarted}>
+                <a className={styles.linkStyle}>Comece Agora</a>
+              </button>
             </Link>
-          </button>
+          
         </div>
           
         <div className={styles.imageContainer}>

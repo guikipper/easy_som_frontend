@@ -3,11 +3,15 @@ import styles from '../styles/Progress.module.css'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { getTrainingSummary } from '../api/services/apiFunctions'
+import { authenticateWithToken } from '../api/services/apiFunctions'
+import { useRouter } from 'next/navigation'
 
 export default function Progress() {
+    const router = useRouter()
     const [summaryData, setSummaryData] = useState({})
-    const [successPercentage, setSuccessPercentage] = useState()
-    const [totalTime, setTotalTime] = useState()
+    const [successPercentage, setSuccessPercentage] = useState(0)
+    const [totalTime, setTotalTime] = useState(0)
+    const [error, setError] = useState()
 
     useEffect(() => {
         const token = Cookies.get('token');
@@ -15,16 +19,43 @@ export default function Progress() {
     }, [])
 
     const getData = async (token) => {
-        const response = await getTrainingSummary(token)
-        setSummaryData(response)
-        return response
+        const auth = await authenticate(token)
+        if (auth.failed) {
+            clearCookies()
+            router.push('/login')
+        } else {
+            const response = await getTrainingSummary(token)
+            if (response.error) {
+                setError(true)
+            } else {
+                formatData(response.success.data)
+                return response
+            }
+            
+        }
     }
 
-    useEffect(() => {
+    const authenticate = async (token) => {
+        try {
+          const userData = await authenticateWithToken(token)
+          return userData
+        } catch (error) {
+          console.log("Ocorreu um erro na tentativa de autenticação: ", error)
+        }
+      }
+
+    const formatData = (summaryData) => {
         const percentage = (summaryData.rightAnswers / summaryData.totalRounds) * 100
         setSuccessPercentage(parseFloat(percentage.toFixed(1)))
         calculateTime(summaryData.totalTime)
-    }, [summaryData])
+    }
+
+    const clearCookies = () => {
+       const allCookies = Cookies.get();
+       for (let cookie in allCookies) {
+           Cookies.remove(cookie);
+       }
+    };
 
     const calculateTime = (timeInMiliseconds) => {
         const parts = []

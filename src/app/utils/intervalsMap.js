@@ -1,12 +1,12 @@
 export const intervalMap = {
   "Cb": {
     "unissono": "Cb",
-    "primeira aumentada": "",
+    "primeira aumentada": "C",
     "segunda menor": "Dbb",
     "segunda maior": "Db",
     "terca menor": "Ebb",
     "terca maior": "Eb",
-    "quarta diminuta": "", //
+    "quarta diminuta": "Fbb", //
     "quarta justa": "Fb",
     "quarta aumentada": "F",
     "quinta diminuta": "Gbb",
@@ -14,11 +14,11 @@ export const intervalMap = {
     "quinta aumentada": "", //
     "sexta menor": "Abb", 
     "sexta maior": "Ab",
-    "setima diminuta": 'Bbbb', //
+    "setima diminuta": "Bbbb", //
     "setima menor": "Bbb",
     "setima maior": "Bb",
-    'oitava diminuta': 'Cbb', 
-    'oitava justa': 'Cb'
+    "oitava diminuta": "Cbb", 
+    "oitava justa": "Cb"
   },
   "C": {
     "unissono": "C",
@@ -38,45 +38,46 @@ export const intervalMap = {
     "sexta aumentada": "A#",
     "setima menor": "Bb",
     "setima maior": "B",
+    "oitava diminuta": "Cb",
     "oitava justa": "C",
   },
-  'C#': {
-    'unissono': 'C#',
-    'segunda diminuta': 'Db',
-    'segunda menor': 'D',
-    'segunda maior': 'D#',
-    'terca diminuta': 'Eb',
-    'terca menor': 'E',
-    'terca maior': 'E#',
-    'quarta diminuta': 'F',
-    'quarta justa': 'F#',
-    'quinta duplamente diminuta': 'Gb',
-    'quinta diminuta': 'G', 
-    'quinta justa': 'G#',
-    'sexta diminuta': 'Ab',
-    'sexta menor': 'A',
-    'sexta maior': 'A#',
-    'setima diminuta': 'Bb',
-    'setima menor': 'B',
-    'setima maior': 'B#', //atenção
-    'oitava justa': 'C#'
+  "C#": {
+    "unissono": "C#",
+    "segunda diminuta": "Db",
+    "segunda menor": "D",
+    "segunda maior": "D#",
+    "terca diminuta": "Eb",
+    "terca menor": "E",
+    "terca maior": "E#",
+    "quarta diminuta": "F",
+    "quarta justa": "F#",
+    "quinta duplamente diminuta": "Gb",
+    "quinta diminuta": "G", 
+    "quinta justa": "G#",
+    "sexta diminuta": "Ab",
+    "sexta menor": "A",
+    "sexta maior": "A#",
+    "setima diminuta": "Bb",
+    "setima menor": "B",
+    "setima maior": "B#", //atenção
+    "oitava justa": "C#"
   },
-  'Db': {
-    'unissono': 'Db', // unissono é a própria nota
-    'primeira aumentada': 'D',
-    'segunda menor': 'Ebb', // Uma segunda menor acima de Db é Ebb (Ré bemol bemol), não D
-    'segunda maior': 'Eb', // Uma segunda maior acima de Db é Eb
-    'terca menor': 'Fb', // Uma terca menor acima de Db é Fb
-    'terca maior': 'F', // Uma terca maior acima de Db é F natural
-    'quarta justa': 'Gb', // Uma quarta justa acima de Db é Gb
-    'quarta aumentada': 'G', // Uma quarta aumentada acima de Db é G natural
-    'quinta diminuta': 'Abb', // Uma quinta diminuta acima de Db é Abb (Lá duplo bemol)
-    'quinta justa': 'Ab', // Uma quinta justa acima de Db é Ab
-    'sexta menor': 'Bbb', // Uma sexta menor acima de Db é Bbb (Si duplo bemol)
-    'sexta maior': 'Bb', // Uma sexta maior acima de Db é Bb
-    'setima menor': 'Cb', // Uma setima menor acima de Db é Cb
-    'setima maior': 'C', // Uma setima maior acima de Db é C natural
-    'oitava justa': 'Db'
+  "Db": {
+    "unissono": "Db",
+    "primeira aumentada": "D",
+    "segunda menor": "Ebb",
+    "segunda maior": "Eb",
+    "terca menor": "Fb",
+    "terca maior": "F",
+    "quarta justa": "Gb",
+    "quarta aumentada": "G",
+    "quinta diminuta": "Abb",
+    "quinta justa": "Ab",
+    "sexta menor": "Bbb",
+    "sexta maior": "Bb",
+    "setima menor": "Cb",
+    "setima maior": "C",
+    "oitava justa": "Db"
   },
   "D": {
     "unissono": "D",
@@ -92,11 +93,11 @@ export const intervalMap = {
     "quinta aumentada": "A#",
     "sexta menor": "Bb",
     "sexta maior": "B",
-    "setima diminuta": 'Cb',
+    "setima diminuta": "Cb",
     "setima menor": "C",
     "setima maior": "C#",
-    'oitava diminuta': 'Db',
-    'oitava justa': 'D'
+    "oitava diminuta": "Db",
+    "oitava justa": "D"
   },
   "D#": {
     "unissono": "D#",
@@ -116,28 +117,28 @@ export const intervalMap = {
     "setima diminuta": "C",
     "setima menor": "C#",
     "setima maior": "C##",
-    'oitava justa': 'D#'
+    "oitava justa": "D#"
   },
-  'Eb': {
-    'unissono': 'Eb',
-    'primeira aumentada': 'E',
-    'segunda menor': 'Fb',
-    'segunda maior': 'F',
-    'segunda aumentada': 'F#',
-    'terca menor': 'Gb',
-    'terca maior': 'G',
-    'terca aumentada': 'G#',
-    'quarta justa': 'Ab',
-    'quarta aumentada': 'A',
-    'quarta duplamente aumentada': 'A#', 
-    'quinta justa': 'Bb',
-    'quinta aumentada': 'B',
-    'sexta menor': 'Cb',
-    'sexta maior': 'C',
-    'sexta aumentada': 'C#',
-    'setima menor': 'Db',
-    'setima maior': 'D',
-    'oitava justa': 'Eb'
+  "Eb": {
+    "unissono": "Eb",
+    "primeira aumentada": "E",
+    "segunda menor": "Fb",
+    "segunda maior": "F",
+    "segunda aumentada": "F#",
+    "terca menor": "Gb",
+    "terca maior": "G",
+    "terca aumentada": "G#",
+    "quarta justa": "Ab",
+    "quarta aumentada": "A",
+    "quarta duplamente aumentada": "A#", 
+    "quinta justa": "Bb",
+    "quinta aumentada": "B",
+    "sexta menor": "Cb",
+    "sexta maior": "C",
+    "sexta aumentada": "C#",
+    "setima menor": "Db",
+    "setima maior": "D",
+    "oitava justa": "Eb"
   },
   "E": {
     "unissono": "E",
@@ -156,7 +157,7 @@ export const intervalMap = {
     "setima diminuta": "Db",
     "setima menor": "D",
     "setima maior": "D#",
-    'oitava justa': 'E'
+    "oitava justa": "E"
   },
   "F": {
     "unissono": "F",
@@ -175,7 +176,7 @@ export const intervalMap = {
     "sexta maior": "D",
     "setima menor": "Eb",
     "setima maior": "E",
-    'oitava justa': 'F'
+    "oitava justa": "F"
   },
   "F#": {
     "unissono": "F#",
@@ -195,31 +196,31 @@ export const intervalMap = {
     "setima diminuta": "Eb",
     "setima menor": "E",
     "setima maior": "E#",
-    'oitava justa': 'F#'
+    "oitava justa": "F#"
   },
-  'Gb': {
-    'unissono': 'Gb',
-    'primeira aumentada': 'G',
-    'primeira duplamente aumentada': 'G#', 
-    'segunda menor': 'Abb', //G
-    'segunda maior': 'Ab',
-    'segunda aumentada': 'A',
-    'segunda duplamente aumentada': 'A#',
-    'terca menor': 'Bbb', //A
-    'terca maior': 'Bb',
-    'quarta justa': 'Cb', //B
-    'quarta aumentada': 'C',
-    'quarta duplamente aumentada': 'C#',
-    'quinta justa': 'Db',
-    'quinta aumentada': 'D',
-    'quinta duplamente aumentada': 'D#',
-    'sexta menor': 'Ebb',
-    'sexta maior': 'Eb',
-    'sexta aumentada': 'E',
-    'setima menor': 'Fb',
-    'setima maior': 'F',
-    'setima aumentada': 'F#',
-    'oitava justa': 'Gb'
+  "Gb": {
+    "unissono": "Gb",
+    "primeira aumentada": "G",
+    "primeira duplamente aumentada": "G#", 
+    "segunda menor": "Abb", //G
+    "segunda maior": "Ab",
+    "segunda aumentada": "A",
+    "segunda duplamente aumentada": "A#",
+    "terca menor": "Bbb", //A
+    "terca maior": "Bb",
+    "quarta justa": "Cb", //B
+    "quarta aumentada": "C",
+    "quarta duplamente aumentada": "C#",
+    "quinta justa": "Db",
+    "quinta aumentada": "D",
+    "quinta duplamente aumentada": "D#",
+    "sexta menor": "Ebb",
+    "sexta maior": "Eb",
+    "sexta aumentada": "E",
+    "setima menor": "Fb",
+    "setima maior": "F",
+    "setima aumentada": "F#",
+    "oitava justa": "Gb"
   },
   "G": {
     "unissono": "G",
@@ -258,22 +259,22 @@ export const intervalMap = {
     "setima diminuta": "F",
     "setima menor": "F#",
     "setima maior": "F##", //G
-    'oitava justa': 'G#'
+    "oitava justa": "G#"
   },
-  'Ab': {
-    'unissono': 'Ab',
-    'segunda menor': 'Bbb', // Corrigido para segunda menor
-    'segunda maior': 'Bb',
-    'terca menor': 'Cb', // A terca menor de Ab é Cb, não B
-    'terca maior': 'C',
-    'quarta justa': 'Db',
-    'quarta aumentada': 'D',
-    'quinta justa': 'Eb',
-    'sexta menor': 'Fb', 
-    'sexta maior': 'F',
-    'setima menor': 'Gb',
-    'setima maior': 'G',
-    'oitava justa': 'Ab'
+  "Ab": {
+    "unissono": "Ab",
+    "segunda menor": "Bbb", // Corrigido para segunda menor
+    "segunda maior": "Bb",
+    "terca menor": "Cb", // A terca menor de Ab é Cb, não B
+    "terca maior": "C",
+    "quarta justa": "Db",
+    "quarta aumentada": "D",
+    "quinta justa": "Eb",
+    "sexta menor": "Fb", 
+    "sexta maior": "F",
+    "setima menor": "Gb",
+    "setima maior": "G",
+    "oitava justa": "Ab"
   },
   "A": {
     "unissono": "A",
@@ -288,7 +289,7 @@ export const intervalMap = {
     "sexta maior": "F#",
     "setima menor": "G",
     "setima maior": "G#",
-    'oitava justa': 'A'
+    "oitava justa": "A"
   },
   "A#": {
     "unissono": "A#",
@@ -303,7 +304,7 @@ export const intervalMap = {
     "sexta maior": "G",
     "setima menor": "G#",
     "setima maior": "A",
-    'oitava justa': 'A#'
+    "oitava justa": "A#"
   },
   "Bb": {
     "unissono": "Bb",
@@ -319,10 +320,11 @@ export const intervalMap = {
     "sexta maior": "G",
     "setima menor": "Ab",
     "setima maior": "A",
-    'oitava justa': 'Bb'
+    "oitava justa": "Bb"
   },
   "B": {
     "unissono": "B",
+    "segunda diminuta": "Cb",
     "segunda menor": "C",
     "segunda maior": "C#",
     "terca menor": "D",
@@ -335,6 +337,23 @@ export const intervalMap = {
     "sexta maior": "G#",
     "setima menor": "A",
     "setima maior": "A#",
-    'oitava justa': 'B'
+    "oitava justa": "B"
   },
+  "B#": {
+    "unissono": "B#",
+    "segunda diminuta": "C",
+    "segunda menor": "C#",
+    "segunda maior": "C##",
+    "terca menor": "D#",
+    "terca maior": "D##",
+    "quarta justa": "E#",
+    "quarta aumentada": "E##",
+    "quinta diminuta": "F#",
+    "quinta justa": "F##",
+    "sexta menor": "G#",
+    "sexta maior": "G##",
+    "setima menor": "A#",
+    "setima maior": "A##",
+    "oitava justa": "B#"
+  }
 };

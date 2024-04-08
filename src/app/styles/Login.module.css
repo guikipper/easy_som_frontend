@@ -72,15 +72,7 @@
 .signUpLink:hover {
     color: #038ad8;
 }
-.feedbackDiv {
-    height: 35px;
-}
-.feedback {
-    color: red;
-    font-size: 1em;
-    position: relative;
-    z-index: 9999;
-}
+
 .loadingWrapper {
     position: relative;
     height: 10px; 
@@ -97,6 +89,12 @@
 }
 .forgetPassword {
     margin-top: 4px;
+}
+.errorFeedbackDiv {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 @media (max-width: 768px) {
     .loginMain {

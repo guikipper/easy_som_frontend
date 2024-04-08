@@ -5,15 +5,11 @@ import styles from '../styles/Piano.module.css';
 import { converterNota } from '../utils/noteConversor';
 
 
-export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWithOctave, adjustedTargetNoteWithOctave, showNotesOnPiano}) {
+export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWithOctave, adjustedTargetNoteWithOctave, showNotesOnPiano, volume}) {
 
   const [audioContext, setAudioContext] = useState(null);
+  const [currentGainNode, setCurrentGainNode] = useState(null);
 
-  //console.log("Onde vai ser tocado referencia: ", adjustedReferenceNoteWithOctave)
-  //console.log("Onde vai ser tocado alvo: ", adjustedTargetNoteWithOctave)
-  //console.log("A nota de referencia a ser exibida: ", notaReferencia)
-  //console.log("A nota alvo a ser exibida: ", notaAlvo)
-//
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setAudioContext(new AudioContext());
@@ -23,9 +19,10 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
   let lastNotePlayed = null;
   let lastAudioSource = null;
 
-  const playAudio = async (note) => {
+ /*  const playAudio2 = async (note) => {
     console.log(note)
-    const audioFile = `/audio/electric_piano_1-mp3/${note}.mp3`;
+    const audioFile = `/audio/Notas/${note}.wav`;
+
     if (audioContext.state === 'suspended') {
       await audioContext.resume();
     }
@@ -44,6 +41,7 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
       source.start();
       lastNotePlayed = note;
       lastAudioSource = source;
+
       source.onended = () => {
         if (note === lastNotePlayed) {
           lastNotePlayed = null;
@@ -52,6 +50,50 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
       };
     } catch (e) {
       console.error("Error with playing audio", e);
+    }
+  }; */
+
+  useEffect(() => {
+    if (currentGainNode) {
+        currentGainNode.gain.value = volume / 100;
+    }
+}, [volume, currentGainNode]);
+
+  const playAudio = async (note) => {
+    const audioFile = `/audio/Notas/${note}.wav`;
+    try {
+      if (audioContext.state === "suspended") {
+        await audioContext.resume();
+      }
+      //audioContext = sistema de audio
+      const response = await fetch(audioFile);
+      const arrayBuffer = await response.arrayBuffer(); //representação binária
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer); //audio pronto para uso
+
+      const source = audioContext.createBufferSource();
+      source.buffer = audioBuffer;
+
+      const gainNode = audioContext.createGain()
+      gainNode.gain.value = (volume/100)
+      
+      source.connect(gainNode)
+      gainNode.connect(audioContext.destination);
+      setCurrentGainNode(gainNode);
+      source.onended = () => {
+        source.disconnect();
+      };
+      const fadeOutStart = 1.7; // Tempo para iniciar o fade out após o início da reprodução
+      const fadeOutDuration = 0.4; // Duração do fade out em segundos
+
+      source.start();
+
+      gainNode.gain.setValueAtTime(gainNode.gain.value, audioContext.currentTime + fadeOutStart); //define o volume atual e quando começar
+      gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + fadeOutStart + fadeOutDuration); //primeiro parâmetro representa o volume final do fadeOut
+                                                                                                          //o segundo representa quando se quer q o valor final tenha sido atingido
+      source.stop(audioContext.currentTime + fadeOutStart + fadeOutDuration);
+
+    } catch (error) {
+      console.error("Error with playing audio", error);
     }
   };
 

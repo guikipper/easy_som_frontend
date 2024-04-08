@@ -1,0 +1,16 @@
+.feedbackDiv {
+    height: 35px;
+    background-color: #FADADD;
+    padding: 20px; 
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+}
+.feedback {
+    color: red;
+    margin-top: 10px;
+    font-size: 1em;
+    z-index: 9999;
+}

@@ -34,14 +34,13 @@ export default function SignUp() {
       password: password,
     };
     const response = await signUp(userData)
-    if (response.error == "E-mail já cadastrado") {
-      console.log("A response vindo: ", response)
+    if (response.error) {
         setShowAlert(true)
-        setAlertMessage("Email já cadastrado!")
+        setAlertMessage(response.error.details[0].message)
     }
-    if (response.statusCode == 201) {
+    if (response.success) {
       setRedirect(true)
-      setInterval(() => {
+      setTimeout(() => {
         router.push('/login')
       }, 2000)
     } 
@@ -174,6 +173,11 @@ export default function SignUp() {
             id="floatingInputName"
             placeholder="Nome e sobrenome"
             onChange={handleNameInput}
+            onKeyDown={(e) => {
+              if(e.key === 'Enter' && !disableButton) {
+                handleSignUp();
+              }
+            }}
           />
           <label htmlFor="floatingInput">Nome e sobrenome</label>
         </div>
@@ -186,6 +190,11 @@ export default function SignUp() {
             id="floatingInputEmail"
             placeholder="name@example.com"
             onChange={handleEmailInput}
+            onKeyDown={(e) => {
+              if(e.key === 'Enter' && !disableButton) {
+                handleSignUp();
+              }
+            }}
           />
           <label htmlFor="floatingInput">Email</label>
         </div>
@@ -199,6 +208,11 @@ export default function SignUp() {
             id="floatingPassword"
             placeholder="Password"
             onChange={handlePasswordInput}
+            onKeyDown={(e) => {
+              if(e.key === 'Enter' && !disableButton) {
+                handleSignUp();
+              }
+            }}
           />
           <label htmlFor="floatingPassword">Senha</label>
           <span
@@ -225,6 +239,11 @@ export default function SignUp() {
             disabled={!validPassword}
             onPaste={handleConfirmPasswordPaste}
             onChange={handleConfirmPasswordInput}
+            onKeyDown={(e) => {
+              if(e.key === 'Enter' && !disableButton) {
+                handleSignUp();
+              }
+            }}
           />
           <label htmlFor="floatingPassword">Confirmar senha</label>
           <span

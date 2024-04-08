@@ -52,7 +52,7 @@ const notaParaFormatoPadrao = {
 
     if(oitavaReferencia === 5) {
       const cabe = 12 - (posicaoNota1 + intervalosSemitons[interval])
-      if (cabe < 0) {
+      if (cabe <= 0) {
         oitavaAlvo-=1
         oitavaReferencia-=1
       }

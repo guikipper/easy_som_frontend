@@ -18,18 +18,19 @@ export default function RecoverPassword() {
             setShowLoading(true)
             const response = await sendPasswordRecoveryEmail(email)
             const data = await response.json()
-
-            if(response.status == 201) {
-                setShowAlert(true)
-                setShowLoading(false)
-                setAlertMessage(data.message)
+            if(data.success) {
                 setAlertType("success")
+                setShowAlert(true)
+                setShowLoading(false)
+                setAlertMessage(data.success.message)
+                
             }
-            if(response.status == 404) {
+            if(data.error) { 
+                setAlertType("danger")
                 setShowLoading(false)
                 setShowAlert(true)
-                setAlertMessage(data.message)
-                setAlertType("danger")
+                setAlertMessage(data.error.message)
+                
             }
         }
     }
@@ -72,6 +73,11 @@ export default function RecoverPassword() {
                                     aria-describedby="passwordHelpBlock"
                                     onChange={(e) => {
                                         setEmail(e.target.value);
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key == 'Enter') {
+                                            sendRecoveryEmail()
+                                        }
                                     }}
                                 />
                             </div>

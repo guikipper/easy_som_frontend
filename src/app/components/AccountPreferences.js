@@ -9,15 +9,16 @@ import { usePathname } from "next/navigation";
 import Loading from "./Loading";
 
 export default function AccountPreferences() {
+  const router = useRouter()
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("")
   const [path, setPath] = useState();
   const [showUserMenu, setShowUserMenu] = useState(false)
 
   const AUTH_STATUS = {
-    CHECKING: 'checking', // Antes de verificar o token
-    AUTHENTICATED: 'authenticated', // Token válido e usuário autenticado
-    UNAUTHENTICATED: 'unauthenticated', // Sem token ou token inválido
+    CHECKING: 'checking',
+    AUTHENTICATED: 'authenticated',
+    UNAUTHENTICATED: 'unauthenticated',
   };
   const [authStatus, setAuthStatus] = useState(AUTH_STATUS.CHECKING);
   const pathname = usePathname();
@@ -41,10 +42,23 @@ export default function AccountPreferences() {
     setUsername(name)
   }
 
+  const clearCookies = () => {
+    const allCookies = Cookies.get();
+    for (let cookie in allCookies) {
+        Cookies.remove(cookie);
+    }
+  };
+
   const authenticate = async (token) => {
     try {
       const userData = await authenticateWithToken(token)
-      handleUserValues(userData.userData.email, userData.userData.name)
+      if (userData.error) {
+        setAuthStatus(AUTH_STATUS.UNAUTHENTICATED)
+        clearCookies()
+        router.push('/login')
+      } else {
+        handleUserValues(userData.success.data.email, userData.success.data.name)
+      }
     } catch (error) {
       console.log("Ocorreu um erro na tentativa de autenticação: ", error)
     }
@@ -54,6 +68,15 @@ export default function AccountPreferences() {
     setShowUserMenu(!showUserMenu)
   }
 
+  const formatUsername = (username) => {
+    if (username.length > 20) {
+      return username.slice(0,20).trim()+'...'
+    } else {
+      return username
+    }
+    
+  } 
+
   return (
     <>
       {authStatus === AUTH_STATUS.AUTHENTICATED ? (
@@ -61,7 +84,7 @@ export default function AccountPreferences() {
         <div 
         className={styles.userMenuIndicator}
         onClick={handleUserMenuClick}>
-          <p>{username}</p>
+          <p>{formatUsername(username)}</p>
         </div>
         <div className={`${styles.userMenu} ${showUserMenu ? styles.userMenuVisible : styles.userMenuHidden}`}>
             <UserMenu name={username} email={email} setShowUserMenu={setShowUserMenu}/>

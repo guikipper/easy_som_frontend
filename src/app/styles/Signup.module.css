@@ -1,4 +1,5 @@
 .signupMain {
+    padding-top: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;

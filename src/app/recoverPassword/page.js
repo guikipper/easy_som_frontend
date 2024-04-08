@@ -48,39 +48,19 @@ export default function recoverPassword() {
             setShowAlert(false)
             setShowLoading(true)
             const response = await recoverPasswordRoute(newPassword, token)
-            const data = await response.json()
-
-            if (response.status == 201 && data.message == "Senha alterada com sucesso!") {
+            if (response.success) {
                 setShowLoading(false)
                 setShowAlert(true)
-                setAlertMessage(data.message)
+                setAlertMessage(response.success.message)
                 setAlertType("success")
                 setTimeout(() => {
                     router.push('/login')
                 }, 1500)
             }
-            else if(response.status == 401 && data.message == "Erro: Token expirado.") {
+            else if(response.error) {
                 setShowLoading(false)
                 setShowAlert(true)
-                setAlertMessage(data.message)
-                setAlertType("danger")
-            }
-            else if(response.status == 401 && data.message == "Erro: Token inválido.") {
-                setShowLoading(false)
-                setShowAlert(true)
-                setAlertMessage(data.message)
-                setAlertType("danger")
-            }
-            else if(response.status == 401 && data.message == "Erro: Falha ao autenticar o token.") {
-                setShowLoading(false)
-                setShowAlert(true)
-                setAlertMessage(data.message)
-                setAlertType("danger")
-            }
-            else if(response.status == 401 && data.message == "Por segurança, escolha uma senha diferente da atual.") {
-                setShowLoading(false)
-                setShowAlert(true)
-                setAlertMessage(data.message)
+                setAlertMessage(response.error.message)
                 setAlertType("danger")
             }
 

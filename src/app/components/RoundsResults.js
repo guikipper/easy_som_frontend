@@ -1,8 +1,6 @@
 import styles from '../styles/RoundsResults.module.css'
 
 export default function RoundsResults({results}) {
-
-    console.log("Os resultados: ", results)
     return (
         <div className={styles.main}>
             <p>Parabéns você chegou ao fim do exercício.</p>

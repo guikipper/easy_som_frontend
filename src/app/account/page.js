@@ -37,12 +37,25 @@ export default function Account() {
     useEffect(() => {
         getData()
       }, [])
+    
+    const clearCookies = () => {
+      const allCookies = Cookies.get();
+      for (let cookie in allCookies) {
+          Cookies.remove(cookie);
+      }
+    };
 
     const getData = async () => {
         const token = Cookies.get('token')
         const userData = await authenticateWithToken(token)
-        setName(userData.userData.name)
-        setEmail(userData.userData.email)
+        if(userData.error) {
+            clearCookies()
+            router.push('/login')
+        } else {
+            setName(userData.success.data.name)
+            setEmail(userData.success.data.email)
+        }
+        
     }
 
     const handleEditMode = () => {
@@ -125,9 +138,11 @@ export default function Account() {
                 oldName: name
             }
             const response = await changeName(userData)
-            if (response.statusCode == 201) {            
-                const newName = response.newName
+            if (response.success) {         
+                const newName = response.success.data.newName
                 setName(newName)
+            } else {
+                //console.log(response)
             }
             return 
         }
@@ -146,7 +161,6 @@ export default function Account() {
 
     const confirmChangePassword = async () => {
         if (actualPassword && validNewPassword && confirmNewPassword) {
-            const userId = localStorage.getItem("userId")
             const token = Cookies.get("token")
             const userData = {
                 token: token,
@@ -197,10 +211,13 @@ export default function Account() {
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default"
                                 onChange={(e) => {
-                                    handleNewName(e.target.value)
+                                    if (e.target.value.length <= 60) {
+                                        handleNewName(e.target.value)
+                                      }
                                 }}
                                 />
                             </div>
+                            
                         ) : (
                             <div className={`input-group mb-3 ${styles.inputData}`}>
                                 <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
@@ -213,7 +230,6 @@ export default function Account() {
                                 readOnly/>
                             </div> 
                         )}
-
 
                         {editMode ? (
                             <div className={styles.icon}>

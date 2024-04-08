@@ -47,6 +47,7 @@ export default function IntervalCard() {
   
   const [isRightAnswer, setIsRightAnswer] = useState()
   const [totalRightAnswers, setTotalRightAnswers] = useState(0)
+  const [volume, setVolume] = useState(50)
 
   const { formData } = useMyContext()
 
@@ -71,10 +72,20 @@ export default function IntervalCard() {
           })
       }})
       const order = {
-        "uníssono": 1, "segunda menor": 2, "segunda maior": 3, "terça menor": 4, "terça maior": 5,
-        "quarta justa": 6, "trítono": 7, "quinta justa": 8, "sexta menor": 9, "sexta maior": 10,
-        "sétima menor": 11, "sétima maior": 12, "oitava justa": 13
-      };
+        "unissono": 1, 
+        "segunda menor": 2, 
+        "segunda maior": 3, 
+        "terca menor": 4, 
+        "terca maior": 5,
+        "quarta justa": 6, 
+        "tritono": 7, 
+        "quinta justa": 8, 
+        "sexta menor": 9, 
+        "sexta maior": 10,
+        "setima menor": 11, 
+        "setima maior": 12, 
+        "oitava justa": 13
+    };
   
       intervalsToShow.sort((a, b) => {
         const normalizedA = removeAccents(a);
@@ -155,16 +166,33 @@ export default function IntervalCard() {
         if (audioContext.state === "suspended") {
           await audioContext.resume();
         }
+
+        //audioContext = sistema de audio
         const response = await fetch(audio);
-        const arrayBuffer = await response.arrayBuffer();
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        const arrayBuffer = await response.arrayBuffer(); //representação binária
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer); //audio pronto para uso
+
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
-        source.connect(audioContext.destination);
+
+        const gainNode = audioContext.createGain()
+        gainNode.gain.value = (volume/100)
+        source.connect(gainNode)
+        gainNode.connect(audioContext.destination);
+        
         source.onended = () => {
           source.disconnect();
         };
+        const fadeOutStart = 2; // Tempo para iniciar o fade out após o início da reprodução
+        const fadeOutDuration = 0.5; // Duração do fade out em segundos
+
         source.start();
+
+        gainNode.gain.setValueAtTime(gainNode.gain.value, audioContext.currentTime + fadeOutStart); //define o volume atual e quando começar
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + fadeOutStart + fadeOutDuration); //primeiro parâmetro representa o volume final do fadeOut
+                                                                                                            //o segundo representa quando se quer q o valor final tenha sido atingido
+        source.stop(audioContext.currentTime + fadeOutStart + fadeOutDuration);
+
       } catch (error) {
         console.error("Error with playing audio", error);
       }
@@ -172,10 +200,10 @@ export default function IntervalCard() {
   
     const reproduceActualInterval = () => {
       if (formData.direction == "ascendente") {
-        const audioFile = `/audio/electric_piano_1-mp3/${adjustedReferenceNoteWithOctave}.mp3`;
+        const audioFile = `/audio/Notas/${adjustedReferenceNoteWithOctave}.wav`;
   
         play(audioFile);
-        const audioFile2 = `/audio/electric_piano_1-mp3/${adjustedTargetNoteWithOctave}.mp3`;
+        const audioFile2 = `/audio/Notas/${adjustedTargetNoteWithOctave}.wav`;
 
         setTimeout(() => {
           play(audioFile2);
@@ -207,22 +235,6 @@ export default function IntervalCard() {
       setAudioContext(new AudioContext());
     }
   }, []);
-
-  const intervals = [
-    "1J",
-    "2m",
-    "2M",
-    "3m",
-    "3M",
-    "4J",
-    "4A/5D",
-    "5J",
-    "6m/5A",
-    "6M",
-    "7m",
-    "7M",
-    "8J",
-  ];
 
   /* const isObjectEmpty = (obj) => {
     for (let key in obj) {
@@ -328,6 +340,10 @@ export default function IntervalCard() {
     }
   }, [finishedExercises])
 
+  const handleVolumeValue = (e) => {
+    setVolume(e.target.value)
+  }
+
   return (
       <div className={styles.main}>
         <div className={styles.card}>
@@ -404,12 +420,19 @@ export default function IntervalCard() {
        {/*  {visibleHelp && <IntervalsTable />} */}
         
         <div className={styles.pianoDiv}>
+        <div className={styles.volumeDiv}>
+          <label for="customRange1" class="form-label">Ajustar Volume</label>
+          <input type="range" class="form-range" id="customRange1" value={volume} onChange={handleVolumeValue}></input>
+        </div>
+        
           <Piano 
           notaReferencia={notaReferenciaNoTeclado} 
           notaAlvo={notaAlvoNoTeclado} 
           adjustedReferenceNoteWithOctave={adjustedReferenceNoteWithOctave} 
           adjustedTargetNoteWithOctave={adjustedTargetNoteWithOctave}
-          showNotesOnPiano={showNotesOnPiano}/>
+          showNotesOnPiano={showNotesOnPiano}
+          volume={volume}
+          />
         </div> 
         
       </div>
