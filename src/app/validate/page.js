@@ -16,6 +16,7 @@ export default function Validate() {
 
     useEffect(() => {
         const tokenFromParams = searchParams.get('token');
+        console.log("Em validate, obtendo o token: ", tokenFromParams)
         if (tokenFromParams) {
             setToken(tokenFromParams);
         }
@@ -26,6 +27,7 @@ export default function Validate() {
             if (token) {
                 try {
                     const response = await validateEmail(token);
+                    console.log("A resposta da validação: ", response)
                     setValidationResult(response);
                 } catch (error) {
                     console.error(`Error during email validation: ${error.message}`);
