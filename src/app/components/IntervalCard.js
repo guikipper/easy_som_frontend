@@ -136,6 +136,9 @@ export default function IntervalCard() {
   }, [audioContext])
     
   useEffect(() => {
+    if (Object.keys(formData).length === 0) {
+      router.push('../intervals/exercise-config');
+    }
     setTotalRounds(formData.rounds)
     if(formData.referenceNote === "random") {
       setIsRandomNote(true)
@@ -252,22 +255,7 @@ export default function IntervalCard() {
         }, 1800);
       }
     };
-
-  //Audio
-
-  const isObjectEmpty = (obj) => {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        return false;
-      }
-    }
-    return true;
-  };
-  if (isObjectEmpty(formData)) {
-    router.push('../intervals/exercise-config');
-  }
   
-
   const checkResult = (selectedOption) => {
     if (selectedOption === 'tritono') {
       selectedOption = 'Quinta Diminuta'
