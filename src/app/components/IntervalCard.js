@@ -109,7 +109,6 @@ export default function IntervalCard() {
   
   const preLoadAudioFiles = async () => {
     setLoadingAudioBuffers(true)
-    setBlockedButton(true)
     let audioBuffers = {};
     
     let promises = fileNotes.map( async (noteName) => {
@@ -123,7 +122,6 @@ export default function IntervalCard() {
 
     await Promise.all(promises); // Espera todas as promessas serem resolvidas
     setLoadingAudioBuffers(false)
-    setBlockedButton(false)
     return audioBuffers;
   }
 
@@ -257,7 +255,7 @@ export default function IntervalCard() {
 
   //Audio
 
-  /* const isObjectEmpty = (obj) => {
+  const isObjectEmpty = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
         return false;
@@ -266,8 +264,8 @@ export default function IntervalCard() {
     return true;
   };
   if (isObjectEmpty(formData)) {
-    //router.push('../intervals/exercise-config');
-  } */
+    router.push('../intervals/exercise-config');
+  }
   
 
   const checkResult = (selectedOption) => {
