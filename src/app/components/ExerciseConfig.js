@@ -59,7 +59,6 @@ export default function ExerciseConfig() {
   
 
   const sendParams = () => {
-    setShowLoading(true)
     if (rounds <= 0 || !hasSelectedInterval()) {
       if (rounds <= 0) {
         setRoundsMessage(true)
@@ -74,6 +73,7 @@ export default function ExerciseConfig() {
         }, 3000)
       }      
     } else {
+      setShowLoading(true)
       setFormData({
         referenceNote: referenceNote,
         direction: direction,
