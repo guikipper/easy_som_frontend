@@ -3,17 +3,19 @@
 import styles from "../styles/ExerciseConfig.module.css";
 import { useMyContext } from "../contexts/UseContext";
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react'
 import { notes } from "../utils/notes";
+import { useState } from "react";
+import Loading from "./Loading";
+import LoadingMessage from "./LoadingMessage";
 
 export default function ExerciseConfig() {
 
   const router = useRouter();
+  const [showLoading, setShowLoading] = useState(false)
   const [direction, setDirection] = useState("ascendente");
   const [referenceNote, setReferenceNote] = useState('random');
   const [rounds, setRounds] = useState(0)
-  const [dropdownItem, setDropdownItem] = useState("Aleatório")
-  const [tryAgain, setTryAgain] = useState(false) 
+  const [dropdownItem, setDropdownItem] = useState("Aleatório") 
   const [roundsMessage, setRoundsMessage] = useState(false)
   const [intervalOptions, setIntervalOptions] = useState({
     maior: false,
@@ -24,10 +26,6 @@ export default function ExerciseConfig() {
   const [intervalOptionsMessage, setIntervalOptionsMessage] = useState(false)
   
   const { setFormData } = useMyContext()
-
-  const handleToogleTryAgain = () => {
-    setTryAgain(!tryAgain)
-  }
 
   const handleDropdownItemSelected = (note) => {
 
@@ -61,6 +59,7 @@ export default function ExerciseConfig() {
   
 
   const sendParams = () => {
+    setShowLoading(true)
     if (rounds <= 0 || !hasSelectedInterval()) {
       if (rounds <= 0) {
         setRoundsMessage(true)
@@ -79,7 +78,6 @@ export default function ExerciseConfig() {
         referenceNote: referenceNote,
         direction: direction,
         intervalOptions,
-        tryAgain,
         rounds: rounds,
       });
       router.push('/intervals/exercise');
@@ -218,26 +216,6 @@ export default function ExerciseConfig() {
           
         </div>
 
-        {/* <div className={styles.tryAgain}>
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              role="switch"
-              id="flexSwitchCheckDefault"
-              checked={tryAgain}
-              onChange={handleToogleTryAgain}
-            />
-
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
-              Tentar de novo ao errar
-            </label>
-          </div>
-        </div> */}
-
         <div className={styles.roundQtd}>
           <p className={styles.text}>Informe quantas rodadas você gostaria de praticar:</p>
           <p>Rodadas: {rounds}</p>
@@ -285,6 +263,16 @@ export default function ExerciseConfig() {
         </div>
         
       </div>
+
+      {showLoading && (
+            
+             <div className={styles.loadingImage}>
+                <LoadingMessage message={"Carregando..."}>
+
+                </LoadingMessage>
+             </div>
+         )}
+
     </div>
   );
 }

@@ -5,7 +5,7 @@ import styles from '../styles/Piano.module.css';
 import { converterNota } from '../utils/noteConversor';
 
 
-export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWithOctave, adjustedTargetNoteWithOctave, showNotesOnPiano, volume}) {
+export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWithOctave, adjustedTargetNoteWithOctave, showNotesOnPiano, volume, audioBuffers}) {
 
   const [audioContext, setAudioContext] = useState(null);
   const [currentGainNode, setCurrentGainNode] = useState(null);
@@ -19,39 +19,6 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
   let lastNotePlayed = null;
   let lastAudioSource = null;
 
- /*  const playAudio2 = async (note) => {
-    console.log(note)
-    const audioFile = `/audio/Notas/${note}.wav`;
-
-    if (audioContext.state === 'suspended') {
-      await audioContext.resume();
-    }
-
-    if (note === lastNotePlayed && lastAudioSource) {
-      lastAudioSource.stop();
-    }
-
-    try {
-      const response = await fetch(audioFile);
-      const arrayBuffer = await response.arrayBuffer();
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-      const source = audioContext.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(audioContext.destination);
-      source.start();
-      lastNotePlayed = note;
-      lastAudioSource = source;
-
-      source.onended = () => {
-        if (note === lastNotePlayed) {
-          lastNotePlayed = null;
-          lastAudioSource = null;
-        }
-      };
-    } catch (e) {
-      console.error("Error with playing audio", e);
-    }
-  }; */
 
   useEffect(() => {
     if (currentGainNode) {
@@ -60,18 +27,13 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
 }, [volume, currentGainNode]);
 
   const playAudio = async (note) => {
-    const audioFile = `/audio/Notas/${note}.wav`;
     try {
       if (audioContext.state === "suspended") {
         await audioContext.resume();
       }
-      //audioContext = sistema de audio
-      const response = await fetch(audioFile);
-      const arrayBuffer = await response.arrayBuffer(); //representação binária
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer); //audio pronto para uso
 
       const source = audioContext.createBufferSource();
-      source.buffer = audioBuffer;
+      source.buffer = audioBuffers[note];
 
       const gainNode = audioContext.createGain()
       gainNode.gain.value = (volume/100)

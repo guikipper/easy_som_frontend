@@ -13,7 +13,8 @@ import { ajustarOitava, converterNota } from "../utils/noteConversor";
 import { removeAccents } from "../utils/removeAccents";
 import { FeedbackMessage } from "./FeedbackMessage";
 import SessionResults from "./SessionResults";
-//<FontAwesomeIcon icon="fa-solid fa-play" />
+import { fileNotes } from "../utils/notes";
+import LoadingMessage from "./LoadingMessage";
 
 export default function IntervalCard() {
   const [targetNote, setTargetNote] = useState();
@@ -34,6 +35,8 @@ export default function IntervalCard() {
   const [showCurrentRound, setShowCurrentRound] = useState(true)
   const router = useRouter();
   const [audioContext, setAudioContext] = useState(null);
+  const [audioBuffers, setAudioBuffers] = useState({})
+  const [loadingAudioBuffers, setLoadingAudioBuffers] = useState(false)
 
   const [finishedExercises, setFinishedExercises] = useState(false)
   const [notaReferenciaNoTeclado, setNotaReferenciaNoTeclado] = useState()
@@ -50,6 +53,12 @@ export default function IntervalCard() {
   const [volume, setVolume] = useState(50)
 
   const { formData } = useMyContext()
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setAudioContext(new AudioContext());
+    }
+  }, []);
 
   const intervalsPerType = {
     menor: ["Segunda Menor", "Terça Menor", "Sexta Menor", "Sétima Menor"],
@@ -97,6 +106,37 @@ export default function IntervalCard() {
       setSelectedIntervals(selectedIntervals)
     }
   }
+  
+  const preLoadAudioFiles = async () => {
+    setLoadingAudioBuffers(true)
+    setBlockedButton(true)
+    let audioBuffers = {};
+    
+    let promises = fileNotes.map( async (noteName, index) => {
+      
+      let filePath = `/audio/Notas/${noteName}.wav`
+      console.log(audioContext, filePath)
+      const response = await fetch(filePath)
+      const arrayBuffer = await response.arrayBuffer()
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
+      audioBuffers[noteName] = audioBuffer
+    })
+
+    await Promise.all(promises); // Espera todas as promessas serem resolvidas
+    setLoadingAudioBuffers(false)
+    setBlockedButton(false)
+    return audioBuffers;
+  }
+
+  useEffect(() => {
+    async function loadAudioFiles() {
+      const loadedAudioBuffers = await preLoadAudioFiles();
+      setAudioBuffers(loadedAudioBuffers);
+    }
+    if(audioContext != null) {
+      loadAudioFiles()
+    }
+  }, [audioContext])
     
   useEffect(() => {
     setTotalRounds(formData.rounds)
@@ -161,21 +201,15 @@ export default function IntervalCard() {
     return buttonsToShow[randomIndex]
   }
 
-    const play = async (audio) => {
-      try {
-        if (audioContext.state === "suspended") {
-          await audioContext.resume();
-        }
+  const playNote = async (note) => {
+    try {
+      if (audioContext.state === "suspended") {
+        await audioContext.resume();
+      }
+      const source = audioContext.createBufferSource();
+      source.buffer = audioBuffers[note]
 
-        //audioContext = sistema de audio
-        const response = await fetch(audio);
-        const arrayBuffer = await response.arrayBuffer(); //representação binária
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer); //audio pronto para uso
-
-        const source = audioContext.createBufferSource();
-        source.buffer = audioBuffer;
-
-        const gainNode = audioContext.createGain()
+      const gainNode = audioContext.createGain()
         gainNode.gain.value = (volume/100)
         source.connect(gainNode)
         gainNode.connect(audioContext.destination);
@@ -192,34 +226,27 @@ export default function IntervalCard() {
         gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + fadeOutStart + fadeOutDuration); //primeiro parâmetro representa o volume final do fadeOut
                                                                                                             //o segundo representa quando se quer q o valor final tenha sido atingido
         source.stop(audioContext.currentTime + fadeOutStart + fadeOutDuration);
-
-      } catch (error) {
-        console.error("Error with playing audio", error);
-      }
-    };
+    } catch (error) {
+      console.error("Error with playing audio", error);
+    }
+  }
   
-    const reproduceActualInterval = () => {
-      if (formData.direction == "ascendente") {
-        const audioFile = `/audio/Notas/${adjustedReferenceNoteWithOctave}.wav`;
-  
-        play(audioFile);
-        const audioFile2 = `/audio/Notas/${adjustedTargetNoteWithOctave}.wav`;
-
+    const reproduceActualInterval = async () => {
+      if (!loadingAudioBuffers && formData.direction == "ascendente") {
+        playNote(adjustedReferenceNoteWithOctave)
         setTimeout(() => {
-          play(audioFile2);
+          playNote(adjustedTargetNoteWithOctave);
           setTimeout(() => {
             if (!showContinueButton) {
               setBlockedButton(false);
             }
           }, 500)
-          
         }, 1800);
-      } else {
-        const audioFile = `/audio/electric_piano_1-mp3/${adjustedTargetNoteWithOctave}.mp3`;
-        play(audioFile);
-        const audioFile2 = `/audio/electric_piano_1-mp3/${adjustedReferenceNoteWithOctave}.mp3`;
+
+      } else if (!loadingAudioBuffers && formData.direction == "descendente") {
+        playNote(adjustedTargetNoteWithOctave)
         setTimeout(() => {
-          play(audioFile2);
+          playNote(adjustedReferenceNoteWithOctave);
           setTimeout(() => {
             if (!showContinueButton) {
               setBlockedButton(false);
@@ -230,11 +257,6 @@ export default function IntervalCard() {
     };
 
   //Audio
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setAudioContext(new AudioContext());
-    }
-  }, []);
 
   /* const isObjectEmpty = (obj) => {
     for (let key in obj) {
@@ -432,6 +454,7 @@ export default function IntervalCard() {
           adjustedTargetNoteWithOctave={adjustedTargetNoteWithOctave}
           showNotesOnPiano={showNotesOnPiano}
           volume={volume}
+          audioBuffers={audioBuffers}
           />
         </div> 
         

@@ -8,7 +8,7 @@ export default function Exercise() {
         <div className={styles.exercise}>
       
             <ExerciseConfig/>
-           
+        
         </div>
     )
 }

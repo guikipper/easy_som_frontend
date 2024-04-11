@@ -6,9 +6,7 @@ import styles from "./styles/Layout.module.css";
 import Navbar from "./components/Navbar";
 import AccountPreferences from "./components/AccountPreferences";
 
-
 import { Montserrat } from "next/font/google";
-/* import { AnotherContextProvider } from "./contexts/globalName"; */
 import { MyContextProvider } from './contexts/UseContext';
 const montSerrat = Montserrat({ subsets: ["latin"] });
 
@@ -17,6 +15,7 @@ export default function RootLayout({ children }) {
     
     <html>
       <body>
+
       <MyContextProvider>
         {/* <AnotherContextProvider> */}
         <div className={styles.mainContainer}>

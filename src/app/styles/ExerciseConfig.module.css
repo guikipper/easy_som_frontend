@@ -132,6 +132,33 @@
     margin-left: 630px;
     color: red;
 }
+.loadingImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.781);
+    z-index: 9999;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.loadingImageContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #FAFAFA;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.loadingImageContent h3 {
+    margin-bottom: 26px;
+}
+  
 
 @media (max-width: 768px) {
     .config {

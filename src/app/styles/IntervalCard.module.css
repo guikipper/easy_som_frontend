@@ -61,7 +61,7 @@
 .main_item {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: column;
 }
 .reproduceInterval {
@@ -134,17 +134,49 @@
     width: 30%;
     padding-left: 20px;
 }
+.loadingAudioBuffers {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+}
+.loadingAudioBuffers div {
+    width: 400px;
+    border-radius: 10px;
+    background-color: slategray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    
+}
 
+.loadingImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.781);
+    z-index: 9999;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+ 
 @media (max-width: 768px) {
     .main {
         overflow: hidden;
-        justify-content: start;
+        justify-content: flex-start;
     }
     .card {
         width: 99vw;
         flex-direction: column;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         height: auto;
         flex-wrap: wrap;
         margin-top: 20px;
