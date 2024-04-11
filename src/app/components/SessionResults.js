@@ -93,7 +93,7 @@ const SessionResults = ({ results }) => {
       <p className={styles.feedback}>{feedbackMessage}</p>
       
         <Link href="/intervals/exercise-config">
-          <button type="button" class="btn btn-primary">
+          <button type="button" className="btn btn-primary">
             Continue Praticando
           </button>
         </Link>  

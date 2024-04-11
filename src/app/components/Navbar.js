@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <div className={styles.navbar}>
-      <h1>Harmonic Wave</h1>
+      <h1>EasySom</h1>
 
       <ul className={styles.linksList}>
         <li>

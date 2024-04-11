@@ -112,10 +112,9 @@ export default function IntervalCard() {
     setBlockedButton(true)
     let audioBuffers = {};
     
-    let promises = fileNotes.map( async (noteName, index) => {
+    let promises = fileNotes.map( async (noteName) => {
       
       let filePath = `/audio/Notas/${noteName}.wav`
-      console.log(audioContext, filePath)
       const response = await fetch(filePath)
       const arrayBuffer = await response.arrayBuffer()
       const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
@@ -443,8 +442,8 @@ export default function IntervalCard() {
         
         <div className={styles.pianoDiv}>
         <div className={styles.volumeDiv}>
-          <label for="customRange1" class="form-label">Ajustar Volume</label>
-          <input type="range" class="form-range" id="customRange1" value={volume} onChange={handleVolumeValue}></input>
+          <label for="customRange1" className="form-label">Ajustar Volume</label>
+          <input type="range" className="form-range" id="customRange1" value={volume} onChange={handleVolumeValue}></input>
         </div>
         
           <Piano 
@@ -458,6 +457,15 @@ export default function IntervalCard() {
           />
         </div> 
         
+        {loadingAudioBuffers && (
+            
+            <div className={styles.loadingImage}>
+               <LoadingMessage message={"Carregando arquivos de áudio..."}>
+
+               </LoadingMessage>
+            </div>
+          
+        )}
       </div>
   );
 }
