@@ -1,4 +1,4 @@
-const BASE_URL = "https://easy-som-backend-fymjyxabr-guikippers-projects.vercel.app"
+const BASE_URL = "https://easy-som-backend.vercel.app"
 
 export const login = async (username, password) => {
 
@@ -54,10 +54,6 @@ export const validateEmail = async (token) => {
       },
       body: JSON.stringify({ message: "Validando Email com Token" }),
     });
-
-    //if (!response.ok) {
-    //  throw new Error("Validate failed");
-    //}
 
     return response;
   } catch (error) {
