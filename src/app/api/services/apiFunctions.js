@@ -55,6 +55,9 @@ export const validateEmail = async (token) => {
       body: JSON.stringify({ message: "Validando Email com Token" }),
     });
 
+    console.log("Entrou em validateEmail")
+    console.log()
+
     if (!response.ok) {
       throw new Error("Validate failed");
     }
