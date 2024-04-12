@@ -50,7 +50,7 @@ export const validateEmail = async (token) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Beares ${token}`
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({ message: "Validando Email com Token" }),
     });
