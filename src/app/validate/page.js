@@ -19,23 +19,11 @@ export default function Validate() {
         console.log("Em validate, obtendo o token: ", tokenFromParams)
         if (tokenFromParams) {
             setToken(tokenFromParams);
-            const validateEmailAndSetResult = async () => {
-                if (tokenFromParams) {
-                    try {
-                        const response = await validateEmail(token);
-                        console.log("A resposta da validação: ", response)
-                        setValidationResult(response);
-                    } catch (error) {
-                        console.error(`Error during email validation: ${error.message}`);
-                    }
-                }
-            };
-            validateEmailAndSetResult();
         }
     }, [searchParams]);
 
     useEffect(() => {
-        console.log("Entrou aqui?????????????????")
+        console.log("Entrou aqui????????????????? o token:", token)
         const validateEmailAndSetResult = async () => {
             if (token) {
                 try {
