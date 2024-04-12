@@ -45,7 +45,6 @@ export const authenticateWithToken = async (token) => {
 } 
 
 export const validateEmail = async (token) => {
-  console.log("Em validateEmail valendo, o token: ", token)
   try {
     const response = await fetch(`${BASE_URL}/validate`, {
       method: "POST",
@@ -55,8 +54,6 @@ export const validateEmail = async (token) => {
       },
       body: JSON.stringify({ message: "Validando Email com Token" }),
     });
-
-    console.log("Entrou em validateEmail")
 
     //if (!response.ok) {
     //  throw new Error("Validate failed");

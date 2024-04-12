@@ -23,12 +23,12 @@ export default function Validate() {
     }, [searchParams]);
 
     useEffect(() => {
-        console.log("Entrou aqui????????????????? o token:", token)
         const validateEmailAndSetResult = async () => {
             if (token) {
                 try {
                     const response = await validateEmail(token);
-                    console.log("A resposta da validação: ", response)
+                    const data = await response.json()
+                    console.log(data)
                     setValidationResult(response);
                 } catch (error) {
                     console.error(`Error during email validation: ${error.message}`);
