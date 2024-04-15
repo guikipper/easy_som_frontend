@@ -142,8 +142,10 @@ export default function Account() {
                 const newName = response.success.data.newName
                 setName(newName)
                 refreshPage()
-            } else {
-                //console.log(response)
+            } else if (response.error) {
+                console.log(response)
+                setAlertMessage(response.error.message)
+                setAlertType("danger")
             }
             return 
         }
