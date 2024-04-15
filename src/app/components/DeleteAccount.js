@@ -11,6 +11,7 @@ export default function DeleteAccount() {
     const [showLoading, setShowLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState("")
     const router = useRouter();
 
     const handleDeleteAccount = async () => {
@@ -24,8 +25,9 @@ export default function DeleteAccount() {
                 password: password,
             };
             const result = await deleteAccount(userData);
+            console.log(result)
 
-            if (result.status === 201) {
+            if (result.success) {
                 setShowLoading(false);
                 setShowAlert(true);
                 setTimeout(() => {
@@ -34,11 +36,9 @@ export default function DeleteAccount() {
                     setShowAlert(false);
                     router.push('/');
                 }, 3000);
-            } else if (result.status === 401) {
+            } else if (result.error) {
                 setShowLoading(false);
-                alert("Senha inválida!");
-            } else {
-                alert('Outro erro');
+                setMessage(error.message)
             }
         }
     };
@@ -52,6 +52,8 @@ export default function DeleteAccount() {
             >
                 Deletar Conta
             </button>
+
+            <p>A mensagem: {message}</p>
 
             {showModal && ( 
                 <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>

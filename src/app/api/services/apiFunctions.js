@@ -167,11 +167,8 @@ export const deleteAccount = async (userData) => {
       },
       body: JSON.stringify({ password: password }),
     });
-    if (response.ok) {
-      return response
-    } else {
-      console.error("Falha ao deletar a conta: ", response.status);
-    }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Erro: ", error);
   }
