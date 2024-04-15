@@ -145,7 +145,7 @@ export default function Account() {
             } else if (response.error) {
                 console.log(response)
                 setShowAlert(true)
-                setAlertMessage(response.error.details[0])
+                setAlertMessage("Ocorreu um erro na alteração do nome, verifique se foram usados caracteres espeiciais.")
                 setAlertType("danger")
                 setTimeout(() => {
                     setShowAlert(false) 
