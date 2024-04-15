@@ -175,8 +175,9 @@ export default function Account() {
             }
             
             const result = await changePassword(userData)
+            console.log(result)
 
-            if (result.statusCode == 201) {
+            if (result.success) {
                 setShowAlert(true)
                 setAlertMessage("Senha alterada com sucesso!")
                 setAlertType("success")
@@ -186,9 +187,9 @@ export default function Account() {
                     setAlertMessage("")
                     setAlertType("")
                 }, 2000)
-            } else if (result.statusCode == 202) {
+            } else if (result.error) {
                 setShowAlert(true)
-                setAlertMessage("Senha atual inválida!")
+                setAlertMessage(result.error.message)
                 setAlertType("danger")
                 clearInputs()
                 setTimeout(() => {
