@@ -426,12 +426,13 @@ export default function IntervalCard() {
 
        {/*  {visibleHelp && <IntervalsTable />} */}
         
-        <div className={styles.pianoDiv}>
-        <div className={styles.volumeDiv}>
-          <label for="customRange1" className="form-label">Ajustar Volume</label>
-          <input type="range" className="form-range" id="customRange1" value={volume} onChange={handleVolumeValue}></input>
+       <div className={styles.volumeDiv}>
+            <label for="customRange1" className="form-label">Ajustar Volume</label>
+            <input type="range" className="form-range" id="customRange1" value={volume} onChange={handleVolumeValue}></input>
         </div>
         
+        <div className={styles.pianoDiv}>
+          
           <Piano 
           notaReferencia={notaReferenciaNoTeclado} 
           notaAlvo={notaAlvoNoTeclado} 

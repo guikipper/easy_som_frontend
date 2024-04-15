@@ -15,7 +15,6 @@ export default function RootLayout({ children }) {
     
     <html>
       <body>
-
       <MyContextProvider>
         {/* <AnotherContextProvider> */}
         <div className={styles.mainContainer}>
