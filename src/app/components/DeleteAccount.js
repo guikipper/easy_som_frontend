@@ -12,6 +12,8 @@ export default function DeleteAccount() {
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState("")
+    const [type, setType] = useState("")
+    const [redirect, setRedirect] = useState(false)
     const router = useRouter();
 
     const handleDeleteAccount = async () => {
@@ -30,19 +32,24 @@ export default function DeleteAccount() {
             if (result.success) {
                 setShowLoading(false);
                 setShowAlert(true);
+                setRedirect(true)
+                setType("success")
                 setMessage("Conta excluída com sucesso!")
 
                 setTimeout(() => {
                     Cookies.set('token', '');
                     setShowModal(false);
+                    setRedirect(false)
                     setShowAlert(false);
                     router.push('/');
                 }, 3000);
 
             } else if (result.error) {
                 setShowLoading(false);
+                setRedirect(false)
+                setType("danger")
                 setShowAlert(true);
-                setMessage(error.message)
+                setMessage(result.error.message)
             }
         }
     };
@@ -100,8 +107,10 @@ export default function DeleteAccount() {
                             )}
                             {showAlert && (
                                 <div className={styles.alertContainer}>
-                                    <Alert type="success" message={message} />
-                                    <p>Redirecionando...</p>
+                                    <Alert type={type} message={message} />
+                                    {redirect && (
+                                        <p>Redirecionando...</p>
+                                    )}
                                 </div>
                             )}
                         </div>
