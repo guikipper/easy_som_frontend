@@ -83,6 +83,11 @@ export default function DeleteAccount() {
                                     id="inputPassword5"
                                     className="form-control"
                                     aria-describedby="passwordHelpBlock"
+                                    onKeyDown={(e) => {
+                                        if(e.key === 'Enter' && password) {
+                                            handleDeleteAccount();
+                                        }
+                                    }}
                                     onChange={(e) => {
                                         setPassword(e.target.value);
                                     }}
