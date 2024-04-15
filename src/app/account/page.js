@@ -217,6 +217,11 @@ export default function Account() {
                                 value={newName} 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default"
+                                onKeyDown={(e) => {
+                                    if(e.key === 'Enter' && newName && editMode) {
+                                        confirmChangeName();
+                                    }
+                                }}
                                 onChange={(e) => {
                                     if (e.target.value.length <= 60) {
                                         handleNewName(e.target.value)
