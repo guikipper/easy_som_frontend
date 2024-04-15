@@ -144,8 +144,14 @@ export default function Account() {
                 refreshPage()
             } else if (response.error) {
                 console.log(response)
-                setAlertMessage(response.error.message)
+                setShowAlert(true)
+                setAlertMessage(response.error.details[0])
                 setAlertType("danger")
+                setTimeout(() => {
+                    setShowAlert(false) 
+                    setAlertMessage("")
+                    setAlertType("")
+                }, 3000)
             }
             return 
         }
