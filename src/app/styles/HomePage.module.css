@@ -53,6 +53,7 @@
     text-decoration: none;
     color: inherit;
 }
+
 @media (max-width: 768px) {
     .homePageMainDiv {
         width: 100vw;
@@ -85,17 +86,17 @@
 
 }
 
-@media screen and (orientation: landscape) and (max-width: 768px) {
+@media screen and (orientation: landscape) and (max-width: 1000px) {
     .homePageMainDiv {
         width: 85vw;
         overflow: hidden;
     }
     .homePageMainDiv h1, .homePageMainDiv h2 {
-        font-size: 0.9em; 
+        font-size: 0.8em; 
         margin-bottom: 20px;
     }
     .homePageTitleDiv {
+        margin-right: 0px;
         margin-bottom: 20px;
-        margin-right: 80px;
     }
   }

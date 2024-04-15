@@ -78,3 +78,21 @@
         font-size: 0.8em;
     }
   }
+
+  @media screen and (orientation: landscape) and (max-width: 1000px) {
+    .navbar h1 {
+        font-size: 1.6em;
+    }
+    .navbar p {
+        font-size: 0.9em;
+    }
+  }
+
+  @media screen and (orientation: portrait) and (max-width: 1000px) {
+    .navbar h1 {
+        font-size: 1.6em;
+    }
+    .navbar p {
+        font-size: 0.9em;
+    }
+  }
