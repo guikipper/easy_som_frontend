@@ -30,14 +30,18 @@ export default function DeleteAccount() {
             if (result.success) {
                 setShowLoading(false);
                 setShowAlert(true);
+                setMessage("Conta excluída com sucesso!")
+
                 setTimeout(() => {
                     Cookies.set('token', '');
                     setShowModal(false);
                     setShowAlert(false);
                     router.push('/');
                 }, 3000);
+
             } else if (result.error) {
                 setShowLoading(false);
+                setShowAlert(true);
                 setMessage(error.message)
             }
         }
@@ -52,8 +56,6 @@ export default function DeleteAccount() {
             >
                 Deletar Conta
             </button>
-
-            <p>A mensagem: {message}</p>
 
             {showModal && ( 
                 <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
@@ -98,7 +100,7 @@ export default function DeleteAccount() {
                             )}
                             {showAlert && (
                                 <div className={styles.alertContainer}>
-                                    <Alert type="success" message="Conta excluída com sucesso!" />
+                                    <Alert type="success" message={message} />
                                     <p>Redirecionando...</p>
                                 </div>
                             )}
