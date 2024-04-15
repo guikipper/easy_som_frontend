@@ -141,13 +141,19 @@ export default function Account() {
             if (response.success) {         
                 const newName = response.success.data.newName
                 setName(newName)
+                refreshPage()
             } else {
                 //console.log(response)
             }
             return 
         }
-     
       }
+
+      function refreshPage() {
+        if (typeof window !== "undefined") {
+            window.location.reload();
+        }
+    }
 
       const handleNewName = (newName) => {
         setNewName((prevName) => {
