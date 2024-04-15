@@ -332,6 +332,11 @@ export default function Account() {
                                     aria-label="Sizing example input" 
                                     aria-describedby="inputGroup-sizing-default"
                                     onPaste={handleConfirmPasswordPaste}
+                                    onKeyDown={(e) => {
+                                        if(e.key === 'Enter' && !disableButton) {
+                                            confirmChangePassword();
+                                        }
+                                    }}
                                     onChange={(e) => {
                                         validateConfirmNewPassword(e.target.value)
                                         setConfirmNewPassword(e.target.value)
