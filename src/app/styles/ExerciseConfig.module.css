@@ -191,5 +191,20 @@
         margin-left: 20px;
         margin-top: -290px;
     }
+}
 
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .config {
+        width: 90vw;
+        margin-top: 200px;
+        background-color: #FAFAFA;
+    }
+}
+
+@media screen and (max-width: 900px) and (orientation: landscape) {
+    .config {
+        width: 90vw;
+        margin-top: 200px;
+        background-color: #FAFAFA;
+    }
 }
