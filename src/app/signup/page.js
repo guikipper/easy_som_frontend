@@ -34,6 +34,7 @@ export default function SignUp() {
       password: password,
     };
     const response = await signUp(userData)
+    console.log(response)
     if (response.error) {
         setShowAlert(true)
         setAlertMessage(response.error.details[0].message)

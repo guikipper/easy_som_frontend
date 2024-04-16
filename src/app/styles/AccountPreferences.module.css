@@ -2,7 +2,7 @@
     position: absolute;
     top: 25px;
     right: 25px;
-    z-index: 5;
+    z-index: 25;
 }
 .loginLink {
     text-decoration: none;

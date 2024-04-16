@@ -4,18 +4,20 @@
     flex-direction: column;
     justify-content: center;
     gap: 1em;
-    width: 100vw;
+    width: 70%;
     height: 100%;
 }
 
 .column {
-    width: 60%;
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
     border-radius: 16px;
     flex-wrap: wrap;
+    text-align: center;
+    overflow-x: hidden;
     background-color: #FAFAFA;
 }
 
@@ -55,6 +57,8 @@
     justify-content: center;
     flex-direction: column;
     margin-bottom: 36px;
+    flex-wrap: wrap;
+    word-wrap: break-word;
 }
 .intervalOptions label {
     cursor: pointer;
@@ -76,6 +80,7 @@
 
 .direction p {
     font-weight: bold;
+    flex-wrap: wrap;
 }
 
 .tryAgain {
@@ -179,6 +184,7 @@
     }
     .text {
         padding-left: 15px;
+        width: 70%;
         padding-right: 15px;
     }
     .auxiliarDropdown {
