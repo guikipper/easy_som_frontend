@@ -12,7 +12,6 @@ const montSerrat = Montserrat({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
-    
     <html>
       <body>
       <MyContextProvider>

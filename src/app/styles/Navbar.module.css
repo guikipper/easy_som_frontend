@@ -48,7 +48,8 @@
 @media (max-width: 768px) {
     .navbar {
         width: 100vw;
-        height: 200px; 
+        height: 20vh; 
+        z-index: 10;
         flex-direction: column;
     }
     .navbar h1 {

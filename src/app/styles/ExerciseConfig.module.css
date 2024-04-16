@@ -1,21 +1,22 @@
 .config {
-    height: 650px;
-    width: 70%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
-    border-radius: 16px;
-    flex-wrap: wrap;
-    background-color: #FAFAFA;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+    width: 100vw;
+    height: 100%;
 }
 
 .column {
+    width: 60%;
     display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    background-color: #FAFAFA;
 }
 
 .dropOp {
@@ -163,7 +164,10 @@
 @media (max-width: 768px) {
     .config {
         width: 90vw;
+        padding-top: 40px;
+        overflow: hidden;
         background-color: #FAFAFA;
+        flex-direction: column;
     }
     .column {
         display: flex;
@@ -185,7 +189,7 @@
     .intervalOptionsMessage {
         margin-top: -250px;
         margin-right: 200px;
-        width: 100vh;
+        width: 100%;
     }
     .roundMessage {
         margin-left: 20px;
@@ -193,18 +197,3 @@
     }
 }
 
-@media screen and (max-width: 768px) and (orientation: landscape) {
-    .config {
-        width: 90vw;
-        margin-top: 200px;
-        background-color: #FAFAFA;
-    }
-}
-
-@media screen and (max-width: 900px) and (orientation: landscape) {
-    .config {
-        width: 90vw;
-        margin-top: 200px;
-        background-color: #FAFAFA;
-    }
-}
