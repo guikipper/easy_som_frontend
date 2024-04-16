@@ -36,10 +36,12 @@ export default function SignUp() {
     const response = await signUp(userData)
     console.log(response)
     if (response.error) {
+      console.log("Deu erro na solicitação")
         setShowAlert(true)
         setAlertMessage(response.error.details[0].message)
     }
     if (response.success) {
+      console.log("Deu sucesso na solicitação")
       setRedirect(true)
       setTimeout(() => {
         router.push('/login')
