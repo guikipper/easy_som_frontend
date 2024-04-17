@@ -15,6 +15,7 @@ export default function Validate() {
     const searchParams = useSearchParams();
     const [validationResult, setValidationResult] = useState("");
     const [error, setError] = useState(false)
+    const [validating, setValidating] = useState(false)
 
     useEffect(() => {
         const tokenFromParams = searchParams.get('token');
@@ -27,13 +28,13 @@ export default function Validate() {
         const validateEmailAndSetResult = async () => {
             if (token) {
                 try {
+                    setValidating(true)
                     const response = await validateEmail(token);
                     const data = await response.json()
-                    console.log(data.details[0].message)
+                    //console.log(data.details[0].message)
                     setValidationResult(data)
-                    console.log(data)
-                    if (data.error) {
-                        setError(true)
+                    if (data.success || data.error) {
+                        setValidating(false)
                     }
                 } catch (error) {
                     console.error(`Error during email validation: ${error.message}`);
@@ -48,12 +49,11 @@ export default function Validate() {
         <div className={styles.main}>
            
             <div className={styles.mainContent}>
-            {!error ? 
-            <>
-                {validationResult && validationResult.code != 200 && (
+                {validating && (
                     <p className={styles.waitingMessage}>Validando email...</p>
                 )}
-                {validationResult && validationResult.code == 200 && (
+
+                {validationResult.success && (
                     <div className={styles.validationSuccess}>
                         <p className={styles.successMessage}>Seu email foi validado com sucesso!</p>
                             <Link href="./login">
@@ -63,14 +63,13 @@ export default function Validate() {
                             </Link>
                     </div>   
                 )} 
-            </>
-            : 
-            <>
-             {validationResult && validationResult.code != 200 && (
+            
+
+             {validationResult.error && (
                     <ResponseFeedback type={"error"} message={validationResult.message} details={validationResult.details[0].message}/>
-                )}
-            </>
-            }
+            )}
+            
+            
             
             </div>
         </div>
