@@ -1,13 +1,45 @@
 .responseContainer {
-    border: 1px solid black;
-    padding: 20px;
+    border-radius: 20px;
     width: 50%;
-    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.responseContainer li {
+   list-style-type: none;
+   margin-top: 12px;
+   font-weight: 500;
+   text-align: center;
+   width: 100%;
 }
 
 .error {
+    font-weight: 500;
     color: red;
 }
 .success {
+    font-weight: 500;
     color: green;
+}
+.errorDiv {
+    background-color: #FADADD;
+}
+
+.successDiv {
+    background-color: #dafade;
+}
+.loadingWrapper {
+    position: relative;
+    height: 10px; 
+    width: 130px;
+}
+
+.loadingImage {
+    margin-top: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

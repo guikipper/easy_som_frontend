@@ -11,13 +11,15 @@
     width: 50%;
     display: flex;
     align-items: center;
+    gap: 15px;
     justify-content: center;
     background-color: #FAFAFA;
     border-radius: 16px;
     margin-bottom: 20px;
 }
 .emailInput {
-    background-color: #f0f0f0;  
+    background-color: #f0f0f0;
+    width: 60%;  
     color: #333;               
     border: 2px solid #ccc;    
     border-radius: 5px;        
