@@ -12,11 +12,10 @@ export default function Validate() {
 
     const [token, setToken] = useState(null);
     const searchParams = useSearchParams();
-    const [validationResult, setValidationResult] = useState(1);
+    const [validationResult, setValidationResult] = useState();
 
     useEffect(() => {
         const tokenFromParams = searchParams.get('token');
-        console.log("Em validate, obtendo o token: ", tokenFromParams)
         if (tokenFromParams) {
             setToken(tokenFromParams);
         }
@@ -41,26 +40,24 @@ export default function Validate() {
     return (
         <>
         <div className={styles.main}>
-
             <div className={styles.mainContent}>
+            {validationResult && validationResult.status != 200 && validationResult.status == 400 || validationResult.status == 500 && (
+                <p className={styles.error}>Ocorreu um erro: {validationResult.error.message}</p>
+            )}
             {validationResult && validationResult.status != 200 && (
                 <p className={styles.waitingMessage}>Validando email...</p>
             )}
             {validationResult && validationResult.status == 200 && (
                 <div className={styles.validationSuccess}>
                     <p className={styles.successMessage}>Seu email foi validado com sucesso!</p>
-                   
                         <Link href="./login">
-                        <button className={styles.loginButton}>
-                            <p>Login</p>
-                        </button>
+                            <button className={styles.loginButton}>
+                                <p>Login</p>
+                            </button>
                         </Link>
-                    
                 </div>   
-                
             )}
             </div>
-            
         </div>
         </>
     )

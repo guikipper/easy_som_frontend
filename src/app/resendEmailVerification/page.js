@@ -10,14 +10,13 @@ export default function RecoverPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("")
   const [type, setType] = useState("")
-  const [details, setDetails] = useState(" ")
-  const [loading, setLoading] = useState(true)
+  const [details, setDetails] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const callApi = async () => {
     setLoading(true)
     if (email) {
       const response = await resendEmailVerification(email);
-      console.log(response)
       if (response.success) {
         setLoading(false)
         setType("success")
