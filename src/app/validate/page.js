@@ -41,9 +41,6 @@ export default function Validate() {
         <>
         <div className={styles.main}>
             <div className={styles.mainContent}>
-            {validationResult && validationResult.status != 200 && validationResult.status == 400 || validationResult.status == 500 && (
-                <p className={styles.error}>Ocorreu um erro: {validationResult.error.message}</p>
-            )}
             {validationResult && validationResult.status != 200 && (
                 <p className={styles.waitingMessage}>Validando email...</p>
             )}
