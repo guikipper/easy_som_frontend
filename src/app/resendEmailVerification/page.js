@@ -13,7 +13,7 @@ export default function RecoverPassword() {
   const callApi = async () => {
     if (email) {
       const response = await resendEmailVerification(email);
-      
+      console.log(response)
       if (response.success) {
         console.log("success");
         setMessage(response.success.message)
