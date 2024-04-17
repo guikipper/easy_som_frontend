@@ -1,4 +1,4 @@
-const BASE_URL = "https://probable-spoon-9q6955q6v47hxg5-3500.app.github.dev"
+const BASE_URL = "https://easy-som-backend.vercel.app"
 
 export const login = async (username, password) => {
 
