@@ -34,9 +34,6 @@ export const resendEmailVerification = async (email) => {
     });
 
     const data = await response.json();
-    if (!response.ok) {
-      return { ...data, failed: true };
-    }
     return data;
 
   } catch (error) {

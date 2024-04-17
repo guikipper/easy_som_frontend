@@ -1,0 +1,13 @@
+.responseContainer {
+    border: 1px solid black;
+    padding: 20px;
+    width: 50%;
+    border-radius: 16px;
+}
+
+.error {
+    color: red;
+}
+.success {
+    color: green;
+}

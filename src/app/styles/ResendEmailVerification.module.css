@@ -4,15 +4,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 .resendEmailVerification {
-    height: 400px;
-    width: 600px;
+    height: 30%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #FAFAFA;
     border-radius: 16px;
+    margin-bottom: 20px;
 }
 .emailInput {
     background-color: #f0f0f0;  
