@@ -66,7 +66,7 @@ export default function Validate() {
             
 
              {validationResult.error && (
-                    <ResponseFeedback type={"error"} message={validationResult.message} details={validationResult.details[0].message}/>
+                    <ResponseFeedback type={"error"} message={validationResult.message} details={validationResult.error.details[0].message}/>
             )}
             
             
