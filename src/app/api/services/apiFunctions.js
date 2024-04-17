@@ -1,4 +1,4 @@
-const BASE_URL = "https://easy-som-backend.vercel.app"
+const BASE_URL = "https://probable-spoon-9q6955q6v47hxg5-3500.app.github.dev"
 
 export const login = async (username, password) => {
 
@@ -9,6 +9,28 @@ export const login = async (username, password) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ email: username, password }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { ...data, failed: true };
+    }
+    return data;
+
+  } catch (error) {
+    throw new Error(`Error during login: ${error.message}`);
+  }
+};
+
+export const resendEmailVerification = async (email) => {
+
+  try {
+    const response = await fetch(`${BASE_URL}/resendEmailVerification`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email }),
     });
 
     const data = await response.json();

@@ -151,6 +151,12 @@ export default function Login() {
                         <span className={styles.signUpLink}> Cadastrar agora.</span>
                     </Link> 
                 </p>
+
+                <div className={styles.forgetPassword}>
+                    <Link href="./resendEmailVerification" className={styles.resendEmailLink}>
+                        <span className={styles.resendEmailLink}> Reenviar link de email</span>
+                    </Link> 
+                </div> 
            
             </div>
         </div>

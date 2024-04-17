@@ -1,0 +1,31 @@
+.mainContainer {
+    height: 100%;
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.resendEmailVerification {
+    height: 400px;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FAFAFA;
+    border-radius: 16px;
+}
+.emailInput {
+    background-color: #f0f0f0;  
+    color: #333;               
+    border: 2px solid #ccc;    
+    border-radius: 5px;        
+    padding: 8px 12px;       
+    font-size: 16px;          
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+    transition: all 0.3s;     
+}
+
+.emailInput:focus {
+    border-color: #0066cc;     
+    box-shadow: 0 0 8px rgba(0, 102, 204, 0.5);  
+}

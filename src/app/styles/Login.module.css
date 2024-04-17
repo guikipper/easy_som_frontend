@@ -69,6 +69,14 @@
     color: black;
     font-weight: 600;
 }
+.resendEmailLink {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+}
 .signUpLink:hover {
     color: #038ad8;
 }
