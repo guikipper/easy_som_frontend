@@ -13,7 +13,7 @@ export default function Validate() {
 
     const [token, setToken] = useState(null);
     const searchParams = useSearchParams();
-    const [validationResult, setValidationResult] = useState();
+    const [validationResult, setValidationResult] = useState("");
     const [error, setError] = useState(false)
 
     useEffect(() => {
@@ -29,6 +29,7 @@ export default function Validate() {
                 try {
                     const response = await validateEmail(token);
                     const data = await response.json()
+                    console.log(data.details[0].message)
                     setValidationResult(data)
                     console.log(data)
                     if (data.error) {
