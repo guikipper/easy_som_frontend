@@ -6,7 +6,11 @@ import Link from 'next/link'
 export default function Home() {
 
   return (
+    <>
+    
+    
     <main>
+      
       <div className={styles.homePageMainDiv}>
         <div className={styles.homePageTitleDiv}>
           <h1>
@@ -35,5 +39,6 @@ export default function Home() {
       </div>
       
     </main>
+    </>
   );
 }
