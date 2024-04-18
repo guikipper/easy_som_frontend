@@ -1,7 +1,4 @@
 const BASE_URL = "https://easy-som-backend.vercel.app"
-//const BASE_URL = "https://probable-spoon-9q6955q6v47hxg5-3500.app.github.dev"
-
-
 
 export const login = async (username, password) => {
 
@@ -126,7 +123,6 @@ export const signUp = async (userData) => {
       body: JSON.stringify(userData),
     });
     const data = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error("Error:", error);

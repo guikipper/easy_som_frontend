@@ -12,9 +12,15 @@ export default function RecoverPassword() {
   const [type, setType] = useState("")
   const [details, setDetails] = useState("")
   const [loading, setLoading] = useState(false)
+  const [disabled, setDisabled] = useState(true)
 
   const callApi = async () => {
+    setDisabled(true)
     setLoading(true)
+    setType("")
+    setMessage("")
+    setDetails("")
+    
     if (email) {
       const response = await resendEmailVerification(email);
       if (response.success) {
@@ -23,13 +29,25 @@ export default function RecoverPassword() {
         setMessage(response.success.message)
       }
       if (response.error) {
+        setDisabled(false)
         setLoading(false)
         setType("error")
         setMessage(response.error.message)
         setDetails(response.error.details[0].message)
       }
+    } else {
+      setLoading(false)
+      setType("error")
+      setMessage("Informe o email.")
     }
   };
+
+  const handleEmail = (value) => {
+    setEmail(value)
+    if (value.length > 5) {
+      setDisabled(false)
+    }
+  }
 
   return (
     <div className={styles.mainContainer}>
@@ -42,7 +60,7 @@ export default function RecoverPassword() {
           aria-label="Email"
           className={styles.emailInput}
           onChange={(e) => {
-            setEmail(e.target.value);
+            handleEmail(e.target.value)
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -54,6 +72,7 @@ export default function RecoverPassword() {
         <button
           type="button"
           class="btn btn-primary"
+          disabled={disabled}
           onClick={() => {
             callApi();
           }}
