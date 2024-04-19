@@ -35,7 +35,7 @@ const notaParaFormatoPadrao = {
   }
   
   const notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-  const oitavasDisponiveis = [3, 4, 5]
+  const oitavasDisponiveis = [3, 4, 5, 6]
 
   export function ajustarOitava(nota1, nota2, interval) {
     let oitavaReferencia = getRandomOctave()
@@ -50,7 +50,7 @@ const notaParaFormatoPadrao = {
       return [nota1ComOitava, nota2ComOitava];
     }   
 
-    if(oitavaReferencia === 5) {
+    if(oitavaReferencia === 6) {
       const cabe = 12 - (posicaoNota1 + intervalosSemitons[interval])
       if (cabe <= 0) {
         oitavaAlvo-=1

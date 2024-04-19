@@ -1,5 +1,4 @@
 .piano {
-    width: 1100px;
     height: 230px;
     background-color: #001019;
     display: flex;
@@ -104,6 +103,23 @@
 .Bb5 {
     margin-left: 290px;
 }
+
+.Db6 {
+    margin-left: 40px;
+}
+.Eb6 {
+    margin-left: 90px
+}
+.Gb6 {
+    margin-left: 190px;
+}
+.Ab6 {
+    margin-left: 240px;
+}
+.Bb6 {
+    margin-left: 290px;
+}
+
  .white:active {
     background-image: linear-gradient(#fdfcfc, rgb(190, 186, 186));
     height: 210px;

@@ -44,8 +44,8 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
       source.onended = () => {
         source.disconnect();
       };
-      const fadeOutStart = 1.7; // Tempo para iniciar o fade out após o início da reprodução
-      const fadeOutDuration = 0.4; // Duração do fade out em segundos
+      const fadeOutStart = 1.7; 
+      const fadeOutDuration = 0.4; 
 
       source.start();
 
@@ -129,6 +129,29 @@ export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWi
 
             <div className={`${styles.octave5} ${styles.octave}`}>
               {notesOctaveFive.map((note) => (
+                  <div
+                    key={note}
+                    id={note}
+                    className={`${note.includes('b') ? styles.black : styles.white} ${styles.key} ${styles[note]}`}
+                    onClick={handleButtonClick} >
+                    { note === adjustedReferenceNoteWithOctave && showNotesOnPiano && (
+                      <div className={styles.feeedbackNote}>
+                        <p>{notaReferencia}</p>
+                      </div>
+                  )}
+
+                  { note === adjustedTargetNoteWithOctave && showNotesOnPiano && (
+                      <div className={styles.feeedbackNote}>
+                        <p>{notaAlvo}</p>
+                      </div>
+                  )}
+    
+                  </div>
+                  ))}
+            </div>
+
+            <div className={`${styles.octave6} ${styles.octave}`}>
+              {notesOctaveSix.map((note) => (
                   <div
                     key={note}
                     id={note}
