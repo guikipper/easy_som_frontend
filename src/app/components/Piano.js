@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Piano.module.css';
-import { converterNota } from '../utils/noteConversor';
-
 
 export default function Piano({notaReferencia, notaAlvo, adjustedReferenceNoteWithOctave, adjustedTargetNoteWithOctave, showNotesOnPiano, volume, audioBuffers}) {
 

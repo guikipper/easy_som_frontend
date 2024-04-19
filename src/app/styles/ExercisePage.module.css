@@ -4,10 +4,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
 @media (max-width: 768px) {
     .exercisePage {
-        width: 100vw;
+        width: 90vw;
         overflow-x: hidden;
     }
 }

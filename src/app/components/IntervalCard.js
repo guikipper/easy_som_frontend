@@ -113,7 +113,7 @@ export default function IntervalCard() {
     
     let promises = fileNotes.map( async (noteName) => {
       
-      let filePath = `/audio/Notas/${noteName}.wav`
+      let filePath = `/audio/Notas/${noteName}.mp3`
       const response = await fetch(filePath)
       const arrayBuffer = await response.arrayBuffer()
       const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)

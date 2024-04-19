@@ -102,7 +102,7 @@ export default function Progress() {
 
             </div>
             <div className={styles.footer}>
-                <p>&copy; Harmonic Wave. Todos os direitos reservados.</p>
+                <p>&copy; Easy Som. Todos os direitos reservados.</p>
             </div>
     </div>
     )
