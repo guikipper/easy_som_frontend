@@ -7,3 +7,17 @@
     justify-content: center;
     flex-direction: column;
 }
+
+@media (max-width: 768px) {
+    .exercise {
+        width: 95vw;
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 950px) {
+    .exercise {
+        width: 95vw;
+        overflow-x: hidden;
+    }
+}

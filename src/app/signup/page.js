@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { signUp } from '../api/services/apiFunctions'
 import Redirecting from '../components/Redirecting';
 import Alert  from '../components/Alert';
+import Loading from '../components/Loading';
 export default function SignUp() {
 
   const [nameAndLastName, setNameAndLastName] = useState('')
@@ -23,25 +24,26 @@ export default function SignUp() {
   const [redirect, setRedirect] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
+  const [showLoading, setShowLoading] = useState(false)
 
   const router = useRouter()
 
   const handleSignUp = async () => {
     cleanAlert()
+    setShowLoading(true)
     const userData = {
       name: nameAndLastName.toLowerCase(),
       email: email.toLowerCase(),
       password: password,
     };
     const response = await signUp(userData)
-    console.log(response)
     if (response.error) {
-      console.log("Deu erro na solicitação")
+      setShowLoading(false)
         setShowAlert(true)
         setAlertMessage(response.error.details[0].message)
     }
     if (response.success) {
-      console.log("Deu sucesso na solicitação")
+      setShowLoading(false)
       setRedirect(true)
       setTimeout(() => {
         router.push('/login')
@@ -283,6 +285,9 @@ export default function SignUp() {
           </button>
         </div>
       </div>
+      {showLoading && (
+          <Loading/>
+        )}
     </div>
     </>
   );

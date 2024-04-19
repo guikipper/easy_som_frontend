@@ -51,7 +51,7 @@ export default function RecoverPassword() {
 
   return (
     <div className={styles.mainContainer}>
-      
+      <h4>Informe seu email para que o link seja reenviado.</h4>
       <div className={styles.resendEmailVerification}>
         
         <input

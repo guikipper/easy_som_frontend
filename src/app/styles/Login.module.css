@@ -74,7 +74,7 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
-    color: black;
+    color: gray;
     font-weight: 400;
 }
 .signUpLink:hover {

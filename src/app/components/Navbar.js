@@ -13,19 +13,20 @@ export default function Navbar() {
   useEffect(() => {
   }, [router])
 
-  const handleShowLoading = () => {
-    //setShowLoading(true)
-  }
-
   return (
     <div className={styles.navbar}>
-      <h1>EasySom</h1>
+      <Link href="/" legacyBehavior>
+        <a>
+          <h1 className={styles.title}>EasySom</h1>
+        </a>
+      </Link>  
+      
 
       <ul className={styles.linksList}>
         <li>
           <Link href="/" legacyBehavior>
             <a>
-              <p onClick={handleShowLoading}>Home</p>
+              <p>Home</p>
             </a>
           </Link>  
         </li>
@@ -33,7 +34,7 @@ export default function Navbar() {
         <li>
           <Link href="/intervals/exercise-config" legacyBehavior>
               <a>
-                <p onClick={handleShowLoading}>Intervalos</p>
+                <p>Intervalos</p>
               </a>
           </Link>  
         </li>
@@ -41,7 +42,7 @@ export default function Navbar() {
         <li>
           <Link href="/intervals/theory" legacyBehavior>
               <a>
-                <p onClick={handleShowLoading}>Dicionário</p>
+                <p>Dicionário</p>
               </a>
           </Link>  
         </li>

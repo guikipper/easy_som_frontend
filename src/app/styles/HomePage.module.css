@@ -100,3 +100,18 @@
         margin-bottom: 20px;
     }
   }
+
+  @media screen and (orientation: landscape) and (max-width: 1366px) {
+    .homePageMainDiv {
+        width: 85vw;
+        overflow: hidden;
+    }
+    .homePageMainDiv h1, .homePageMainDiv h2 {
+        font-size: 0.8em; 
+        margin-bottom: 20px;
+    }
+    .homePageTitleDiv {
+        margin-right: 0px;
+        margin-bottom: 20px;
+    }
+  }
