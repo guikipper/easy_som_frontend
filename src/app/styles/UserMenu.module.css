@@ -1,67 +1,12 @@
-.userMenuMain {
-    height: 700px;
-    width: 280px;
-    background-color: #1B1F22;
-    border-radius: 16px;
-    position: absolute;
-    top: 55px;
-    right: 5px;
+.modal {
+    height: 400px;
 }
-.header {
-    background-color: #212529;
-    padding: 20px;
-    width: 100%;
-    height: 200px;
-    border-top-right-radius: 16px;
-    border-top-left-radius: 16px;
+.modal_body {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
-.name {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-}
-.email {
-    font-size: 1em;
-    color: #FAFAFA;
-}
-.logout {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 15px;
-}
-.userMenuBody {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.userMenuBody a {
-    margin-top: 15px;
-    text-decoration: none; 
-    color: white;
-}
-.userMenuBody p {
-    margin-top: 15px;
-}
-.userMenuBody p:hover {
-    color: #00A2FF;
-}
-.logout a {
-    text-decoration: none; 
-    color: white;
-}
-.logout p {
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-}
-.logout p:hover {
-    color: #00A2FF;
+.link {
+    text-decoration: none;
+    color: inherit;
 }

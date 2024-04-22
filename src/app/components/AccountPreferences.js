@@ -74,7 +74,6 @@ export default function AccountPreferences() {
     } else {
       return username
     }
-    
   } 
 
   return (

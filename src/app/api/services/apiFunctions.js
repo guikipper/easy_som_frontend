@@ -1,4 +1,5 @@
-const BASE_URL = "https://easy-som-backend.vercel.app"
+const BASE_URL = "http://localhost:3500"
+//const BASE_URL = "https://easy-som-backend.vercel.app"
 
 export const login = async (username, password) => {
 
@@ -23,7 +24,6 @@ export const login = async (username, password) => {
 };
 
 export const resendEmailVerification = async (email) => {
-
   try {
     const response = await fetch(`${BASE_URL}/resendEmailVerification`, {
       method: "POST",
@@ -50,16 +50,11 @@ export const authenticateWithToken = async (token) => {
         "Authorization": `Bearer ${token}`
       },
     })
-
     const data = await response.json();
-    
-    if (!response.ok) {
-      return { ...data, failed: true };
-    }
     return data;
 
   } catch (error) {
-    throw new Error(`Error during login: ${error.message}`);
+    throw new Error(`Error during authentication: ${error.message}`);
   }
 } 
 
