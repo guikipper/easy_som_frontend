@@ -1,5 +1,6 @@
 .modal {
     height: 400px;
+    width: 250px;
 }
 .modal_body {
     display: flex;
@@ -9,4 +10,17 @@
 .link {
     text-decoration: none;
     color: inherit;
+}
+.link:hover {
+    color: gray;
+}
+.logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logout p:hover {
+    color: gray;
+    cursor: pointer;
 }

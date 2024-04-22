@@ -49,10 +49,18 @@ export default function UserMenu({name, email, setShowUserMenu}) {
                                     <p>Dados da conta</p>
                                 </a>
                             </Link>
+
+                            <Link href="/progress" legacyBehavior>
+                                <a className={styles.link} onClick={() => {setShowUserMenu(false)}}>
+                                    <p>Painel de Progresso</p>
+                                </a>
+                            </Link>
                             
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={() => setShowUserMenu(false)}>Fechar</button>
+                                <div className={styles.logout}>
+                                    <p onClick={handleLogout}>Sair</p>
+                                </div>
                             </div>
                            
                             
