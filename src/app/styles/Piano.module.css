@@ -1,6 +1,6 @@
 .piano {
     height: 230px;
-    width: 1440px;
+    width: 100%;
     padding-right: 20px;
     padding-left: 20px;
     background-color: #001019;
@@ -10,6 +10,7 @@
     flex-direction: column;
     border-radius: 25px;
     position: relative;
+    z-index: 3;
 }
 .octaves {
     display: flex;

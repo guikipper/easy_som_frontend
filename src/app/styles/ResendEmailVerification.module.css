@@ -18,18 +18,12 @@
     margin-bottom: 20px;
 }
 .emailInput {
-    background-color: #f0f0f0;
-    width: 60%;  
-    color: #333;               
-    border: 2px solid #ccc;    
-    border-radius: 5px;        
-    padding: 8px 12px;       
-    font-size: 16px;          
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
-    transition: all 0.3s;     
+    width: 400px;
+    height: 50px;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
 }
-
 .emailInput:focus {
-    border-color: #0066cc;     
-    box-shadow: 0 0 8px rgba(0, 102, 204, 0.5);  
+    outline: 2px solid #00A2FF;
 }

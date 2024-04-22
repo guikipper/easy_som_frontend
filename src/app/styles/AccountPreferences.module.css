@@ -63,6 +63,25 @@
     }
 }
 
+@media (max-width: 1366px) {
+    .mainAcc {
+        top: 180px;
+    }
+    .userMenuIndicator {
+        background-color: #FAFAFA;
+    }
+    .loginDivText {
+        padding: 5px;
+        border-radius: 16px;
+        background-color: #FAFAFA;
+        height: 40px;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }   
+    .loginDivText p {
+        margin-top: 2px;
+    }
+}
+
 @media (max-width: 900px) {
     .mainAcc {
         top: 180px;

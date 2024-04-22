@@ -5,6 +5,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 .title {
     font-size: 2em;
@@ -54,6 +56,31 @@
         width: 100vw;
         height: 20vh; 
         z-index: 10;
+        flex-direction: column;
+    }
+    .navbar h1 {
+        font-size: 2em;
+        font-weight: bold;
+        padding: 0.5em;
+        padding-bottom: 1.3em;
+        margin-top: 1em;
+        color: #00a2ff;
+    }
+    .linksList {
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 1366px) {
+    .navbar {
+        width: 100vw;
+        height: 200px; 
         flex-direction: column;
     }
     .navbar h1 {

@@ -56,7 +56,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-bottom: 36px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
     word-wrap: break-word;
 }
@@ -132,10 +132,11 @@
     margin-left: 430px;
     color: red;
 }
-.intervalOptionsMessage {
-    position: fixed;
-    margin-top: 45px;
-    margin-left: 630px;
+.messageDiv {
+    height: 30px;
+    width: 100%;
+}
+.formMessage {
     color: red;
 }
 .loadingImage {
@@ -191,15 +192,6 @@
         height: 250px;
         overflow-y: auto;
         overflow-x: hidden;
-    }
-    .intervalOptionsMessage {
-        margin-top: -250px;
-        margin-right: 200px;
-        width: 100%;
-    }
-    .roundMessage {
-        margin-left: 20px;
-        margin-top: -290px;
     }
 }
 

@@ -6,6 +6,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+    z-index: 3;
 }
 
 @media (max-width: 768px) {

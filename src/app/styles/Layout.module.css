@@ -20,6 +20,15 @@
     }
 }
 
+@media (max-width: 1366px) {
+    .mainContainer {
+        align-items: center;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
 @media (max-width: 915px) {
     .mainContainer {
         align-items: center;

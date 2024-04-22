@@ -210,10 +210,11 @@ export default function ExerciseConfig() {
               Trítono
             </label>
           </div>
-          {intervalOptionsMessage && (
-            <p className={styles.intervalOptionsMessage}>Informe ao menos um intervalo.</p>
-          )}
-          
+          <div className={styles.messageDiv}>
+            {intervalOptionsMessage && (
+              <p className={styles.formMessage}>Informe ao menos um intervalo.</p>
+            )}
+          </div>
         </div>
 
         <div className={styles.roundQtd}>
@@ -248,10 +249,12 @@ export default function ExerciseConfig() {
             onClick={() => {incrementCont(5)}}>
               +5
             </button>
-            {roundsMessage && (
-                <p className={styles.roundMessage}>Selecione um valor válido.</p>
-            )}
           </div>
+          <div className={styles.messageDiv}>
+              {intervalOptionsMessage && (
+                <p className={styles.formMessage}>Selecione um valor válido.</p>
+              )}
+            </div>
         </div>
 
         <div className={styles.confirmBtn}>
