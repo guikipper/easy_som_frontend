@@ -1,10 +1,14 @@
 .mainContainer {
     height: 100%;
-    width: 70vw;
+    background-color: #FAFAFA;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80vw;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: 20px;
 }
 .resendEmailVerification {
     height: 30%;

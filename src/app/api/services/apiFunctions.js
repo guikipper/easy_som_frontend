@@ -1,5 +1,5 @@
-//const BASE_URL = "http://localhost:3500"
-const BASE_URL = "https://easy-som-backend.vercel.app"
+const BASE_URL = "http://localhost:3500"
+//const BASE_URL = "https://easy-som-backend.vercel.app"
 
 export const login = async (username, password) => {
 
@@ -206,6 +206,7 @@ export const sendPasswordRecoveryEmail = async (email) => {
 
 export const recoverPasswordRoute = async (newPassword, token) => {
   try {
+    console.log("Entrou aqui")
     const response = await fetch(`${BASE_URL}/recoverPassword`, {
       method: 'POST',
       headers: {

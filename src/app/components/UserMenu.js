@@ -20,8 +20,8 @@ export default function UserMenu({name, email, setShowUserMenu}) {
       }
 
       const formatUsername = (name) => {
-        if (name.length > 15) {
-          return name.slice(0,15).trim()+'...'
+        if (name.length > 16) {
+          return name.slice(0,16).trim()+'...'
         } else {
           return name
         }

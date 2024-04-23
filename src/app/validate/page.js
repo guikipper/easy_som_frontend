@@ -69,8 +69,6 @@ export default function Validate() {
                 <ResponseFeedback type={"error"} message={""} details={validationResult.error.details[0].message}/>
             )}
             
-            
-            
             </div>
         </div>
         </>
