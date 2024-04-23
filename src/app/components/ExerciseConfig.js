@@ -256,7 +256,7 @@ export default function ExerciseConfig() {
             </button>
           </div>
           <div className={styles.messageDiv}>
-              {intervalOptionsMessage && (
+              {roundsMessage && (
                 <p className={styles.formMessage}>Selecione um valor válido.</p>
               )}
             </div>
