@@ -102,12 +102,17 @@ export default function ExerciseConfig() {
             
             <ul className={`dropdown-menu ${styles.auxiliarDropdown}`}>
               {notes.map((note, index) => {
+                let displayNote = note; // por padrão, mostra a nota como está
+                if (note === 'random') {
+                  displayNote = 'Aleatório'; // altera para 'Aleatório' se a nota for 'random'
+                }
+
                 return (
                 <li key={index}>
                   <a className="dropdown-item" onClick={() => {
                     handleDropdownItemSelected(note)
                   }}>
-                    {note}
+                    {displayNote}
                   </a>
                 </li>)
               })} 
