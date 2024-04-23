@@ -47,6 +47,14 @@ export default function Navbar() {
           </Link>  
         </li>
 
+        <li>
+          <Link href="/about" legacyBehavior>
+              <a>
+                <p>Sobre</p>
+              </a>
+          </Link>  
+        </li>
+
 
       </ul>
     </div>

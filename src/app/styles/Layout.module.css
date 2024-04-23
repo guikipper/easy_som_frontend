@@ -3,13 +3,15 @@
     flex-direction: row;
     background-color: #FFFFFF;
     width: 100vw;
-    overflow-y: hidden;
+    height: 100%;
+    overflow-x: hidden;
 }
 .mainContent {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
 @media (max-width: 768px) {
     .mainContainer {
