@@ -24,6 +24,8 @@ export default function ExerciseConfig() {
     tritono: false,
   });
   const [intervalOptionsMessage, setIntervalOptionsMessage] = useState(false)
+
+  const [anyIntervalSelected, setAnyIntervalSelected] = useState(false)
   
   const { setFormData } = useMyContext()
 
@@ -54,7 +56,7 @@ export default function ExerciseConfig() {
 
   const hasSelectedInterval = () => {
     const { maior, menor, justo, tritono } = intervalOptions
-    return maior || menor || justo || tritono
+    return maior || menor || justo
   }
   
 
@@ -204,6 +206,7 @@ export default function ExerciseConfig() {
                 type="checkbox"
                 name="tritono"
                 value="tritono"
+                disabled={!intervalOptions.justo && !intervalOptions.maior && !intervalOptions.menor}
                 checked={intervalOptions.tritono}
                 onChange={() =>
                   setIntervalOptions({
