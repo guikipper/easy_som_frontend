@@ -171,7 +171,25 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.intervalosCompostos {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
   
+  .questionIcon {
+    font-size: 20px; /* Aumentando o tamanho do ícone */
+    cursor: pointer;
+    transition: all 0.5s ease; /* Animação suave ao passar o mouse */
+    margin-left: 10px;
+  }
+  
+  .questionIcon:hover {
+    color: #007bff; /* Mudando a cor ao passar o mouse */
+    transform: scale(1.1); /* Aumentando o ícone ao passar o mouse */
+  }
+
 
 @media (max-width: 768px) {
     .config {

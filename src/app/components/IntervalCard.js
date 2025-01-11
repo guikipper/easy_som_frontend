@@ -61,25 +61,32 @@ export default function IntervalCard() {
   }, []);
 
   const intervalsPerType = {
-    menor: ["Segunda Menor", "Terça Menor", "Sexta Menor", "Sétima Menor"],
-    maior: ["Segunda Maior", "Terça Maior", "Sexta Maior", "Sétima Maior"],
+    menor: ["Segunda Menor", "Terça Menor", "Sexta Menor", "Sétima Menor", "Nona Menor", "Décima Menor", "Décima Primeira Justa"],
+    maior: ["Segunda Maior", "Terça Maior", "Sexta Maior", "Sétima Maior", "Nona Maior", "Décima Maior", "Décima Primeira Aumentada"],
     justo: ["Uníssono", "Quarta Justa", "Quinta Justa", "Oitava Justa"],
     tritono: ["Trítono"],
   };
 
   const getSelectedIntervals = () => {
+
     if (formData.intervalOptions) {
       const selectedIntervals = Object.keys(formData.intervalOptions).
         filter((intervalo) => formData.intervalOptions[intervalo]) //Por exemplo: [maior, menor, justo, trítono] 
        
       const intervalsToShow = []
 
+
       selectedIntervals.filter((intervalo) => {
         if (formData.intervalOptions[intervalo]) {
           intervalsPerType[intervalo].filter((item) => {
-            intervalsToShow.push(item)
+            if (formData.compoundIntervals) {
+            intervalsToShow.push(item) //intervalsToShow recebe todos os intervalos
+            } else if (formData.compoundIntervals == false && (!item.includes("Nona") && !item.includes("Décima"))) {
+              intervalsToShow.push(item)
+            }
           })
       }})
+
       const order = {
         "unissono": 1, 
         "segunda menor": 2, 
@@ -93,14 +100,24 @@ export default function IntervalCard() {
         "sexta maior": 10,
         "setima menor": 11, 
         "setima maior": 12, 
-        "oitava justa": 13
+        "oitava justa": 13,
+        "nona menor": 14,
+        "nona maior": 15,
+        "decima menor": 16,
+        "decima maior": 17,
+        "decima primeira justa": 18,
+        "decima primeira aumentada": 19
     };
-  
-      intervalsToShow.sort((a, b) => {
-        const normalizedA = removeAccents(a);
+    
+      
+      intervalsToShow.sort((a, b) => { //Essa função tem o intuito de organizar a ordem que os botões aparecem (teste no console antes e depois em caso de dúvida)
+        const normalizedA = removeAccents(a); 
         const normalizedB = removeAccents(b);
+        console.log(normalizedA," : ", order[normalizedA], normalizedB," : ", order[normalizedB])
         return order[normalizedA] - order[normalizedB];
     });
+
+    console.log("IntervalsToShow pós: ", intervalsToShow)
 
       setButtonsToShow(intervalsToShow) 
       setSelectedIntervals(selectedIntervals)
@@ -174,7 +191,7 @@ export default function IntervalCard() {
   }  
 
   const continueGame = (currentReferenceNote) => {
-    const randomInterval = getRandomInterval()
+    const randomInterval = getRandomInterval() //aqui retorna o intervalo por extenso, por exemplo: terca maior
     
     if (randomInterval) {
       const formatedRandomInterval = removeAccents(randomInterval)
@@ -184,6 +201,7 @@ export default function IntervalCard() {
       setTargetNote(targetNote)
       const formatedReferenceNote = converterNota(currentReferenceNote)
       const formatedTargetNote = converterNota(targetNote)
+      console.log(formatedReferenceNote, formatedTargetNote, formatedRandomInterval)
       const [adjustedReferenceNote, adjustedTargetNote] = ajustarOitava(formatedReferenceNote, formatedTargetNote, formatedRandomInterval)
       setAdjustedReferenceNoteWithOctave(adjustedReferenceNote)
       setAdjustedTargetNoteWithOctave(adjustedTargetNote)
@@ -196,7 +214,7 @@ export default function IntervalCard() {
     return notes[randomIndex]
   }
 
-  const getRandomInterval = () => {
+  const getRandomInterval = () => { 
     const randomIndex = Math.floor(Math.random() * buttonsToShow.length)
     return buttonsToShow[randomIndex]
   }

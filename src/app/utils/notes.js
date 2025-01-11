@@ -3,8 +3,8 @@ export const onlyNotes = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb'
 export const accidents = ['\u266E', '\u266F', '\u266D']
 export const naturalNotes = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 export const intervalsPerType = {
-    menor: ["segunda menor", "terça menor", "sexta menor", "sétima menor"],
-    maior: ["segunda maior", "terça maior", "sexta maior", "sétima maior"],
+    menor: ["segunda menor", "terça menor", "sexta menor", "sétima menor", "nona menor", "decima menor"],
+    maior: ["segunda maior", "terça maior", "sexta maior", "sétima maior", "nona maior", "decima maior"],
     justo: ["primeira justa", "quarta justa", "quinta justa", "oitava justa"],
     tritono: ["trítono"],
   };
@@ -19,4 +19,4 @@ export const fileNotes = [
 ];
 
 export const intervalsList = ["Uníssono", "Segunda Menor", "Segunda Maior", "Terça Menor", "Terça Maior", "Quarta Justa", "Quarta Aumentada",
-"Quinta Diminuta", "Quinta Justa", "Sexta Menor", "Sexta Maior", "Sétima Menor", "Sétima Maior", "Oitava Justa"]
+"Quinta Diminuta", "Quinta Justa", "Sexta Menor", "Sexta Maior", "Sétima Menor", "Sétima Maior", "Oitava Justa", "Nona Menor", "Nona Maior"]

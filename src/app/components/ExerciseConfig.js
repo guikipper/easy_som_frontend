@@ -7,10 +7,12 @@ import { notes } from "../utils/notes";
 import { useState } from "react";
 import Loading from "./Loading";
 import LoadingMessage from "./LoadingMessage";
-
+import { Form } from 'react-bootstrap';
+import { FiHelpCircle } from 'react-icons/fi';  // Ícone com círculo ao redor
 export default function ExerciseConfig() {
 
   const router = useRouter();
+  const [compoundIntervals, setCompoundIntervals] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [direction, setDirection] = useState("ascendente");
   const [referenceNote, setReferenceNote] = useState('random');
@@ -81,6 +83,7 @@ export default function ExerciseConfig() {
         direction: direction,
         intervalOptions,
         rounds: rounds,
+        compoundIntervals: compoundIntervals
       });
       router.push('/intervals/exercise');
     }
@@ -223,6 +226,24 @@ export default function ExerciseConfig() {
               <p className={styles.formMessage}>Informe ao menos um intervalo.</p>
             )}
           </div>
+
+          <Form>
+          <div className={styles.intervalosCompostos}>
+            <p className="mb-0 mr-2">Intervalos compostos </p>
+            <FiHelpCircle
+              className={styles.questionIcon}
+              title="Intervalos compostos são intervalos com mais de uma oitava."
+            />
+          </div>  
+            
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              checked={compoundIntervals}
+              onChange={(e) => setCompoundIntervals(e.target.checked)}
+            />
+          </Form>
+
         </div>
 
         <div className={styles.roundQtd}>

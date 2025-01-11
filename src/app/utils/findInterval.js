@@ -15,9 +15,9 @@ export function findIntervalByNotes(note1, note2) {
 }
 
 export function findNoteByIntervalAndStart(note, intervalName) {
-    //console.log("A nota e o intervalo que entraram na consulta: ", note, intervalName)
+    console.log("A nota e o intervalo que entraram na consulta: ", note, intervalName)
     const convertedInterval = convertInterval(intervalName)
-    //console.log("O intervalo convertido: ", convertedInterval)
+    console.log("O intervalo convertido: ", convertedInterval)
     if (intervalMap[note] && intervalMap[note][convertedInterval]) {
         return intervalMap[note][convertedInterval];
     }

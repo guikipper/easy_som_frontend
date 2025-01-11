@@ -1,12 +1,12 @@
 const notaParaFormatoPadrao = {
-    'C': 'C', 'C#': 'Db', 'Db': 'Db', 
-    'D': 'D', 'D#': 'Eb', 'Eb': 'Eb',
-    'E': 'E', 'F': 'F', 'F#': 'Gb', 'Gb': 'Gb',
-    'G': 'G', 'G#': 'Ab', 'Ab': 'Ab',
-    'A': 'A', 'A#': 'Bb', 'Bb': 'Bb',
-    'B': 'B', 'Ebb': 'D', 'Abb': 'G', 'Bbb': 'A',
-    'F##': 'G', 'C##': 'D', 'Cb': 'B', 'Fb': 'E', 'B#': 'C', 'E#': 'F'
-  };
+  'C': 'C', 'C#': 'Db', 'Db': 'Db', 
+  'D': 'D', 'D#': 'Eb', 'Eb': 'Eb',
+  'E': 'E', 'F': 'F', 'F#': 'Gb', 'Gb': 'Gb',
+  'G': 'G', 'G#': 'Ab', 'Ab': 'Ab',
+  'A': 'A', 'A#': 'Bb', 'Bb': 'Bb',
+  'B': 'B', 'Ebb': 'D', 'Abb': 'G', 'Bbb': 'A',
+  'F##': 'G', 'C##': 'D', 'Cb': 'B', 'Fb': 'E', 'B#': 'C', 'E#': 'F'
+};
 
   const intervalosSemitons = {
       "unissono": 0,
@@ -22,11 +22,18 @@ const notaParaFormatoPadrao = {
       "sexta maior": 9,
       "setima menor": 10,
       "setima maior": 11,
-      "oitava justa": 12  
+      "oitava justa": 12,
+      "nona menor": 13,
+      "nona maior": 14,
+      "decima menor": 15,
+      "decima maior": 16, 
+      "decima primeira justa": 17,
+      "decima primeira aumentada": 18
   };
   
   export function converterNota(nota) {
     if (notaParaFormatoPadrao.hasOwnProperty(nota)) {
+      console.log("Chega a entrar aqui? ", nota)
       return notaParaFormatoPadrao[nota];
     } else {
       console.error("Nota não reconhecida:", nota);
@@ -41,11 +48,11 @@ const notaParaFormatoPadrao = {
     let oitavaReferencia = getRandomOctave()
     let oitavaAlvo = oitavaReferencia
 
-    const posicaoNota1 = notes.indexOf(nota1);
+    const posicaoNota1 = notes.indexOf(nota1); //1, 2, 3...
     const posicaoNota2 = notes.indexOf(nota2);
 
     if (interval === "unissono") {
-      const nota1ComOitava = nota1 + oitavaReferencia;
+      const nota1ComOitava = nota1 + oitavaReferencia;  //C3, Db3...
       const nota2ComOitava = nota2 + oitavaReferencia; 
       return [nota1ComOitava, nota2ComOitava];
     }   
@@ -62,8 +69,21 @@ const notaParaFormatoPadrao = {
       oitavaAlvo+=1
     }
 
-    const nota1ComOitava = nota1 + oitavaReferencia;
-    const nota2ComOitava = nota2 + oitavaAlvo;
+    let nota1ComOitava = nota1 + oitavaReferencia;
+    let nota2ComOitava = nota2 + oitavaAlvo;
+
+    if (interval.includes("nona") || interval.includes("decima")) {
+      if (oitavaReferencia === 6) {
+        oitavaReferencia--
+        oitavaAlvo--
+        if (interval.includes("decima")) {
+          oitavaReferencia--
+          oitavaAlvo--
+        }
+      }
+      nota1ComOitava = nota1 + oitavaReferencia
+      nota2ComOitava = nota2 + (oitavaAlvo+1);
+    }
 
   return [nota1ComOitava, nota2ComOitava];
   }
