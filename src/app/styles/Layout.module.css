@@ -1,7 +1,6 @@
 .mainContainer {
     display: flex;
     flex-direction: row;
-    width: 95vw;
     overflow-x: hidden;
     overflow-y: hidden;
 }
