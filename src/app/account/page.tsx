@@ -20,6 +20,18 @@ interface UserData {
   newPassword?: string;
 }
 
+interface ChangeNameData {
+  token: string;
+  newName: string;
+  oldName: string;
+}
+
+interface ChangePasswordData {
+  token: string;
+  password: string;
+  newPassword: string;
+}
+
 interface ApiResponse {
   success?: {
     data: {
@@ -143,7 +155,7 @@ const Account: React.FC = () => {
   const confirmChangeName = async (): Promise<void> => {
     const token = Cookies.get('token')
     if (newName && token) {
-      const userData: UserData = {
+      const userData: ChangeNameData = {
         token,
         newName,
         oldName: name,
@@ -186,7 +198,7 @@ const Account: React.FC = () => {
     if (actualPassword && validNewPassword && confirmNewPassword) {
       const token = Cookies.get('token')
       if (token) {
-        const userData: UserData = {
+        const userData: ChangePasswordData = {
           token,
           password: actualPassword,
           newPassword,
