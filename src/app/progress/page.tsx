@@ -43,13 +43,16 @@ const Progress: React.FC = () => {
       clearCookies()
       router.push('/login')
     } else {
-      const response: ApiResponse = await getTrainingSummary(token)
-      if (response.error) {
-        setError(true)
-      } else if (response.success) {
-        formatData(response.success.data)
+      const response: ApiResponse | undefined = await getTrainingSummary(token)
+      if (response) {
+        if (response.error) {
+          setError(true)
+            } else if (response.success) {
+          formatData(response.success.data)
         return response
       }
+      }
+      
     }
   }
 

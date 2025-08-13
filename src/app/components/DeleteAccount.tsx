@@ -6,6 +6,11 @@ import Loading from '../components/Loading';
 import Alert from '../components/Alert';
 import Cookies from 'js-cookie';
 
+interface DeleteAccountData {
+  token: string | undefined;
+  password: string;
+}
+
 interface UserData {
   token: string | undefined;
   password: string;
@@ -38,7 +43,7 @@ const DeleteAccount: React.FC = () => {
     if (password) {
       const token = Cookies.get('token');
 
-      const userData: UserData = {
+      const userData: DeleteAccountData = {
         token,
         password,
       };

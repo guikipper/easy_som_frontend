@@ -1,8 +1,13 @@
 // Types and Interfaces
 interface LoginResponse {
-  token?: string;
-  message?: string;
-  failed?: boolean;
+  error?: {
+    message: string;
+  };
+  success?: {
+    data: {
+      token: string;
+    };
+  };
 }
 
 interface UserData {
@@ -32,7 +37,7 @@ interface ChangePasswordData {
 }
 
 interface DeleteAccountData {
-  token: string;
+  token: string | undefined;
   password: string;
 }
 
